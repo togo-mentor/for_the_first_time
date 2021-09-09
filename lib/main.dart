@@ -21,9 +21,9 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   final _tab = <Tab> [  // タブバーの表示
-    Tab( text:"Railway", icon: Icon(Icons.directions_railway)),
-    Tab( text:"Subway", icon: Icon(Icons.directions_subway)),
-    Tab( text:"Walk", icon: Icon(Icons.directions_walk)),
+    Tab(text:"記録する", icon: Icon(Icons.note_add)),
+    Tab(text:"履歴を見る", icon: Icon(Icons.history)),
+    Tab(text:"ダッシュボード", icon: Icon(Icons.dashboard)),
   ];
 
   Widget build(BuildContext context) {
@@ -31,16 +31,17 @@ class _MainPageState extends State<MainPage> {
       length: _tab.length,  // タブの数
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("初めてやったことリスト"),
+          title: const Text("はじめて図鑑"),
           bottom: TabBar(  // タブバー
             tabs: _tab,
+            labelPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 3),
           ),
         ),
         body: TabBarView(  // 表示画面のウィジェット一覧を渡す
             children: <Widget> [
-              TabPage(title: "Railway", icon: Icons.directions_railway),
-              TabPage(title: "Subway", icon: Icons.directions_subway),
-              TabPage(title: "Walk", icon: Icons.directions_walk),
+              TabPage(title: "記録する", icon: Icons.note_add),
+              TabPage(title: "履歴を見る", icon: Icons.history),
+              TabPage(title: "ダッシュボード", icon: Icons.dashboard),
             ]
         ),
       ),
