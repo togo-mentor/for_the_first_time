@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage> {
       length: _tab.length,  // タブの数
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("Live!人工知能"),
+          title: const Text("初めてやったことリスト"),
           bottom: TabBar(  // タブバー
             tabs: _tab,
           ),
