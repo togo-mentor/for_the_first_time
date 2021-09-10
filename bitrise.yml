@@ -1,9 +1,11 @@
 ---
   format_version: '11'
-  default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
+  default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
   project_type: flutter
   trigger_map:
-  - push_branch: '*'
+  - push_branch: "*"
+    workflow: primary
+  - pull_request_source_branch: "*"
     workflow: primary
   workflows:
     deploy:
@@ -20,19 +22,19 @@
       - cache-pull@2: {}
       - flutter-analyze@0:
           inputs:
-          - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+          - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
       - flutter-test@1:
           inputs:
-          - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+          - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
       - flutter-build@0:
           inputs:
-          - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+          - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
           - platform: both
       - xcode-archive@3:
           inputs:
-          - project_path: $BITRISE_PROJECT_PATH
-          - scheme: $BITRISE_SCHEME
-          - export_method: $BITRISE_EXPORT_METHOD
+          - project_path: "$BITRISE_PROJECT_PATH"
+          - scheme: "$BITRISE_SCHEME"
+          - export_method: "$BITRISE_EXPORT_METHOD"
           - configuration: Release
       - deploy-to-bitrise-io@1: {}
       - cache-push@2: {}
@@ -50,20 +52,20 @@
       - cache-pull@2: {}
       - flutter-analyze@0:
           inputs:
-          - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+          - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
       - flutter-test@1:
           inputs:
-          - project_location: $BITRISE_FLUTTER_PROJECT_LOCATION
+          - project_location: "$BITRISE_FLUTTER_PROJECT_LOCATION"
       - flutter-build@0: {}
       - deploy-to-bitrise-io@1:
           inputs:
-          - notify_email_list: $BITRISE_DEFAULT_EMAIL
+          - notify_email_list: "$BITRISE_DEFAULT_EMAIL"
       - cache-push@2: {}
   app:
     envs:
     - opts:
         is_expand: false
-      BITRISE_FLUTTER_PROJECT_LOCATION: .
+      BITRISE_FLUTTER_PROJECT_LOCATION: "."
     - opts:
         is_expand: false
       BITRISE_PROJECT_PATH: ios/Runner.xcworkspace
@@ -73,3 +75,4 @@
     - opts:
         is_expand: false
       BITRISE_EXPORT_METHOD: development
+  
