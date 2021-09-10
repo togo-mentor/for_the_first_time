@@ -15,6 +15,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
               decoration: InputDecoration(
                 hintText: '名前',
               ),
+              autofocus: true,
             ),
             TextField(
               decoration: InputDecoration(
