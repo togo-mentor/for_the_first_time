@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './tab_page.dart';
+import './create_memo_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -27,7 +28,7 @@ class _MainPageState extends State<MainPage> {
         ),
         body: TabBarView(  // 表示画面のウィジェット一覧を渡す
             children: <Widget> [
-              TabPage(title: "記録する", icon: Icons.note_add),
+              CreateMemoPage(),
               TabPage(title: "履歴を見る", icon: Icons.history),
               TabPage(title: "ダッシュボード", icon: Icons.dashboard),
             ]
