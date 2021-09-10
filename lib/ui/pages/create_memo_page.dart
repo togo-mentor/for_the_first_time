@@ -8,9 +8,17 @@ class CreateMemoPage extends StatefulWidget {
 class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      margin: EdgeInsets.all(10.0),
       child: Column(
           children: [
+            Text (
+              '今日あった「人生初」を記録しよう',
+              style: TextStyle(
+                fontSize: 18.0
+              ),
+            ),
             TextField(
               decoration: InputDecoration(
                 hintText: '名前',
