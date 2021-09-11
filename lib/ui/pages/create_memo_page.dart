@@ -6,6 +6,7 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
+  String dropdownValue = 'One';
 
   Widget build(BuildContext context) {
     return Container(
@@ -35,13 +36,31 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
                   ),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: '趣味',
-                    ),
+                  DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: const TextStyle(color: Colors.deepPurple),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                  items: <String>['One', 'Two', 'Free', 'Four']
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
                   ),
                   ElevatedButton(
-                    child: Text('新規登録'),
+                    child: Text('保存する'),
                     onPressed: () {
                       // TODO: 新規登録
                     },
