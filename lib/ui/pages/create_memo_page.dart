@@ -6,7 +6,8 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
-  String dropdownValue = 'One';
+  String dropdownValue = '食';
+  List<String> genreList = ['食', '運動', '自然', '勉強', '読書', '旅'];
 
   Widget build(BuildContext context) {
     return Container(
@@ -50,7 +51,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                    decoration: InputDecoration(
                     labelText: 'ジャンル',
                   ),
-                  items: <String>['One', 'Two', 'Free', 'Four']
+                  items: genreList
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
