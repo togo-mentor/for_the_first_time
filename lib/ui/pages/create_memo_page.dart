@@ -32,6 +32,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                       }
                     },
                     autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 10,
                   ),
                   TextField(
                     decoration: InputDecoration(
