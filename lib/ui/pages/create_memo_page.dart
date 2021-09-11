@@ -6,7 +6,8 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
-  String dropdownValue = '食';
+  String _event = '';
+  String genreName = '食';
   List<String> genreList = ['食', '運動', '自然', '勉強', '読書', '旅'];
 
   Widget build(BuildContext context) {
@@ -37,15 +38,17 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     autofocus: true,
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
+                    onSaved: (value) {
+                      _event = value!;
+                    },
                   ),
                   DropdownButtonFormField<String>(
-                  value: dropdownValue,
+                  value: genreName,
                   iconSize: 24,
                   elevation: 16,
-                  style: const TextStyle(color: Colors.deepPurple),
                   onChanged: (String? newValue) {
                     setState(() {
-                      dropdownValue = newValue!;
+                      genreName = newValue!;
                     });
                   },
                    decoration: InputDecoration(
