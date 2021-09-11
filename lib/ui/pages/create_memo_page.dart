@@ -22,10 +22,15 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
             Form (
               child: Column (
                 children: <Widget>[
-                  TextField (
+                  TextFormField (
                     decoration: InputDecoration(
-                      hintText: '名前',
+                      hintText: '出来事',
                     ),
+                    validator: (String? value) {
+                      if (value == null || value.isEmpty) {
+                        return 'このフィールドは必須です';
+                      }
+                    },
                     autofocus: true,
                   ),
                   TextField(
