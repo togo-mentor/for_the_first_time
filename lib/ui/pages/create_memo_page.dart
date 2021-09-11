@@ -25,7 +25,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                 children: <Widget>[
                   TextFormField (
                     decoration: InputDecoration(
-                      hintText: '出来事',
+                      hintText: '今日あった「人生初」の出来事を記録してください',
+                      labelText: "出来事",
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -36,21 +37,19 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
                   ),
-                  DropdownButton<String>(
+                  DropdownButtonFormField<String>(
                   value: dropdownValue,
-                  icon: const Icon(Icons.arrow_downward),
                   iconSize: 24,
                   elevation: 16,
                   style: const TextStyle(color: Colors.deepPurple),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.deepPurpleAccent,
-                  ),
                   onChanged: (String? newValue) {
                     setState(() {
                       dropdownValue = newValue!;
                     });
                   },
+                   decoration: InputDecoration(
+                    labelText: 'ジャンル',
+                  ),
                   items: <String>['One', 'Two', 'Free', 'Four']
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
