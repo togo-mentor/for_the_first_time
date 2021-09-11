@@ -19,22 +19,28 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                 fontSize: 18.0
               ),
             ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: '名前',
-              ),
-              autofocus: true,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: '趣味',
-              ),
-            ),
-            ElevatedButton(
-              child: Text('新規登録'),
-              onPressed: () {
-                // TODO: 新規登録
-              },
+            Form (
+              child: Column (
+                children: <Widget>[
+                  TextField (
+                    decoration: InputDecoration(
+                      hintText: '名前',
+                    ),
+                    autofocus: true,
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: '趣味',
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: Text('新規登録'),
+                    onPressed: () {
+                      // TODO: 新規登録
+                    },
+                  ),
+                ]
+              )
             ),
           ],
         ),
