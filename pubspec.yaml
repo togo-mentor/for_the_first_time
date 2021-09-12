@@ -28,6 +28,10 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  amplify_flutter: '<1.0.0'
+  amplify_auth_cognito: '<1.0.0'
+  amplify_analytics_pinpoint: '<1.0.0' # 認証のみで良いならanalytics_pinpointは不要
+  flutter_login: ^1.0.14 # flutter_loginは直接関係ないが後述する理由で使用するのでこのタイミングで追加
 
 dev_dependencies:
   flutter_test:
