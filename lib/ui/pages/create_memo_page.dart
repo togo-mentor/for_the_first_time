@@ -37,6 +37,9 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                 fontSize: 18.0
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
             Form (
               child: Column (
                 children: <Widget>[
@@ -58,6 +61,9 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     onSaved: (value) {
                       _event = value!;
                     },
+                  ),
+                  SizedBox(
+				            height: 20,
                   ),
                   DropdownButtonFormField<Genre>(
                   value: _selected ? genre : null,
@@ -84,6 +90,9 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                         child: Text(item.name),
                       );
                     }).toList(),
+                  ),
+                  SizedBox(
+				            height: 20,
                   ),
                   ElevatedButton(
                     child: Text('保存する'),
