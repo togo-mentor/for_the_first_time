@@ -44,6 +44,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     decoration: InputDecoration(
                       hintText: '今日あった「人生初」の出来事を記録してください',
                       labelText: "出来事",
+                      border: OutlineInputBorder(),
+                      floatingLabelBehavior:FloatingLabelBehavior.always,
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
@@ -73,6 +75,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     },
                    decoration: InputDecoration(
                     labelText: 'ジャンル',
+                    border: OutlineInputBorder(),
                   ),
                   items: genreList
                         .map<DropdownMenuItem<Genre>>((Genre item) {
