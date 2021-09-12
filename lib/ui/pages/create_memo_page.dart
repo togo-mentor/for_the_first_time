@@ -92,13 +92,17 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     }).toList(),
                   ),
                   SizedBox(
-				            height: 20,
+				            height: 25,
                   ),
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
                       // TODO: 新規登録
                     },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      padding: MaterialStateProperty.all(EdgeInsets.symmetric(horizontal: 70, vertical: 15)),
+                    ),
                   ),
                 ]
               )
