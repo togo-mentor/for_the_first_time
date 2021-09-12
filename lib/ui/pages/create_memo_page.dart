@@ -45,7 +45,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                       hintText: '今日あった「人生初」の出来事を記録してください',
                       labelText: "出来事",
                       border: OutlineInputBorder(),
-                      floatingLabelBehavior:FloatingLabelBehavior.always,
+                      floatingLabelBehavior:FloatingLabelBehavior.always, // labelを上部に固定
                     ),
                     validator: (String? value) {
                       if (value == null || value.isEmpty) {
