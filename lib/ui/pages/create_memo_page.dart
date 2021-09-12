@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 
+class Genre {
+  final int id;
+  final String name;
+
+  Genre(this.id, this.name);
+}
+
 class CreateMemoPage extends StatefulWidget {
   @override
   _CreateMemoPageState createState() => _CreateMemoPageState();
@@ -7,8 +14,16 @@ class CreateMemoPage extends StatefulWidget {
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
   String _event = '';
-  String genreName = '食';
-  List<String> genreList = ['食', '運動', '自然', '勉強', '読書', '旅'];
+  List<Genre> genreList = <Genre>[
+    Genre(1, '食'),
+    Genre(2, '運動'),
+    Genre(3, '自然'),
+    Genre(4, '勉強'),
+    Genre(5, '読書'),
+    Genre(6, '旅'),
+  ];
+  Genre genre = Genre(0, '');
+  bool _selected = false;
 
   Widget build(BuildContext context) {
     return Container(
@@ -42,23 +57,28 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                       _event = value!;
                     },
                   ),
-                  DropdownButtonFormField<String>(
-                  value: genreName,
+                  DropdownButtonFormField<Genre>(
+                  value: _selected ? genre : null,
                   iconSize: 24,
                   elevation: 16,
-                  onChanged: (String? newValue) {
+                  onChanged: (Genre? newValue) {
                     setState(() {
-                      genreName = newValue!;
+                      genre = newValue!;
                     });
                   },
+                  validator: (Genre? value) {
+                      if (value == null) {
+                        return 'このフィールドは必須です';
+                      }
+                    },
                    decoration: InputDecoration(
                     labelText: 'ジャンル',
                   ),
                   items: genreList
-                        .map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
+                        .map<DropdownMenuItem<Genre>>((Genre item) {
+                      return DropdownMenuItem<Genre>(
+                        value: item,
+                        child: Text(item.name),
                       );
                     }).toList(),
                   ),
