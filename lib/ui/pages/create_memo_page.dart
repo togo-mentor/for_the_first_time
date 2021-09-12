@@ -74,7 +74,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                       }
                     },
                    decoration: InputDecoration(
-                    labelText: 'ジャンル',
+                    labelText: 'ジャンルを選択',
                     border: OutlineInputBorder(),
                   ),
                   items: genreList
