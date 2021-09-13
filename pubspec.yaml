@@ -30,7 +30,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   amplify_flutter: '<1.0.0'
   amplify_auth_cognito: '<1.0.0'
-  amplify_analytics_pinpoint: '<1.0.0' # 認証のみで良いならanalytics_pinpointは不要
   amplify_datastore: any
   amplify_core: any
   flutter_login: ^1.0.14 # flutter_loginは直接関係ないが後述する理由で使用するのでこのタイミングで追加
