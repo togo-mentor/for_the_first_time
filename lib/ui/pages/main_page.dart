@@ -1,4 +1,7 @@
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify.dart';
 import 'package:flutter/material.dart';
+import '../../amplifyconfiguration.dart';
 import './tab_page.dart';
 import './create_memo_page.dart';
 
@@ -14,6 +17,27 @@ class _MainPageState extends State<MainPage> {
     Tab(text:"履歴を見る", icon: Icon(Icons.history)),
     Tab(text:"ダッシュボード", icon: Icon(Icons.dashboard)),
   ];
+
+  initState() {
+    super.initState(); 
+    _configureAmplify(); 
+  }
+
+  void _configureAmplify() async {
+
+    // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
+    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
+    await Amplify.addPlugins([authPlugin]);
+
+    // Once Plugins are added, configure Amplify
+    // Note: Amplify can only be configured once.
+    try {
+      await Amplify.configure(amplifyconfig);
+      print('Successfully configured Amplify 🎉');
+    } on AmplifyAlreadyConfiguredException {
+      print("Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
+    }
+  }
 
   Widget build(BuildContext context) {
     return DefaultTabController(  // タブを制御
