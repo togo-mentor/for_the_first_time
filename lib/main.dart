@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/service/auth_service.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import '../amplifyconfiguration.dart';
@@ -13,6 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final _authService = AuthService();
   @override
 
   initState() {
