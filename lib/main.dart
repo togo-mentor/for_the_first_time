@@ -38,7 +38,10 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: Navigator(
+        pages: [MaterialPage(child: LoginPage())],
+        onPopPage: (route, result) => route.didPop(result),
+      ),
     );
   }
 }
