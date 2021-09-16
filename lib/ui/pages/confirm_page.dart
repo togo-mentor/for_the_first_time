@@ -8,7 +8,8 @@ import 'main_page.dart';
 import '../../service/auth_service.dart';
 
 class ConfirmPage extends StatefulWidget {
-  final data = LoginData;
+  final LoginData data;
+  ConfirmPage(this.data);
 
   @override
   State<StatefulWidget> createState() => _ConfirmPageState();

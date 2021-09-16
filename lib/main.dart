@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:for_the_first_time/service/auth_service.dart';
 import 'package:for_the_first_time/ui/pages/confirm_page.dart';
-import 'package:for_the_first_time/ui/pages/confirma_page.dart';
-import 'package:for_the_first_time/ui/pages/verification_page.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import '../amplifyconfiguration.dart';
@@ -56,6 +54,6 @@ class _MyAppState extends State<MyApp> {
           transitionsBuilder: (_, __, ___, child) => child,
         );
       }
-    )
+    });
   }
 }
