@@ -84,14 +84,9 @@ class AuthService {
     }
   }
 
-  Future<String?> onRecoverPassword(
-      String email, VoidCallback completion) async {
+  Future<String?> onRecoverPassword(String email) async {
     try {
       final res = await Amplify.Auth.resetPassword(username: email);
-
-      if (res.nextStep.updateStep == 'CONFIRM_RESET_PASSWORD_WITH_CODE') {
-        completion();
-      }
     } on AuthException catch (e) {
       return e.message;
     }

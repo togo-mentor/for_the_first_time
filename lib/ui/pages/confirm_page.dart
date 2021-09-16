@@ -7,14 +7,21 @@ import 'package:flutter_login/flutter_login.dart';
 import 'main_page.dart';
 import '../../service/auth_service.dart';
 
-class LoginPage extends StatelessWidget {
+class ConfirmPage extends StatefulWidget {
+  final data = LoginData;
+
+  @override
+  State<StatefulWidget> createState() => _ConfirmPageState();
+}
+
+class _ConfirmPageState extends State<ConfirmPage> {
   final _authService = AuthService();
   Duration get loginTime => Duration(milliseconds: 2250);
 
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
-      title: 'はじめて図鑑',
+      title: '認証コードを送信',
       onLogin: _authService.onSignup,
       onSignup: _authService.onSignup,
       onSubmitAnimationCompleted: () {
