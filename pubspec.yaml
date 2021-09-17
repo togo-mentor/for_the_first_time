@@ -34,6 +34,8 @@ dependencies:
   amplify_core: any
   flutter_login: ^2.0.0-nullsafety.0 # flutter_loginは直接関係ないが後述する理由で使用するのでこのタイミングで追加
 
+  random_string: any
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

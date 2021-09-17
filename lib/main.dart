@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/flutter_login.dart';
 import 'package:for_the_first_time/service/auth_service.dart';
-import 'package:for_the_first_time/ui/pages/confirm_page.dart';
+import 'package:for_the_first_time/ui/pages/verification_page.dart';
+import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import '../amplifyconfiguration.dart';
@@ -18,9 +18,9 @@ class _MyAppState extends State<MyApp> {
   final _authService = AuthService();
   @override
 
-  initState() {
-    super.initState(); 
-    _configureAmplify(); 
+  void initState() {
+    super.initState();
+    _authService.showLogin();
   }
 
   void _configureAmplify() async {
@@ -41,18 +41,34 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Navigator(
-        pages: [MaterialPage(child: LoginPage())],
-        onPopPage: (route, result) => route.didPop(result),
-      ),
-      onGenerateRoute: (settings) {
-        if (settings.name == '/confirm') {
-          return PageRouteBuilder(
-          pageBuilder: (_, __, ___) =>
-              ConfirmPage(data: settings.arguments as LoginData),
-          transitionsBuilder: (_, __, ___, child) => child,
+      home: StreamBuilder<AuthState>(
+    // 2
+    stream: _authService.authStateController.stream,
+    builder: (context, snapshot) {
+      // 3
+      if (snapshot.hasData) {
+        return Navigator(
+          pages: [
+            // 4
+            // Show Login Page
+            if (snapshot.data!.authFlowStatus == AuthFlowStatus.login)
+              MaterialPage(child: LoginPage(shouldShowSignUp: _authService.showSignUp, didProvideCredentials: _authService.loginWithCredentials, key: null,)),
+
+            // 5
+            // Show Sign Up Page
+            if (snapshot.data!.authFlowStatus == AuthFlowStatus.signUp)
+              MaterialPage(child: SignUpPage(shouldShowLogin: _authService.showLogin, didProvideCredentials: _authService.signUpWithCredentials,))
+          ],
+          onPopPage: (route, result) => route.didPop(result),
+        );
+      } else {
+        // 6
+        return Container(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(),
         );
       }
-    });
+    }),
+    );
   }
 }
