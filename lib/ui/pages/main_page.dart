@@ -3,6 +3,9 @@ import './tab_page.dart';
 import './create_memo_page.dart';
 
 class MainPage extends StatefulWidget {
+  final VoidCallback shouldLogOut;
+  MainPage({Key? key, required this.shouldLogOut})
+   : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }

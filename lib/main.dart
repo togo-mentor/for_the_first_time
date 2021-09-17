@@ -62,7 +62,12 @@ class _MyAppState extends State<MyApp> {
             // 5
             // Show Sign Up Page
             if (snapshot.data!.authFlowStatus == AuthFlowStatus.signUp)
-              MaterialPage(child: SignUpPage(shouldShowLogin: _authService.showLogin, didProvideCredentials: _authService.signUpWithCredentials,))
+              MaterialPage(child: SignUpPage(shouldShowLogin: _authService.showLogin, didProvideCredentials: _authService.signUpWithCredentials,)),
+            
+            // Show Camera Flow
+            if (snapshot.data!.authFlowStatus == AuthFlowStatus.session)
+              MaterialPage(
+                  child: MainPage(shouldLogOut: _authService.logOut))
           ],
           onPopPage: (route, result) => route.didPop(result),
         );
