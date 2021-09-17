@@ -53,6 +53,11 @@ class _MyAppState extends State<MyApp> {
             // Show Login Page
             if (snapshot.data!.authFlowStatus == AuthFlowStatus.login)
               MaterialPage(child: LoginPage(shouldShowSignUp: _authService.showSignUp, didProvideCredentials: _authService.loginWithCredentials, key: null,)),
+        
+            // Show Verification Code Page
+            if (snapshot.data!.authFlowStatus == AuthFlowStatus.verification)
+            MaterialPage(child: VerificationPage(
+              didProvideVerificationCode: _authService.verifyCode)),
 
             // 5
             // Show Sign Up Page

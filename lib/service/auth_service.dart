@@ -31,13 +31,18 @@ class AuthService {
 
   // 1
   void loginWithCredentials(AuthCredentials credentials) {
-  final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-  authStateController.add(state);
+    final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+    authStateController.add(state);
   }
 
   // 2
   void signUpWithCredentials(SignUpCredentials credentials) {
-  final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
-  authStateController.add(state);
+    final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
+    authStateController.add(state);
+  }
+
+  void verifyCode(String verificationCode) {
+    final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+    authStateController.add(state);
   }
 }
