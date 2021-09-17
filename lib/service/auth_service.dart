@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_flutter/amplify.dart';
+
 import 'auth_credentials.dart';
 
 // 1
@@ -16,6 +19,7 @@ class AuthState {
 class AuthService {
   // 4
   final authStateController = StreamController<AuthState>();
+  late AuthCredentials _credentials;
 
   // 5
   void showSignUp() {
@@ -36,9 +40,33 @@ class AuthService {
   }
 
   // 2
-  void signUpWithCredentials(SignUpCredentials credentials) {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
-    authStateController.add(state);
+  void signUpWithCredentials(SignUpCredentials credentials) async {
+    try {
+      // 2
+      final userAttributes = {'email': credentials.email};
+
+      // 3
+      final result = await Amplify.Auth.signUp(
+          username: credentials.username,
+          password: credentials.password,
+          options: CognitoSignUpOptions(userAttributes: userAttributes));
+
+      // 4
+      if (result.isSignUpComplete) {
+        loginWithCredentials(credentials);
+      } else {
+        // 5
+        this._credentials = credentials;
+
+        // 6
+        final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
+        authStateController.add(state);
+      }
+    
+    // 7
+    } on AuthError catch (authError) {
+      print('Failed to sign up - ${authError.cause}');
+    }
   }
 
   void verifyCode(String verificationCode) {
