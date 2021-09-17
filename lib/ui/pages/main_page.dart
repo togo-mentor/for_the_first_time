@@ -23,7 +23,16 @@ class _MainPageState extends State<MainPage> {
       length: _tab.length,  // タブの数
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("はじめて図鑑"),
+          title: Text("はじめて図鑑"),
+          actions: <Widget>[
+            TextButton(
+              child: Icon(Icons.logout), 
+              onPressed: widget.shouldLogOut,
+              style: TextButton.styleFrom(
+                primary: Colors.white,
+              ),
+            )
+          ],
           bottom: TabBar(  // タブバー
             tabs: _tab,
             labelPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 3),
