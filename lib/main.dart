@@ -20,7 +20,8 @@ class _MyAppState extends State<MyApp> {
 
   void initState() {
     super.initState();
-    _authService.showLogin();
+    _authService.checkAuthStatus();
+    _configureAmplify();
   }
 
   void _configureAmplify() async {

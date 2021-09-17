@@ -34,9 +34,23 @@ class AuthService {
   }
 
   // 1
-  void loginWithCredentials(AuthCredentials credentials) {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-    authStateController.add(state);
+  void loginWithCredentials(AuthCredentials credentials) async {
+    try {
+      // 2
+      final result = await Amplify.Auth.signIn(
+          username: credentials.username, password: credentials.password);
+
+      // 3
+      if (result.isSignedIn) {
+        final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+        authStateController.add(state);
+      } else {
+        // 4
+        print('User could not be signed in');
+      }
+    } on AmplifyException catch (authError) {
+      print('Failed to sign up - $authError');
+    }
   }
 
   // 2
@@ -64,8 +78,8 @@ class AuthService {
       }
     
     // 7
-    } on AuthError catch (authError) {
-      print('Failed to sign up - ${authError.cause}');
+    } on AmplifyException catch (authError) {
+      print('Failed to sign up - $authError');
     }
   }
 
@@ -74,8 +88,27 @@ class AuthService {
     authStateController.add(state);
   }
 
-  void logOut() {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.login);
-    authStateController.add(state);
+  void logOut() async {
+    try {
+      // 1
+      await Amplify.Auth.signOut();
+
+      // 2
+      showLogin();
+    } on AmplifyException catch (authError) {
+      print('Failed to sign up - $authError');
+    }
+  }
+
+  void checkAuthStatus() async {
+    try {
+      await Amplify.Auth.fetchAuthSession();
+
+      final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+      authStateController.add(state);
+    } catch (_) {
+      final state = AuthState(authFlowStatus: AuthFlowStatus.login);
+      authStateController.add(state);
+    }
   }
 }
