@@ -96,6 +96,8 @@ class _LoginPageState extends State<LoginPage> {
               onPressed: () async {
                 // 全画面プログレスダイアログを表示
                 showProgressDialog();
+                // 1秒後にダイアログを閉じる
+                await Future.delayed(Duration(seconds: 1));
                 await _login();
                 Navigator.of(context, rootNavigator: true).pop();
               },

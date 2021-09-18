@@ -44,7 +44,7 @@ class _SignUpPageState extends State<SignUpPage> {
     showGeneralDialog(
       context: context,
       barrierDismissible: false,
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: Duration(milliseconds: 500),
       barrierColor: Colors.black.withOpacity(0.5),
       pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
         return Center(
@@ -98,6 +98,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 onPressed: () async {
                   // 全画面プログレスダイアログを表示
                   showProgressDialog();
+                  await Future.delayed(Duration(seconds: 1));
                   await _signUp();
                   Navigator.of(context, rootNavigator: true).pop();
                 },
