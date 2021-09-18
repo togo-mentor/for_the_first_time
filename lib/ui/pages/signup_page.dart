@@ -26,12 +26,31 @@ class _SignUpPageState extends State<SignUpPage> {
 
             // Login Button
             Container(
+              padding: EdgeInsets.all(15),
               alignment: Alignment.bottomCenter,
-              child: FlatButton(
+              child: TextButton(
                   onPressed: widget.shouldShowLogin,
-                  child: Text('Already have an account? Login.')),
+                  child: Text('Already have an account? Login.'),
+                  style: TextButton.styleFrom(
+                    primary: Colors.grey[850],
+                  )
+              ),
             )
           ])),
+    );
+  }
+
+  void showProgressDialog() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 300),
+      barrierColor: Colors.black.withOpacity(0.5),
+      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
     );
   }
 
@@ -45,12 +64,18 @@ class _SignUpPageState extends State<SignUpPage> {
           decoration:
               InputDecoration(icon: Icon(Icons.person), labelText: 'Username'),
         ),
+        SizedBox(
+          height: 15,
+        ),
 
         // Email TextField
         TextField(
           controller: _emailController,
           decoration:
               InputDecoration(icon: Icon(Icons.mail), labelText: 'Email'),
+        ),
+        SizedBox(
+          height: 15,
         ),
 
         // Password TextField
@@ -61,17 +86,35 @@ class _SignUpPageState extends State<SignUpPage> {
           obscureText: true,
           keyboardType: TextInputType.visiblePassword,
         ),
+        SizedBox(
+          height: 25,
+        ),
 
-        // Sign Up Button
-        FlatButton(
-            onPressed: _signUp,
-            child: Text('Sign Up'),
-            color: Theme.of(context).accentColor)
+        SizedBox( 
+          width: 120,
+          // Sign Up Button
+          child: (
+            TextButton(
+                onPressed: () async {
+                  // 全画面プログレスダイアログを表示
+                  showProgressDialog();
+                  await _signUp();
+                  await Future.delayed(Duration(seconds: 1));
+                  Navigator.of(context, rootNavigator: true).pop();
+                },
+                child: Text('Sign Up'),
+                style: TextButton.styleFrom(
+                    primary: Colors.white,
+                    backgroundColor: Theme.of(context).accentColor,
+                )
+            )
+          )
+        )
       ],
     );
   }
 
-  void _signUp() {
+  Future _signUp() async {
     final username = _usernameController.text.trim();
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();

@@ -47,19 +47,19 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
   // 全画面プログレスダイアログを表示する関数
-    void showProgressDialog() {
-      showGeneralDialog(
-        context: context,
-        barrierDismissible: false,
-        transitionDuration: Duration(milliseconds: 300),
-        barrierColor: Colors.black.withOpacity(0.5),
-        pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      );
-    }
+  void showProgressDialog() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 300),
+      barrierColor: Colors.black.withOpacity(0.5),
+      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    );
+  }
 
   // 5
   Widget _loginForm() {
