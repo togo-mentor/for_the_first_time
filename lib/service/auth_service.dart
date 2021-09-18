@@ -49,7 +49,7 @@ class AuthService {
         print('User could not be signed in');
       }
     } on AmplifyException catch (authError) {
-      print('Failed to sign up - $authError');
+      throw authError;
     }
   }
 
@@ -79,7 +79,7 @@ class AuthService {
     
     // 7
     } on AmplifyException catch (authError) {
-      print('Failed to sign up - $authError');
+      throw authError;
     }
   }
 

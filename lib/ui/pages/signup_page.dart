@@ -99,7 +99,6 @@ class _SignUpPageState extends State<SignUpPage> {
                   // 全画面プログレスダイアログを表示
                   showProgressDialog();
                   await _signUp();
-                  await Future.delayed(Duration(seconds: 1));
                   Navigator.of(context, rootNavigator: true).pop();
                 },
                 child: Text('Sign Up'),

@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         TextField(
           controller: _usernameController,
           decoration:
-              InputDecoration(icon: Icon(Icons.mail), labelText: 'Username'),
+              InputDecoration(icon: Icon(Icons.person), labelText: 'Username'),
         ),
         SizedBox(
           height: 15,
@@ -97,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                 // 全画面プログレスダイアログを表示
                 showProgressDialog();
                 await _login();
-                await Future.delayed(Duration(seconds: 1));
                 Navigator.of(context, rootNavigator: true).pop();
               },
               child: Text('Login'),
