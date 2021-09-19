@@ -23,6 +23,20 @@ class _VerificationPageState extends State<VerificationPage> {
     );
   }
 
+  void showProgressDialog() {
+    showGeneralDialog(
+      context: context,
+      barrierDismissible: false,
+      transitionDuration: Duration(milliseconds: 500),
+      barrierColor: Colors.black.withOpacity(0.5),
+      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+    );
+  }
+
   Widget _verificationForm() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -34,17 +48,31 @@ class _VerificationPageState extends State<VerificationPage> {
               icon: Icon(Icons.confirmation_number),
               labelText: 'Verification code'),
         ),
-
-        // Verify Button
-        FlatButton(
-            onPressed: _verify,
-            child: Text('Verify'),
-            color: Theme.of(context).accentColor)
+        SizedBox(
+          height: 25,
+        ),
+        SizedBox( 
+          width: 120,
+          child: TextButton(
+              onPressed: () async {
+                // 全画面プログレスダイアログを表示
+                showProgressDialog();
+                await Future.delayed(Duration(seconds: 1));
+                await _verify();
+                Navigator.of(context, rootNavigator: true).pop();
+              },
+              child: Text('Verify'),
+              style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Theme.of(context).accentColor,
+              )
+          )
+        )
       ],
     );
   }
 
-  void _verify() {
+  Future _verify() async {
     final verificationCode = _verificationCodeController.text.trim();
     widget.didProvideVerificationCode(verificationCode);
   }
