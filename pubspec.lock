@@ -30,7 +30,7 @@ packages:
     source: hosted
     version: "0.2.4"
   amplify_core:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: amplify_core
       url: "https://pub.dartlang.org"
