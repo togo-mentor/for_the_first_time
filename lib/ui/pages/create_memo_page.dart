@@ -34,6 +34,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         genreId: genre.id
       );
       await Amplify.DataStore.save(newPost);
+      print('Post saved successfully!');
     } catch (error) {
       print(error);
     }
@@ -111,7 +112,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      // TODO: メモの保存処理を書く
+                      createPost();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
