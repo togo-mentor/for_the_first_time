@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:for_the_first_time/service/auth_credentials.dart';
+import '../../service/auth_credentials.dart';
 
 class SignUpPage extends StatefulWidget {
   final ValueChanged<SignUpCredentials> didProvideCredentials;

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:for_the_first_time/service/auth_service.dart';
-import 'package:for_the_first_time/ui/pages/verification_page.dart';
-import 'package:for_the_first_time/ui/pages/signup_page.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import './service/auth_service.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
+import './ui/pages/verification_page.dart';
+import './ui/pages/signup_page.dart';
 import '../amplifyconfiguration.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
