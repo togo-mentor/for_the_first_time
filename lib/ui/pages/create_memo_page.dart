@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:amplify_flutter/amplify.dart';
+import '../../models/Post.dart';
 
 class Genre {
   final int id;
@@ -24,6 +26,18 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
   ];
   Genre genre = Genre(0, '');
   bool _selected = false;
+
+  Future createPost() async {
+    try {
+      Post newPost = Post(
+        content: _event,
+        genreId: genre.id
+      );
+      await Amplify.DateStore.save(newPost);
+    } catch (error) {
+      print(error);
+    }
+  }
 
   Widget build(BuildContext context) {
     return Container(

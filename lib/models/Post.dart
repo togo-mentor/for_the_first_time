@@ -19,10 +19,10 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/foundation.dart';
 
 
-/** This is an auto generated class representing the Task type in your schema. */
+/** This is an auto generated class representing the Post type in your schema. */
 @immutable
-class Task extends Model {
-  static const classType = const _TaskModelType();
+class Post extends Model {
+  static const classType = const _PostModelType();
   final String id;
   final String? _title;
   final String? _description;
@@ -52,10 +52,10 @@ class Task extends Model {
     return _status;
   }
   
-  const Task._internal({required this.id, required title, description, status}): _title = title, _description = description, _status = status;
+  const Post._internal({required this.id, required title, description, status}): _title = title, _description = description, _status = status;
   
-  factory Task({String? id, required String title, String? description, String? status}) {
-    return Task._internal(
+  factory Post({String? id, required String title, String? description, String? status}) {
+    return Post._internal(
       id: id == null ? UUID.getUUID() : id,
       title: title,
       description: description,
@@ -69,7 +69,7 @@ class Task extends Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Task &&
+    return other is Post &&
       id == other.id &&
       _title == other._title &&
       _description == other._description &&
@@ -83,7 +83,7 @@ class Task extends Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Task {");
+    buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("title=" + "$_title" + ", ");
     buffer.write("description=" + "$_description" + ", ");
@@ -93,15 +93,15 @@ class Task extends Model {
     return buffer.toString();
   }
   
-  Task copyWith({String? id, String? title, String? description, String? status}) {
-    return Task(
+  Post copyWith({String? id, String? title, String? description, String? status}) {
+    return Post(
       id: id ?? this.id,
       title: title ?? this.title,
       description: description ?? this.description,
       status: status ?? this.status);
   }
   
-  Task.fromJson(Map<String, dynamic> json)  
+  Post.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _title = json['title'],
       _description = json['description'],
@@ -111,13 +111,13 @@ class Task extends Model {
     'id': id, 'title': _title, 'description': _description, 'status': _status
   };
 
-  static final QueryField ID = QueryField(fieldName: "task.id");
+  static final QueryField ID = QueryField(fieldName: "Post.id");
   static final QueryField TITLE = QueryField(fieldName: "title");
   static final QueryField DESCRIPTION = QueryField(fieldName: "description");
   static final QueryField STATUS = QueryField(fieldName: "status");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Task";
-    modelSchemaDefinition.pluralName = "Tasks";
+    modelSchemaDefinition.name = "Post";
+    modelSchemaDefinition.pluralName = "Posts";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
@@ -144,30 +144,30 @@ class Task extends Model {
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Task.TITLE,
+      key: Post.TITLE,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Task.DESCRIPTION,
+      key: Post.DESCRIPTION,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Task.STATUS,
+      key: Post.STATUS,
       isRequired: false,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
   });
 }
 
-class _TaskModelType extends ModelType<Task> {
-  const _TaskModelType();
+class _PostModelType extends ModelType<Post> {
+  const _PostModelType();
   
   @override
-  Task fromJson(Map<String, dynamic> jsonData) {
-    return Task.fromJson(jsonData);
+  Post fromJson(Map<String, dynamic> jsonData) {
+    return Post.fromJson(jsonData);
   }
 }

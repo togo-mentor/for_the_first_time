@@ -1,7 +1,7 @@
-import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_datastore/amplify_datastore.dart';
 import './service/auth_service.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';

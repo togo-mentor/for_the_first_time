@@ -17,16 +17,16 @@
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
 import 'PrivateNote.dart';
-import 'Task.dart';
+import 'Post.dart';
 
 export 'PrivateNote.dart';
-export 'Task.dart';
+export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
   String version = "e04aa1c367c834582081dd6f1a49e817";
   @override
-  List<ModelSchema> modelSchemas = [PrivateNote.schema, Task.schema];
+  List<ModelSchema> modelSchemas = [PrivateNote.schema, Post.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
@@ -37,8 +37,8 @@ class ModelProvider implements ModelProviderInterface {
     return PrivateNote.classType;
     }
     break;
-    case "Task": {
-    return Task.classType;
+    case "Post": {
+    return Post.classType;
     }
     break;
     default: {
