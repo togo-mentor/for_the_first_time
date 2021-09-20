@@ -33,7 +33,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         content: _event,
         genreId: genre.id
       );
-      await Amplify.DateStore.save(newPost);
+      await Amplify.DataStore.save(newPost);
     } catch (error) {
       print(error);
     }

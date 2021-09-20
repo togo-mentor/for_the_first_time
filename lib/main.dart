@@ -31,10 +31,9 @@ class _MyAppState extends State<MyApp> {
 
     // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-    await Amplify.addPlugins([authPlugin]);
-
     AmplifyDataStore datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
-    Amplify.addPlugin(datastorePlugin);
+    
+    await Amplify.addPlugins([authPlugin, datastorePlugin]);
 
     // Once Plugins are added, configure Amplify
     // Note: Amplify can only be configured once.
