@@ -24,9 +24,8 @@ import 'package:flutter/foundation.dart';
 class Post extends Model {
   static const classType = const _PostModelType();
   final String id;
-  final String? _title;
-  final String? _description;
-  final String? _status;
+  final String? _content;
+  final int? _genreId;
 
   @override
   getInstanceType() => classType;
@@ -36,30 +35,29 @@ class Post extends Model {
     return id;
   }
   
-  String get title {
+  String get content {
     try {
-      return _title!;
+      return _content!;
     } catch(e) {
       throw new DataStoreException(DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage, recoverySuggestion: DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion, underlyingException: e.toString());
     }
   }
   
-  String? get description {
-    return _description;
+  int get genreId {
+    try {
+      return _genreId!;
+    } catch(e) {
+      throw new DataStoreException(DataStoreExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage, recoverySuggestion: DataStoreExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion, underlyingException: e.toString());
+    }
   }
   
-  String? get status {
-    return _status;
-  }
+  const Post._internal({required this.id, required content, required genreId}): _content = content, _genreId = genreId;
   
-  const Post._internal({required this.id, required title, description, status}): _title = title, _description = description, _status = status;
-  
-  factory Post({String? id, required String title, String? description, String? status}) {
+  factory Post({String? id, required String content, required int genreId}) {
     return Post._internal(
       id: id == null ? UUID.getUUID() : id,
-      title: title,
-      description: description,
-      status: status);
+      content: content,
+      genreId: genreId);
   }
   
   bool equals(Object other) {
@@ -71,9 +69,8 @@ class Post extends Model {
     if (identical(other, this)) return true;
     return other is Post &&
       id == other.id &&
-      _title == other._title &&
-      _description == other._description &&
-      _status == other._status;
+      _content == other._content &&
+      _genreId == other._genreId;
   }
   
   @override
@@ -85,80 +82,61 @@ class Post extends Model {
     
     buffer.write("Post {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("title=" + "$_title" + ", ");
-    buffer.write("description=" + "$_description" + ", ");
-    buffer.write("status=" + "$_status");
+    buffer.write("content=" + "$_content" + ", ");
+    buffer.write("genreId=" + (_genreId != null ? _genreId!.toString() : "null"));
     buffer.write("}");
     
     return buffer.toString();
   }
   
-  Post copyWith({String? id, String? title, String? description, String? status}) {
+  Post copyWith({String? id, String? content, int? genreId}) {
     return Post(
       id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      status: status ?? this.status);
+      content: content ?? this.content,
+      genreId: genreId ?? this.genreId);
   }
   
   Post.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _title = json['title'],
-      _description = json['description'],
-      _status = json['status'];
+      _content = json['content'],
+      _genreId = json['genreId'];
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'title': _title, 'description': _description, 'status': _status
+    'id': id, 'content': _content, 'genreId': _genreId
   };
 
-  static final QueryField ID = QueryField(fieldName: "Post.id");
-  static final QueryField TITLE = QueryField(fieldName: "title");
-  static final QueryField DESCRIPTION = QueryField(fieldName: "description");
-  static final QueryField STATUS = QueryField(fieldName: "status");
+  static final QueryField ID = QueryField(fieldName: "post.id");
+  static final QueryField CONTENT = QueryField(fieldName: "content");
+  static final QueryField GENREID = QueryField(fieldName: "genreId");
   static var schema = Model.defineSchema(define: (ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Post";
     modelSchemaDefinition.pluralName = "Posts";
     
     modelSchemaDefinition.authRules = [
       AuthRule(
-        authStrategy: AuthStrategy.GROUPS,
-        groupClaim: "cognito:groups",
-        groups: [ "Managers" ],
+        authStrategy: AuthStrategy.OWNER,
+        ownerField: "owner",
+        identityClaim: "cognito:username",
         operations: [
+          ModelOperation.READ,
           ModelOperation.CREATE,
           ModelOperation.UPDATE,
           ModelOperation.DELETE
-        ]),
-      AuthRule(
-        authStrategy: AuthStrategy.GROUPS,
-        groupClaim: "cognito:groups",
-        groups: [ "Employees" ],
-        operations: [
-          ModelOperation.CREATE,
-          ModelOperation.UPDATE,
-          ModelOperation.DELETE,
-          ModelOperation.READ
         ])
     ];
     
     modelSchemaDefinition.addField(ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Post.TITLE,
+      key: Post.CONTENT,
       isRequired: true,
       ofType: ModelFieldType(ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Post.DESCRIPTION,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(ModelFieldDefinition.field(
-      key: Post.STATUS,
-      isRequired: false,
-      ofType: ModelFieldType(ModelFieldTypeEnum.string)
+      key: Post.GENREID,
+      isRequired: true,
+      ofType: ModelFieldType(ModelFieldTypeEnum.int)
     ));
   });
 }

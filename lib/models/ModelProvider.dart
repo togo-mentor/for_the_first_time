@@ -16,27 +16,21 @@
 // ignore_for_file: public_member_api_docs
 
 import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_interface.dart';
-import 'PrivateNote.dart';
 import 'Post.dart';
 
-export 'PrivateNote.dart';
 export 'Post.dart';
 
 class ModelProvider implements ModelProviderInterface {
   @override
-  String version = "e04aa1c367c834582081dd6f1a49e817";
+  String version = "32380bf7463f08866de354bd8bb2ac3b";
   @override
-  List<ModelSchema> modelSchemas = [PrivateNote.schema, Post.schema];
+  List<ModelSchema> modelSchemas = [Post.schema];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
   
   ModelType getModelTypeByModelName(String modelName) {
     switch(modelName) {
-    case "PrivateNote": {
-    return PrivateNote.classType;
-    }
-    break;
     case "Post": {
     return Post.classType;
     }
