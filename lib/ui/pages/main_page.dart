@@ -11,7 +11,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   final _tab = <Tab> [  // タブバーの表示
     Tab(text:"記録する", icon: Icon(Icons.note_add)),
     Tab(text:"履歴を見る", icon: Icon(Icons.history)),

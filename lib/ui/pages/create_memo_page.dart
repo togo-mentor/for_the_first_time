@@ -97,7 +97,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      // TODO: 新規登録
+                      // TODO: メモの保存処理を書く
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'auth_credentials.dart';
@@ -60,9 +59,9 @@ class AuthService {
       );
 
       if (result.isSignUpComplete) {
-        loginWithCredentials(credentials);
+        loginWithCredentials(credentials); // サインアップが完了したらログインする
       } else {
-        final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
+        final state = AuthState(authFlowStatus: AuthFlowStatus.verification); // サインアップが完了していない場合、認証ページに遷移
         authStateController.add(state);
       }
     } on AmplifyException catch (authError) {
@@ -72,18 +71,15 @@ class AuthService {
 
   // メール認証
   void verifyCode(String verificationCode) {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+    final state = AuthState(authFlowStatus: AuthFlowStatus.session); // 認証が終わったらユーザーをログイン状態にする
     authStateController.add(state);
   }
 
   // ログアウトする
   void logOut() async {
     try {
-      // 1
-      await Amplify.Auth.signOut();
-
-      // 2
-      showLogin();
+      await Amplify.Auth.signOut(); // サインアウト
+      showLogin(); // ログインページに遷移
     } on AmplifyException catch (authError) {
       print('Failed to sign up - $authError');
     }
@@ -93,10 +89,10 @@ class AuthService {
   void checkAuthStatus() async {
     try {
       await Amplify.Auth.fetchAuthSession();
-      final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+      final state = AuthState(authFlowStatus: AuthFlowStatus.session); // ログイン中
       authStateController.add(state);
     } catch (_) {
-      final state = AuthState(authFlowStatus: AuthFlowStatus.login);
+      final state = AuthState(authFlowStatus: AuthFlowStatus.login); // ログアウト状態の場合、ログインページに遷移
       authStateController.add(state);
     }
   }

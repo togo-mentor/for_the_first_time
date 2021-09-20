@@ -11,7 +11,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  // 1
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -20,9 +19,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 2
     return Scaffold(
-      // 3
       body: SafeArea(
           minimum: EdgeInsets.symmetric(horizontal: 40),
           // 4
@@ -61,9 +58,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // 5
   Widget _loginForm() {
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -110,7 +105,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // 7
   Future _login() async {
     final username = _usernameController.text.trim();
     final password = _passwordController.text.trim();
