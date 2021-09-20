@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: EdgeInsets.all(15),
               alignment: Alignment.bottomCenter,
               child: TextButton(
-                  onPressed: widget.shouldShowLogin,
+                  onPressed: widget.shouldShowLogin, // ログインページに遷移
                   child: Text('Already have an account? Login.'),
                   style: TextButton.styleFrom(
                     primary: Colors.grey[850],
@@ -40,6 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // 新規登録フォームを送信した際にプログレスバーを表示する
   void showProgressDialog() {
     showGeneralDialog(
       context: context,
@@ -96,11 +97,10 @@ class _SignUpPageState extends State<SignUpPage> {
           child: (
             TextButton(
                 onPressed: () async {
-                  // 全画面プログレスダイアログを表示
-                  showProgressDialog();
-                  await Future.delayed(Duration(seconds: 1));
+                  showProgressDialog(); // 全画面プログレスダイアログを表示
+                  await Future.delayed(Duration(seconds: 1)); // あえて1病患プログレスバーを表示することで処理中であることをわかりやすく
                   await _signUp();
-                  Navigator.of(context, rootNavigator: true).pop();
+                  Navigator.of(context, rootNavigator: true).pop(); // 新規登録が完了したらプログレスバーを閉じる
                 },
                 child: Text('Sign Up'),
                 style: TextButton.styleFrom(

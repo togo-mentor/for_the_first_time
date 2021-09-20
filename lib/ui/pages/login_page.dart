@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: EdgeInsets.all(15),
               alignment: Alignment.bottomCenter,
               child: TextButton(
-                  onPressed: widget.shouldShowSignUp,
+                  onPressed: widget.shouldShowSignUp, // 新規登録ページに遷移
                   child: Text('Don\'t have an account? Sign up.'),
                   style: TextButton.styleFrom(
                     primary: Colors.grey[850],
@@ -94,10 +94,8 @@ class _LoginPageState extends State<LoginPage> {
           // Login Button
           child: TextButton(
               onPressed: () async {
-                // 全画面プログレスダイアログを表示
-                showProgressDialog();
-                // 1秒後にダイアログを閉じる
-                await Future.delayed(Duration(seconds: 1));
+                showProgressDialog(); // 全画面プログレスダイアログを表示
+                await Future.delayed(Duration(seconds: 1)); // 1秒後にダイアログを閉じる
                 await _login();
                 Navigator.of(context, rootNavigator: true).pop();
               },

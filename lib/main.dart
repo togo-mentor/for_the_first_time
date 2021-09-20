@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
     _configureAmplify();
   }
 
+  // アプリ読み込み時にAmplifyの設定を読み込む
   void _configureAmplify() async {
 
     // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
@@ -34,7 +35,7 @@ class _MyAppState extends State<MyApp> {
     // Note: Amplify can only be configured once.
     try {
       await Amplify.configure(amplifyconfig);
-      print('Successfully configured Amplify 🎉');
+      print('Successfully configured Amplify 🎉'); // このメッセージが出てくれば正しく設定が読み込めている
     } on AmplifyAlreadyConfiguredException {
       print("Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
     }
@@ -50,7 +51,6 @@ class _MyAppState extends State<MyApp> {
       if (snapshot.hasData) {
         return Navigator(
           pages: [
-            // 4
             // Show Login Page
             if (snapshot.data!.authFlowStatus == AuthFlowStatus.login)
               MaterialPage(child: LoginPage(shouldShowSignUp: _authService.showSignUp, didProvideCredentials: _authService.loginWithCredentials, key: null,)),
@@ -60,12 +60,11 @@ class _MyAppState extends State<MyApp> {
             MaterialPage(child: VerificationPage(
               didProvideVerificationCode: _authService.verifyCode)),
 
-            // 5
             // Show Sign Up Page
             if (snapshot.data!.authFlowStatus == AuthFlowStatus.signUp)
               MaterialPage(child: SignUpPage(shouldShowLogin: _authService.showLogin, didProvideCredentials: _authService.signUpWithCredentials,)),
             
-            // Show Camera Flow
+            // Show Main Page
             if (snapshot.data!.authFlowStatus == AuthFlowStatus.session)
               MaterialPage(
                   child: MainPage(shouldLogOut: _authService.logOut))
@@ -76,7 +75,7 @@ class _MyAppState extends State<MyApp> {
         // 6
         return Container(
           alignment: Alignment.center,
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(), // アプリの読み込みが完了しない場合はプログレスバーを表示
         );
       }
     }),

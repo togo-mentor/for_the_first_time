@@ -55,8 +55,7 @@ class _VerificationPageState extends State<VerificationPage> {
           width: 120,
           child: TextButton(
               onPressed: () async {
-                // 全画面プログレスダイアログを表示
-                showProgressDialog();
+                showProgressDialog(); // 全画面プログレスダイアログを表示
                 await Future.delayed(Duration(seconds: 1));
                 await _verify();
                 Navigator.of(context, rootNavigator: true).pop();
