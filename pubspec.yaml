@@ -31,8 +31,8 @@ dependencies:
   amplify_flutter: '<1.0.0'
   amplify_auth_cognito: '<1.0.0'
   amplify_datastore: any
-  amplify_core: any
-  flutter_login: ^1.0.14 # flutter_loginは直接関係ないが後述する理由で使用するのでこのタイミングで追加
+
+  random_string: any
 
 dev_dependencies:
   flutter_test:
