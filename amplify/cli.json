@@ -27,7 +27,7 @@
       "handlelistnullabilitytransparently": true,
       "emitauthprovider": true,
       "generateindexrules": true,
-      "enabledartnullsafety": true
+      "enabledartnullsafety": false
     },
     "appsync": {
       "generategraphqlpermissions": true
