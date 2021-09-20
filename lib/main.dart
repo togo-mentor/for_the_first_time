@@ -1,3 +1,4 @@
+import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -7,6 +8,7 @@ import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
 import '../amplifyconfiguration.dart';
+import 'models/ModelProvider.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
@@ -30,6 +32,9 @@ class _MyAppState extends State<MyApp> {
     // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
     await Amplify.addPlugins([authPlugin]);
+
+    AmplifyDataStore datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
+    Amplify.addPlugin(datastorePlugin);
 
     // Once Plugins are added, configure Amplify
     // Note: Amplify can only be configured once.
