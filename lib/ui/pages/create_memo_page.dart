@@ -27,12 +27,13 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
   Genre genre = Genre(0, '');
   bool _selected = false;
 
-  Future createPost() async {
+  Future createPost(content, genreId) async {
+    Post newPost = Post(
+      content: content,
+      genreId: genreId
+    );
+    print(newPost);
     try {
-      Post newPost = Post(
-        content: _event,
-        genreId: genre.id
-      );
       await Amplify.DataStore.save(newPost);
       print('Post saved successfully!');
     } catch (error) {
@@ -73,8 +74,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     autofocus: true,
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
-                    onSaved: (value) {
-                      _event = value!;
+                    onChanged: (value) {
+                      _event = value;
                     },
                   ),
                   SizedBox(
@@ -112,7 +113,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      createPost();
+                      createPost(_event, genre.id);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),

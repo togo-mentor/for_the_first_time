@@ -19,6 +19,7 @@ import 'package:amplify_datastore_plugin_interface/amplify_datastore_plugin_inte
 import 'package:flutter/foundation.dart';
 
 
+/** This is an auto generated class representing the Post type in your schema. */
 @immutable
 class Post extends Model {
   static const classType = const _PostModelType();
