@@ -1,11 +1,5 @@
-type Post
-  @model
-  @auth(
-    rules: [
-      { allow: owner, provider: userPools, operations: [read, create, update, delete] },
-    ]
-  ) {
+type Todo @model {
   id: ID!
-  content: String!
-  genreId: Int!
+  name: String!
+  description: String
 }

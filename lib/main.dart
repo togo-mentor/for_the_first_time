@@ -34,7 +34,8 @@ class _MyAppState extends State<MyApp> {
     AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
     AmplifyDataStore datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
     
-    await Amplify.addPlugins([authPlugin, datastorePlugin]);
+    await Amplify.addPlugin(datastorePlugin);
+    await Amplify.addPlugin(authPlugin);
     await Amplify.addPlugin(AmplifyAPI());
 
     // Once Plugins are added, configure Amplify
