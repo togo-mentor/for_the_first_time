@@ -1,3 +1,4 @@
+import 'package:amplify_api/amplify_api.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -34,11 +35,18 @@ class _MyAppState extends State<MyApp> {
     AmplifyDataStore datastorePlugin = AmplifyDataStore(modelProvider: ModelProvider.instance);
     
     await Amplify.addPlugins([authPlugin, datastorePlugin]);
+    await Amplify.addPlugin(AmplifyAPI());
 
     // Once Plugins are added, configure Amplify
     // Note: Amplify can only be configured once.
     try {
       await Amplify.configure(amplifyconfig);
+      Post newPost = Post(
+        content: 'test',
+        genreId: 0
+      );
+      print(newPost);
+      await Amplify.DataStore.save(newPost);
       print('Successfully configured Amplify 🎉'); // このメッセージが出てくれば正しく設定が読み込めている
     } on AmplifyAlreadyConfiguredException {
       print("Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
