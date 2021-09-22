@@ -36,7 +36,7 @@ class _MyAppState extends State<MyApp> {
     
     await Amplify.addPlugin(datastorePlugin);
     await Amplify.addPlugin(authPlugin);
-    // await Amplify.addPlugin(AmplifyAPI());
+    await Amplify.addPlugin(AmplifyAPI());
 
     // Once Plugins are added, configure Amplify
     // Note: Amplify can only be configured once.
