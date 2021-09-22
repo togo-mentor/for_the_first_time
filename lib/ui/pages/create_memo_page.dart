@@ -39,6 +39,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
       print(newPost);
       await Amplify.DataStore.save(newPost);
       print('Post saved successfully!');
+      List<Post> posts = await Amplify.DataStore.query(Post.classType);
+      print(posts.length);
     } catch (error) {
       print(error);
     }
