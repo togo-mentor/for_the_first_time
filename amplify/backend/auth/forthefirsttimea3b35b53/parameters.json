@@ -26,12 +26,8 @@
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-        "email"
-    ],
-    "userpoolClientReadAttributes": [
-        "email"
-    ],
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
     "userpoolClientLambdaRole": "forthea3b35b53_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
     "sharedId": "a3b35b53",
@@ -49,9 +45,14 @@
             "Arn"
         ]
     },
-    "useDefault": "default",
+    "useDefault": "manual",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": []
+    "dependsOn": [],
+    "userPoolGroups": false,
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
+    "hostedUI": false
 }
