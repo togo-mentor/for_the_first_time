@@ -4,7 +4,8 @@ import './create_memo_page.dart';
 
 class MainPage extends StatefulWidget {
   final VoidCallback shouldLogOut;
-  MainPage({Key? key, required this.shouldLogOut})
+  final String userId;
+  MainPage({Key? key, required this.shouldLogOut, required this.userId})
    : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();

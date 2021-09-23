@@ -11,10 +11,8 @@ import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
 
-void main()  async{
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+void main() {
+ runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -23,20 +21,19 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late FirebaseUser _user;
-  final _googleSignIn = new GoogleSignIn();
+  // Google 認証
+  final _google_signin  = GoogleSignIn(scopes: [
+     'email',
+     'https://www.googleapis.com/auth/contacts.readonly',
+    ]);
+  late GoogleSignInAccount googleUser;
+  late GoogleSignInAuthentication googleAuth;
+  late AuthCredential credential;
+
+  // Firebase 認証
   final _auth = FirebaseAuth.instance;
-  
-  Future<FirebaseUser> _handleGoogleSignIn() async {
-    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-    FirebaseUser user = await _auth.signInWithGoogle(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    print("signed in " + user.displayName);
-    return user;
-  }
+  late AuthResult result;
+  late FirebaseUser user;
 
   @override
 
@@ -44,12 +41,18 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  void shouldLogOut() {
+    _auth.signOut();
+    _google_signin.signOut();
+    print('サインアウトしました。');
+  }
+
   // アプリ読み込み時にAmplifyの設定を読み込む
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: new Text("Firebase Chat")),
       body: Container(
-          child: _user == null ? _buildGoogleSignInButton() : CreateMemoPage()),
+          child: user == null ? _buildGoogleSignInButton() : MainPage(shouldLogOut: shouldLogOut, userId: user.uid)),
     );
   }
   
@@ -60,14 +63,21 @@ class _MyAppState extends State<MyApp> {
         Center(
             child: RaisedButton(
           child: Text("Google Sign In"),
-          onPressed: () {
-            _handleGoogleSignIn().then((user) {
-              setState(() {
-                _user = user;
-              });
-            }).catchError((error) {
-              print(error);
-            });
+          onPressed: () async {
+            try {
+              result = await _auth.signInWithCredential(credential);
+              user = result.user;
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => MainPage(shouldLogOut: shouldLogOut, userId: user.uid),
+                )
+              );
+
+            } catch (e) {
+              print(e);
+            }
           },
         )),
       ],
