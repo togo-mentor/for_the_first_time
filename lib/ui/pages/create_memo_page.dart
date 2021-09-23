@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:amplify_flutter/amplify.dart';
+import 'package:for_the_first_time/models/ModelProvider.dart';
+import '../../models/Post.dart';
 
 class Genre {
   final int id;
@@ -24,6 +27,22 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
   ];
   Genre genre = Genre(0, '');
   bool _selected = false;
+
+  Future createPost(content, genreId) async {
+    try {
+      Post newPost = Post(
+        content: content,
+        genreId: genreId
+      );
+      print(newPost);
+      await Amplify.DataStore.save(newPost);
+      print('Post saved successfully!');
+      List<Post> posts = await Amplify.DataStore.query(Post.classType);
+      print(posts.length);
+    } catch (error) {
+      print(error);
+    }
+  }
 
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +77,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     autofocus: true,
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
-                    onSaved: (value) {
-                      _event = value!;
+                    onChanged: (value) {
+                      _event = value;
                     },
                   ),
                   SizedBox(
@@ -97,7 +116,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      // TODO: メモの保存処理を書く
+                      createPost(_event, genre.id);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
