@@ -1,9 +1,4 @@
-type Post @model
-@auth(
-  rules: [
-    {allow: owner, ownerField: "owner", operations: [read, create, update, delete]},
-  ])
-{
+type Post @model {
   id: ID!
   content: String!
   genreId: Int!
