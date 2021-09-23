@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:for_the_first_time/ui/pages/create_memo_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
-import './ui/pages/verification_page.dart';
-import './ui/pages/signup_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
  runApp(MyApp());
 }
 
@@ -32,8 +29,9 @@ class _MyAppState extends State<MyApp> {
 
   // Firebase 認証
   final _auth = FirebaseAuth.instance;
-  late UserCredential result;
-  late User user;
+  UserCredential? result;
+  User? user;
+  bool inSignedIn = false;
 
   @override
 
@@ -47,12 +45,9 @@ class _MyAppState extends State<MyApp> {
     print('サインアウトしました。');
   }
 
-  // アプリ読み込み時にAmplifyの設定を読み込む
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: new Text("Firebase Chat")),
-      body: Container(
-          child: user == null ? _buildGoogleSignInButton() : MainPage(shouldLogOut: shouldLogOut, userId: user.uid)),
+    return MaterialApp(
+      home: user == null ? _buildGoogleSignInButton() : MainPage(shouldLogOut: shouldLogOut, userId: user!.uid)
     );
   }
   
@@ -61,20 +56,18 @@ class _MyAppState extends State<MyApp> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Center(
-            child: RaisedButton(
-          child: Text("Google Sign In"),
-          onPressed: () async {
+          child: ElevatedButton(
+            child: Text("Google Sign In"),
+            onPressed: () async {
             try {
               result = await _auth.signInWithCredential(credential);
-              user = result.user!;
-
+              user = result!.user;
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainPage(shouldLogOut: shouldLogOut, userId: user.uid),
+                  builder: (context) => MainPage(shouldLogOut: shouldLogOut, userId: user!.uid),
                 )
               );
-
             } catch (e) {
               print(e);
             }
