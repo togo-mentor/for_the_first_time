@@ -32,8 +32,8 @@ class _MyAppState extends State<MyApp> {
 
   // Firebase 認証
   final _auth = FirebaseAuth.instance;
-  late AuthResult result;
-  late FirebaseUser user;
+  late UserCredential result;
+  late User user;
 
   @override
 
@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           onPressed: () async {
             try {
               result = await _auth.signInWithCredential(credential);
-              user = result.user;
+              user = result.user!;
 
               Navigator.push(
                 context,
