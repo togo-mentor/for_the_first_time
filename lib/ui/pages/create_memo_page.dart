@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:for_the_first_time/models/ModelProvider.dart';
-import '../../models/Post.dart';
 
 class Genre {
   final int id;
@@ -30,15 +27,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Future createPost(content, genreId) async {
     try {
-      Post newPost = Post(
-        content: content,
-        genreId: genreId
-      );
-      print(newPost);
-      await Amplify.DataStore.save(newPost);
-      print('Post saved successfully!');
-      List<Post> posts = await Amplify.DataStore.query(Post.classType);
-      print(posts.length);
+      print('test');
     } catch (error) {
       print(error);
     }
