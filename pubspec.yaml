@@ -33,6 +33,7 @@ dependencies:
   amplify_datastore: any
   amplify_core: any
   amplify_api: any
+  
 
   random_string: any
 

@@ -3,6 +3,7 @@ import 'package:amplify_flutter/amplify.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:amplify_api/amplify_api.dart';
+import 'package:for_the_first_time/ui/pages/create_memo_page.dart';
 import './service/auth_service.dart';
 import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
@@ -38,8 +39,8 @@ class _MyAppState extends State<MyApp> {
     // Note: Amplify can only be configured once.
     try {
       await Future.wait([
-        Amplify.addPlugin(datastorePlugin),
         Amplify.addPlugin(authPlugin),
+        Amplify.addPlugin(datastorePlugin),
         Amplify.addPlugin(AmplifyAPI()),
       ]);
       await Amplify.configure(amplifyconfig);
