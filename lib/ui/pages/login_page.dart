@@ -26,8 +26,11 @@ class _LoginPageState extends State<LoginPage> {
           minimum: EdgeInsets.symmetric(horizontal: 40),
           // 4
           child: Stack(children: [
+            _loginTitle(),
+
             // Login Form
             _loginForm(),
+
 
             // 6
             // Sign Up Button
@@ -62,6 +65,24 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _loginTitle() {
+    return Container(
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        height: 200,
+        child: Center(
+          child: Text(
+            "初めて図鑑",
+            style: TextStyle(
+              fontSize: 30,
+            )
+          ),
+        )
+      )
+    );
+  }
+
   Widget _buildGoogleSignInButton() {
     return Container(
         alignment: Alignment.bottomCenter,
@@ -81,47 +102,52 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _loginForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Username TextField
-        TextField(
-          controller: _usernameController,
-          decoration:
-              InputDecoration(icon: Icon(Icons.person), labelText: 'Username'),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-
-        // Password TextField
-        TextField(
-          controller: _passwordController,
-          decoration: InputDecoration(
-              icon: Icon(Icons.lock_open), labelText: 'Password'),
-          obscureText: true,
-          keyboardType: TextInputType.visiblePassword,
-        ),
-        SizedBox(
-          height: 25,
-        ),
-
-        SizedBox( 
-          width: 120,
-          // Login Button
-          child: TextButton(
-              onPressed: () async {
-                widget.shouldLogin();
-              },
-              child: Text('Login'),
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Theme.of(context).accentColor,
-              ),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 100,
           ),
-        ),
-        _buildGoogleSignInButton()
-      ],
+          // Username TextField
+          TextField(
+            controller: _usernameController,
+            decoration:
+                InputDecoration(icon: Icon(Icons.person), labelText: 'Username'),
+          ),
+          SizedBox(
+            height: 15,
+          ),
+
+          // Password TextField
+          TextField(
+            controller: _passwordController,
+            decoration: InputDecoration(
+                icon: Icon(Icons.lock_open), labelText: 'Password'),
+            obscureText: true,
+            keyboardType: TextInputType.visiblePassword,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+
+          SizedBox( 
+            width: 120,
+            // Login Button
+            child: TextButton(
+                onPressed: () async {
+                  widget.shouldLogin();
+                },
+                child: Text('Login'),
+                style: TextButton.styleFrom(
+                  primary: Colors.white,
+                  backgroundColor: Theme.of(context).accentColor,
+                ),
+            ),
+          ),
+          _buildGoogleSignInButton()
+        ],
+      )
     );
   }
 
