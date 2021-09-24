@@ -1,12 +1,4 @@
 {
-  "auth": {
-    "forthefirsttimea3b35b53": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
   "api": {
     "forthefirsttime": {
       "service": "AppSync",
@@ -23,12 +15,6 @@
           "additionalAuthenticationProviders": [
             {
               "authenticationType": "AWS_IAM"
-            },
-            {
-              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
-              "userPoolConfig": {
-                "userPoolId": "authforthefirsttimea3b35b53"
-              }
             }
           ]
         }
