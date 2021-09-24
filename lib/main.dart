@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:for_the_first_time/ui/pages/login_page.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -39,41 +40,26 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  void shouldLogOut() {
-    _auth.signOut();
-    _google_signin.signOut();
+  void shouldLogOut() async {
+    await _auth.signOut();
+    await _google_signin.signOut();
     print('サインアウトしました。');
+  }
+
+  void shouldLogin() async {
+    result = await _auth.signInWithCredential(credential);
+    user = result!.user;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainPage(shouldLogOut: shouldLogOut, userId: user!.uid),
+      )
+    );
   }
 
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: user == null ? _buildGoogleSignInButton() : MainPage(shouldLogOut: shouldLogOut, userId: user!.uid)
-    );
-  }
-  
-  Widget _buildGoogleSignInButton() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: ElevatedButton(
-            child: Text("Google Sign In"),
-            onPressed: () async {
-            try {
-              result = await _auth.signInWithCredential(credential);
-              user = result!.user;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MainPage(shouldLogOut: shouldLogOut, userId: user!.uid),
-                )
-              );
-            } catch (e) {
-              print(e);
-            }
-          },
-        )),
-      ],
+      home: user == null ? LoginPage(shouldLogin: shouldLogin) : MainPage(shouldLogOut: shouldLogOut, userId: user!.uid)
     );
   }
 }
