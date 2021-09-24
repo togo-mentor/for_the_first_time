@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextButton.styleFrom(
                     primary: Colors.grey[850],
                   )),
-              ),
+              )
             ]
           )),
     );
@@ -63,23 +63,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildGoogleSignInButton() {
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: ElevatedButton(
-              child: Text("Google Sign In"),
-              onPressed: () async {
-              try {
-                widget.shouldLogin();
-              } catch (e) {
-                print(e);
-              }
-            },
-          )),
-        ],
-      )
+    return Container(
+        alignment: Alignment.bottomCenter,
+        padding: EdgeInsets.all(15),
+        child: Center(
+          child: ElevatedButton(
+            child: Text("Google Sign In"),
+            onPressed: () async {
+            try {
+              widget.shouldLogin();
+            } catch (e) {
+              print(e);
+            }
+          },
+        )),
     );
   }
 
@@ -122,7 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: Theme.of(context).accentColor,
               ),
           ),
-        )
+        ),
+        _buildGoogleSignInButton()
       ],
     );
   }
