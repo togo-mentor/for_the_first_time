@@ -34,7 +34,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
     super.initState();
   }
 
-  Future createPost(content, genreId) async {
+  Future _createPost(content, genreId) async {
     try {
       Post newPost = Post(
         content: content,
@@ -119,7 +119,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      createPost(_event, genre.id);
+                      _createPost(_event, genre.id);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
