@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import '../../models/Post.dart';
 import 'package:for_the_first_time/models/Genre.dart';
+import 'package:http/http.dart' as http;
 
 class MemoHistoryPage extends StatefulWidget {
   @override
@@ -12,7 +14,6 @@ class MemoHistoryPage extends StatefulWidget {
 
 class _MemoHistoryPageState extends State<MemoHistoryPage> {
   List<Post> _posts = [];
-  late StreamSubscription _subscription;
 
   @override
   void initState() {
@@ -21,29 +22,22 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
   }
 
   Future<void> _initializeApp() async {
-    // _subscription = Amplify.DataStore.observe(Post.classType).listen((event) {
-    //   _fetchPosts();
-    // });
     await _fetchPosts();
-  }
-
-  void dispose() {
-    // cancel the subscription when the state is removed from the tree
-    _subscription.cancel();
-    super.dispose();
   }
 
   Future<void> _fetchPosts() async {
     try {
-    
-      // query for all post entries by passing the Todo classType to
-      // Amplify.DataStore.query()
-      // List<Post> updatedPosts = await Amplify.DataStore.query(Post.classType);
-      
-      // update the ui state to reflect fetched todos
-      // setState(() {
-      //   _posts = updatedPosts;
-      // });
+      String url = 'http://127.0.0.1:3000/posts';
+      final response = await http.get(Uri.parse(url),
+        headers: {"Content-Type": "application/json"}
+      );
+      if (response.statusCode == 200) {
+        final responseData = jsonDecode(response.body);
+        // update the ui state to reflect fetched todos
+        setState(() {
+          _posts = List<Post>.from(responseData['data'].map((post) => Post.fromJson(post)));
+        });
+      }
     } catch (e) {
       print('An error occurred while querying Todos: $e');
     }
@@ -83,7 +77,7 @@ class PostItem extends StatelessWidget {
                   Text(post.content,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  // Text(renderGenreName(post.genreId)),
+                  Text(renderGenreName(post.genreId)),
                 ],
               ),
             ),

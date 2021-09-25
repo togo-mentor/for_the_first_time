@@ -9,4 +9,14 @@ class Post {
     'genre_id': genreId,
     'user_token': userToken,
   };
+
+  static Post fromJson(Map<String, dynamic> json) {
+    return (
+      Post(
+        content: json['content'],
+        genreId: int.parse(json['genre_id']),
+        userToken: json['user_token']
+      )
+    );
+  }
 }
