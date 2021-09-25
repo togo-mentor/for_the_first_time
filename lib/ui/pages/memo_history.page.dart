@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:for_the_first_time/models/ModelProvider.dart';
 import '../../models/Post.dart';
 import 'package:for_the_first_time/models/Genre.dart';
 
@@ -22,9 +21,9 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
   }
 
   Future<void> _initializeApp() async {
-    _subscription = Amplify.DataStore.observe(Post.classType).listen((event) {
-      _fetchPosts();
-    });
+    // _subscription = Amplify.DataStore.observe(Post.classType).listen((event) {
+    //   _fetchPosts();
+    // });
     await _fetchPosts();
   }
 
@@ -39,12 +38,12 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
     
       // query for all post entries by passing the Todo classType to
       // Amplify.DataStore.query()
-      List<Post> updatedPosts = await Amplify.DataStore.query(Post.classType);
+      // List<Post> updatedPosts = await Amplify.DataStore.query(Post.classType);
       
       // update the ui state to reflect fetched todos
-      setState(() {
-        _posts = updatedPosts;
-      });
+      // setState(() {
+      //   _posts = updatedPosts;
+      // });
     } catch (e) {
       print('An error occurred while querying Todos: $e');
     }
@@ -84,7 +83,7 @@ class PostItem extends StatelessWidget {
                   Text(post.content,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  Text(renderGenreName(post.genreId)),
+                  // Text(renderGenreName(post.genreId)),
                 ],
               ),
             ),

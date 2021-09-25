@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:for_the_first_time/models/Genre.dart';
-import 'package:for_the_first_time/models/ModelProvider.dart';
 import '../../models/Post.dart';
+import 'package:http/http.dart' as http;
 
 class CreateMemoPage extends StatefulWidget {
   @override
@@ -20,12 +22,12 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Future _createPost(content, genreId) async {
     try {
-      Post newPost = Post(
-        content: content,
-        genreId: genreId
+      Post newPost = new Post(content: content, genre_id: genreId);
+      String url = 'http://127.0.0.1:3000/posts';
+      final response = await http.post(Uri.parse(url),
+        body: json.encode(newPost.toJson()),
+        headers: {"Content-Type": "application/json"}
       );
-      print(newPost);
-      await Amplify.DataStore.save(newPost);
     } catch (error) {
       print(error);
     }
