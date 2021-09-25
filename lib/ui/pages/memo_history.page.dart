@@ -14,20 +14,23 @@ class MemoHistoryPage extends StatefulWidget {
 }
 
 class _MemoHistoryPageState extends State<MemoHistoryPage> {
-  late final List<Post> _posts;
+  List<Post> _posts = [];
   late StreamSubscription _subscription;
 
+  @override
   void initState() {
     super.initState();
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
     _subscription = Amplify.DataStore.observe(Post.classType).listen((event) {
       _fetchPosts();
     });
-    _fetchPosts();
+    await _fetchPosts();
   }
 
-  @override
   void dispose() {
-
     // cancel the subscription when the state is removed from the tree
     _subscription.cancel();
     super.dispose();
