@@ -13,7 +13,8 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
-  String _event = '';
+  final _formKeyScreen1 = GlobalKey<FormState>();
+  String content = '';
   Genre genre = Genre(0, '');
   bool _selected = false;
 
@@ -33,6 +34,9 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         body: json.encode(newPost.toJson()),
         headers: {"Content-Type": "application/json"}
       );
+      if (response.statusCode == 200) {
+        _formKeyScreen1.currentState?.reset();
+      }
     } catch (error) {
       print(error);
     }
@@ -54,6 +58,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
               height: 30,
             ),
             Form (
+              key: _formKeyScreen1,
               child: Column (
                 children: <Widget>[
                   TextFormField (
@@ -72,7 +77,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     keyboardType: TextInputType.multiline,
                     maxLines: 10,
                     onChanged: (value) {
-                      _event = value;
+                      content = value;
                     },
                   ),
                   SizedBox(
@@ -110,7 +115,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      _createPost(_event, genre.id);
+                      _createPost(content, genre.id);
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
