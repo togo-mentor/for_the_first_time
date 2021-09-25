@@ -79,8 +79,6 @@ class AuthService {
   void logOut() async {
     try {
       await Amplify.Auth.signOut(); // サインアウト
-      await Amplify.DataStore.clear(); // ローカルに保存されたDataStoreのデータを削除
-      print('DataStore is cleared.');
       showLogin(); // ログインページに遷移
     } on AmplifyException catch (authError) {
       print('Failed to sign up - $authError');

@@ -35,11 +35,13 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
         final responseData = jsonDecode(response.body);
         // update the ui state to reflect fetched todos
         setState(() {
-          _posts = List<Post>.from(responseData['data'].map((post) => Post.fromJson(post)));
+          _posts = List<Post>.from(responseData['data'].map(
+            (post) => Post.fromJson(post))
+          );
         });
       }
     } catch (e) {
-      print('An error occurred while querying Todos: $e');
+      print('An error occurred while querying Posts: $e');
     }
   }
 
