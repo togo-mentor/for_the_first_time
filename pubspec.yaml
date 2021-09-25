@@ -30,10 +30,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   amplify_flutter: '<1.0.0'
   amplify_auth_cognito: '<1.0.0'
-  amplify_datastore: any
   amplify_core: any
-  amplify_api: any
-  
+
+  http: ^0.13.0
 
   random_string: any
 
