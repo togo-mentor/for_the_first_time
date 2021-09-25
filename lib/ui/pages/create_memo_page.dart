@@ -27,7 +27,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
       AuthSession res = await Amplify.Auth.fetchAuthSession(
         options: CognitoSessionOptions(getAWSCredentials: true),
       );
-      String identityId = (res as CognitoAuthSession).identityId!;
+      String identityId = (res as CognitoAuthSession).identityId!; // 一旦cognitoのユーザー情報をDBに保存する
       Post newPost = new Post(content: content, genreId: genreId, userToken: identityId);
       String url = 'http://127.0.0.1:3000/posts';
       final response = await http.post(Uri.parse(url),
@@ -35,7 +35,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         headers: {"Content-Type": "application/json"}
       );
       if (response.statusCode == 200) {
-        _formKeyScreen1.currentState?.reset();
+        _formKeyScreen1.currentState?.reset(); // フォームの入力内容をリセット
       }
     } catch (error) {
       print(error);

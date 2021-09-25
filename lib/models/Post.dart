@@ -2,8 +2,9 @@ class Post {
   final String content;
   final int genreId;
   final String userToken;
+  final DateTime? createdAt;
 
-  Post({required this.content, required this.genreId, required this.userToken});
+  Post({required this.content, required this.genreId, required this.userToken, this.createdAt});
   Map<String, dynamic> toJson() => {
     'content': content,
     'genre_id': genreId,
@@ -15,7 +16,8 @@ class Post {
       Post(
         content: json['content'],
         genreId: json['genre_id'],
-        userToken: json['user_token']
+        userToken: json['user_token'],
+        createdAt: json['created_at']
       )
     );
   }

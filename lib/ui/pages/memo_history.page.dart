@@ -70,7 +70,7 @@ class PostItem extends StatelessWidget {
     return Card(
       child: InkWell(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Row(children: [
             Expanded(
               child: Column(
@@ -78,7 +78,7 @@ class PostItem extends StatelessWidget {
                 children: [
                   Text(post.content,
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Text(renderGenreName(post.genreId)),
                 ],
               ),
