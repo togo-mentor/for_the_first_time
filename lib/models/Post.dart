@@ -11,7 +11,6 @@ class Post {
   };
 
   static Post fromJson(Map<String, dynamic> json) {
-    print(json);
     return (
       Post(
         content: json['content'],
