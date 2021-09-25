@@ -1,12 +1,12 @@
 class Post {
   final String content;
-  final int genre_id;
-  final String user_token;
+  final int genreId;
+  final String userToken;
 
-  Post({required this.content, required this.genre_id, required this.user_token});
+  Post({required this.content, required this.genreId, required this.userToken});
   Map<String, dynamic> toJson() => {
     'content': content,
-    'genre_id': genre_id,
-    'user_token': user_token,
+    'genre_id': genreId,
+    'user_token': userToken,
   };
 }

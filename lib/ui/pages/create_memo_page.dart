@@ -27,7 +27,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         options: CognitoSessionOptions(getAWSCredentials: true),
       );
       String identityId = (res as CognitoAuthSession).identityId!;
-      Post newPost = new Post(content: content, genre_id: genreId, user_token: identityId);
+      Post newPost = new Post(content: content, genreId: genreId, userToken: identityId);
       String url = 'http://127.0.0.1:3000/posts';
       final response = await http.post(Uri.parse(url),
         body: json.encode(newPost.toJson()),
