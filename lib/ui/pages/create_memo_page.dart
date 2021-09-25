@@ -1,16 +1,10 @@
 import 'package:amplify_datastore/amplify_datastore.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
+import 'package:for_the_first_time/models/Genre.dart';
 import 'package:for_the_first_time/models/ModelProvider.dart';
 import '../../amplifyconfiguration.dart';
 import '../../models/Post.dart';
-
-class Genre {
-  final int id;
-  final String name;
-
-  Genre(this.id, this.name);
-}
 
 class CreateMemoPage extends StatefulWidget {
   @override
@@ -19,14 +13,6 @@ class CreateMemoPage extends StatefulWidget {
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
   String _event = '';
-  List<Genre> genreList = <Genre>[
-    Genre(1, '食'),
-    Genre(2, '運動'),
-    Genre(3, '自然'),
-    Genre(4, '勉強'),
-    Genre(5, '読書'),
-    Genre(6, '旅'),
-  ];
   Genre genre = Genre(0, '');
   bool _selected = false;
 
