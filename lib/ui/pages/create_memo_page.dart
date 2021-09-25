@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
 import 'package:for_the_first_time/models/Genre.dart';
@@ -22,7 +23,11 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Future _createPost(content, genreId) async {
     try {
-      Post newPost = new Post(content: content, genre_id: genreId);
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
+      );
+      String identityId = (res as CognitoAuthSession).identityId!;
+      Post newPost = new Post(content: content, genre_id: genreId, user_token: identityId);
       String url = 'http://127.0.0.1:3000/posts';
       final response = await http.post(Uri.parse(url),
         body: json.encode(newPost.toJson()),
