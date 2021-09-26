@@ -13,6 +13,7 @@ class MemoHistoryPage extends StatefulWidget {
 
 class _MemoHistoryPageState extends State<MemoHistoryPage> {
   List<Post> _posts = [];
+  ScrollController _controller = new ScrollController();
 
   @override
   void initState() {
@@ -47,8 +48,11 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
   Widget build(BuildContext context) {
     return _posts.length >= 1
         ? ListView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            controller: _controller,
             padding: EdgeInsets.all(8),
-            children: _posts.map((post) => PostItem(post: post)).toList())
-        : Center(child: CircularProgressIndicator());
+            children: _posts.map((post) => PostItem(post: post)).toList()
+          )
+      : Center(child: CircularProgressIndicator());
   }
 }
