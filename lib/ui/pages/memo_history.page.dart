@@ -49,6 +49,6 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
         ? ListView(
             padding: EdgeInsets.all(8),
             children: _posts.map((post) => PostItem(post: post)).toList())
-        : Center(child: Text('Tap button below to add a todo!'));
+        : Center(child: CircularProgressIndicator());
   }
 }
