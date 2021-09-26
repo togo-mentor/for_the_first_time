@@ -12,4 +12,5 @@ List<Genre> genreList = <Genre>[
   Genre(4, '勉強'),
   Genre(5, '読書'),
   Genre(6, '旅'),
+  Genre(7, '人間関係'),
 ];
