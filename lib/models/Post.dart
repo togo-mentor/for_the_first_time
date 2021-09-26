@@ -2,7 +2,7 @@ class Post {
   final String content;
   final int genreId;
   final String userToken;
-  final DateTime? createdAt;
+  final String? createdAt;
 
   Post({required this.content, required this.genreId, required this.userToken, this.createdAt});
   Map<String, dynamic> toJson() => {

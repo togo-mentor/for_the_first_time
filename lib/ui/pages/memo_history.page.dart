@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify.dart';
 import '../../models/Post.dart';
 import 'package:for_the_first_time/models/Genre.dart';
 import 'package:http/http.dart' as http;
+import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
 class MemoHistoryPage extends StatefulWidget {
   @override
@@ -65,6 +66,13 @@ class PostItem extends StatelessWidget {
     return genre.name;
   }
 
+  String formateTimeStamp(createdAtString) {
+    initializeDateFormatting("ja_JP");
+    DateTime createdAtDatetime = DateTime.parse(createdAtString); 
+    var formatter = new DateFormat('yyyy/MM/dd(E) HH:mm', "ja_JP");
+    return formatter.format(createdAtDatetime.toLocal());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -80,6 +88,7 @@ class PostItem extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   Text(renderGenreName(post.genreId)),
+                  Text(formateTimeStamp(post.createdAt)),
                 ],
               ),
             ),

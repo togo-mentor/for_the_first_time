@@ -36,6 +36,9 @@ dependencies:
 
   random_string: any
 
+  flutter_localizations:
+    sdk: flutter
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
