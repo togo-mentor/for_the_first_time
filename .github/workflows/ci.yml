@@ -1,8 +1,6 @@
 name: lint
 
 on:
-  pull_request:
-    types: [opened, synchronize]
   push:
 
 jobs:
@@ -23,11 +21,6 @@ jobs:
         run: flutter pub get
       - name: flutter analyze
         run: flutter analyze > flutter_analyze_report.txt
-  report: 
-    name: report flutter analyze result
-    runs-on: ubuntu-latest
-    needs: lint
-    steps: 
       - name: setup ruby
         if: ${{ failure() }}
         uses: actions/setup-ruby@v1
