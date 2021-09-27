@@ -31,14 +31,13 @@ jobs:
       - name: setup danger
         if: ${{ failure() }}
         run: |
-          gem install bundler
+          gem install bundler -v '2.1.4'
           bundle install
       - name: execute danger
         if: ${{ failure() }}
         uses: MeilCli/danger-action@v5
         with:
           plugins_file: "Gemfile"
-          install_path: "vendor/bundle"
           danger_file: "Dangerfile"
           danger_id: "danger-pr"
         env:
