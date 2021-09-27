@@ -22,7 +22,7 @@ jobs:
       - name: flutter pub get
         run: flutter pub get
       - name: flutter analyze
-        run: flutter analyze > ./flutter_analyze_report.txt
+        run: flutter analyze > flutter_analyze_report.txt
       - name: setup ruby
         if: ${{ failure() }}
         uses: actions/setup-ruby@v1
@@ -34,6 +34,7 @@ jobs:
           gem install bundler -v '2.1.4'
           bundle install
       - name: execute danger
+        needs: flutter analyze
         if: ${{ failure() }}
         uses: MeilCli/danger-action@v5
         with:
