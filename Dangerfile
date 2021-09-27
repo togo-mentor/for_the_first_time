@@ -1,4 +1,4 @@
-Check PR
+# Check PR
 warn("PRがWIPになってるよ！🐶") if github.pr_title.include? "[WIP]"
 
 warn("PRのタイトルが短すぎるよ！🐶") if github.pr_title.length < 5
