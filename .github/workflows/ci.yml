@@ -17,5 +17,23 @@ jobs:
         with:
           flutter-version: '2.2.0'
       - run: flutter pub get
-      - name: run lint
-        run: flutter analyze
+      - name: flutter analyze
+        run: flutter analyze > flutter_analyze_report.txt
+      - name: setup ruby
+        if: ${{ failure() }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+      - name: setup danger
+        if: ${{ failure() }}
+        run: |
+          gem install bundler
+          bundle install
+      - name: execute danger
+        if: ${{ failure() }}
+        uses: MeilCli/danger-action@v5
+        with:
+          plugins_file: "Gemfile"
+          install_path: "vendor/bundle"
+          danger_file: "Dangerfile"
+          danger_id: "danger-pr"
