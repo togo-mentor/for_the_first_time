@@ -18,21 +18,19 @@ jobs:
         with:
           flutter-version: "2.2.3"
           channel: 'stable'
+      - name: flutter pub get
+        run: flutter pub get
       - name: flutter analyze
         continue-on-error: true
         run: flutter analyze > flutter_analyze_report.txt
       - name: setup ruby
-        if: ${{ failure() }}
         uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.6"
       - name: setup danger
-        if: ${{ failure() }}
         run: |
           gem install bundler
           bundle install
-      - name: flutter pub get
-        run: flutter pub get
       - name: run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
