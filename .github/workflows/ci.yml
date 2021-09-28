@@ -20,5 +20,8 @@ jobs:
           channel: 'stable'
       - name: flutter pub get
         run: flutter pub get
-      - name: Analyze Dart
-        uses: zgosalvez/github-actions-analyze-dart@v1
+      - name: run danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # GITHUB_TOKENがデフォで発行されるのでそれをdangerで利用する。
+        run: danger # dangerはgithub actionsに対応しているため実行するだけでOK！
