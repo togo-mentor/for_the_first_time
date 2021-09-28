@@ -25,17 +25,7 @@ jobs:
       - name: flutter analyze
         continue-on-error: true
         run: flutter analyze > flutter_analyze_report.txt
-      - name: setup ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: "2.6"
-      - name: run danger
+      - name: Run Danger
+        uses: danger/danger-js@9.1.8
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # GITHUB_TOKENがデフォで発行されるのでそれをdangerで利用する。
-        # dangerはgithub actionsに対応しているため実行するだけでOK！
-        run: |
-          gem install bundler -v '2.1.4'
-          bundle update
-          bundle install
-          bundle exec danger
