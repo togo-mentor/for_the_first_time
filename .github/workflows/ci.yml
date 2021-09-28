@@ -29,12 +29,12 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: "2.6"
-      - name: setup danger
-        run: |
-          gem install bundler
-          bundle install
       - name: run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # GITHUB_TOKENがデフォで発行されるのでそれをdangerで利用する。
-        run: bundle exec danger # dangerはgithub actionsに対応しているため実行するだけでOK！
+        # dangerはgithub actionsに対応しているため実行するだけでOK！
+        run: |
+          gem install bundler
+          bundle install
+          bundle exec danger
