@@ -18,10 +18,22 @@ jobs:
         with:
           flutter-version: "2.2.3"
           channel: 'stable'
+      - name: flutter analyze
+        run: flutter analyze > flutter_analyze_report.txt
+      - name: setup ruby
+        if: ${{ failure() }}
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.6"
+      - name: setup danger
+        if: ${{ failure() }}
+        run: |
+          gem install bundler
+          bundle install
       - name: flutter pub get
         run: flutter pub get
       - name: run danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # GITHUB_TOKENがデフォで発行されるのでそれをdangerで利用する。
-        run: danger # dangerはgithub actionsに対応しているため実行するだけでOK！
+        run: bundle exec danger # dangerはgithub actionsに対応しているため実行するだけでOK！
