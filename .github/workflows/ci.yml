@@ -22,6 +22,8 @@ jobs:
           channel: 'stable'
       - name: flutter pub get
         run: flutter pub get
+      - name: Format and Report
+        run: dart format --fix ./ > dart_format_report.txt
       - name: flutter analyze
         continue-on-error: true
         run: flutter analyze > flutter_analyze_report.txt
