@@ -19,6 +19,7 @@ jobs:
           flutter-version: "2.2.3"
           channel: 'stable'
       - name: flutter analyze
+        continue-on-error: true
         run: flutter analyze > flutter_analyze_report.txt
       - name: setup ruby
         if: ${{ failure() }}
