@@ -6,7 +6,7 @@ import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
-import '../amplifyconfiguration.dart';
+import './amplifyconfiguration.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
@@ -43,6 +43,7 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: StreamBuilder<AuthState>(
