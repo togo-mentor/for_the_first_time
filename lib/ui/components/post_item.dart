@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../models/Post.dart';
-import 'package:for_the_first_time/models/Genre.dart';
+import '../../models/post.dart';
+import 'package:for_the_first_time/models/genre.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -19,7 +19,7 @@ class PostItem extends StatelessWidget {
   String formateTimeStamp(createdAtString) {
     initializeDateFormatting("ja_JP");
     DateTime createdAtDatetime = DateTime.parse(createdAtString); 
-    var formatter = new DateFormat('yyyy/MM/dd(E) HH:mm', "ja_JP");
+    var formatter = DateFormat('yyyy/MM/dd(E) HH:mm', "ja_JP");
     return formatter.format(createdAtDatetime.toLocal());
   }
 
