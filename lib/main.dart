@@ -16,8 +16,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _authService = AuthService();
+  
   @override
-
   void initState() {
     super.initState();
     _authService.checkAuthStatus();
