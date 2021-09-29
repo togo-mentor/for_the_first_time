@@ -6,7 +6,7 @@ import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
-import './amplifyconfiguration.dart';
+import 'package:for_the_first_time/amplifyconfiguration.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {

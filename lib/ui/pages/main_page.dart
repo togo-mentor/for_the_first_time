@@ -18,6 +18,7 @@ class _MainPageState extends State<MainPage> {
     Tab(text:"ダッシュボード", icon: Icon(Icons.dashboard)),
   ];
 
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(  // タブを制御
       length: _tab.length,  // タブの数
