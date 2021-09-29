@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:for_the_first_time/models/Genre.dart';
-import '../../models/Post.dart';
+import 'package:for_the_first_time/models/genre.dart';
+import '../../models/post.dart';
 import 'package:http/http.dart' as http;
 
 class CreateMemoPage extends StatefulWidget {

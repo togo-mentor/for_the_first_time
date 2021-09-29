@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/ui/components/post_item.dart';
-import '../../models/Post.dart';
+import '../../models/post.dart';
 import 'package:http/http.dart' as http;
 
 class MemoHistoryPage extends StatefulWidget {
