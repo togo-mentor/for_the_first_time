@@ -42,8 +42,8 @@ class AuthService {
       } else {
         print('User could not be signed in');
       }
-    } on AmplifyException catch (authError) {
-      throw authError;
+    } on AmplifyException {
+      rethrow;
     }
   }
 
@@ -64,8 +64,8 @@ class AuthService {
         final state = AuthState(authFlowStatus: AuthFlowStatus.verification); // サインアップが完了していない場合、認証ページに遷移
         authStateController.add(state);
       }
-    } on AmplifyException catch (authError) {
-      throw authError;
+    } on AmplifyException {
+      rethrow;
     }
   }
 
