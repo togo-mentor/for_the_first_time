@@ -14,11 +14,12 @@ class CreateMemoPage extends StatefulWidget {
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
   
-  GlobalKey<FormState> _formKeyScreen1 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyScreen1 = GlobalKey<FormState>();
   String content = '';
   Genre genre = Genre(0, '');
   bool _selected = false;
 
+  @override
   void initState() {
     super.initState();
   }
@@ -29,7 +30,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         options: CognitoSessionOptions(getAWSCredentials: true),
       );
       String identityId = (res as CognitoAuthSession).identityId!; // 一旦cognitoのユーザー情報をDBに保存する
-      Post newPost = new Post(content: content, genreId: genreId, userToken: identityId);
+      Post newPost = Post(content: content, genreId: genreId, userToken: identityId);
       String url = 'http://127.0.0.1:3000/posts';
       final response = await http.post(Uri.parse(url),
         body: json.encode(newPost.toJson()),
@@ -45,6 +46,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
     }
   }
 
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
