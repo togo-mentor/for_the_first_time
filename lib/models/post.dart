@@ -5,12 +5,15 @@ class Post {
   final String? createdAt;
 
   Post({required this.content, required this.genreId, required this.userToken, this.createdAt});
+
+  // API通信時にパラメータをjson形式に変換する
   Map<String, dynamic> toJson() => {
     'content': content,
     'genre_id': genreId,
     'user_token': userToken,
   };
 
+  // APIからのレスポンスをdartで扱える形式に変換する
   static Post fromJson(Map<String, dynamic> json) {
     return (
       Post(

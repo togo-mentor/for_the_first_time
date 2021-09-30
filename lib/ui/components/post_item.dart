@@ -4,18 +4,20 @@ import 'package:for_the_first_time/models/genre.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
 
-
+// 投稿一覧の一つ一つの投稿を表示するためのコンポーネント
 class PostItem extends StatelessWidget {
   final double iconSize = 24.0;
   final Post post;
 
   PostItem({required this.post});
 
+  // genre_idをジャンルの名前に変換する
   String renderGenreName(genreId) {
     final genre = genreList.firstWhere((genre) => genre.id == genreId);
     return genre.name;
   }
 
+  // created_atの整形
   String formateTimeStamp(createdAtString) {
     initializeDateFormatting("ja_JP");
     DateTime createdAtDatetime = DateTime.parse(createdAtString); 

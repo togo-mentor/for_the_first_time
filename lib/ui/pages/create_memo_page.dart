@@ -14,6 +14,7 @@ class CreateMemoPage extends StatefulWidget {
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
   
+  // フォーム送信後にフォームの入力内容をリセットするためのkey
   final GlobalKey<FormState> _formKeyScreen1 = GlobalKey<FormState>();
   String content = '';
   Genre genre = Genre(0, '');
@@ -38,6 +39,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
       );
       if (response.statusCode == 200) {
         _formKeyScreen1.currentState?.reset(); // フォームの入力内容をリセット
+        // stateをリセットする
         content = '';
         _selected = false;
       }

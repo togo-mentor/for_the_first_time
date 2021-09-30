@@ -32,8 +32,8 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
         headers: {"Content-Type": "application/json"}
       );
       if (response.statusCode == 200) {
+        // APIから受け取ったjson形式のデータをdartで扱える形式に変換
         final responseData = jsonDecode(response.body);
-        // update the ui state to reflect fetched todos
         setState(() {
           _posts = List<Post>.from(responseData['data'].map(
             (post) => Post.fromJson(post))

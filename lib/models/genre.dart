@@ -5,6 +5,7 @@ class Genre {
   Genre(this.id, this.name);
 }
 
+// プルダウンに表示するジャンルのリスト。ジャンルを増やしたい場合はここに追加
 List<Genre> genreList = <Genre>[
   Genre(1, '食'),
   Genre(2, '運動'),
