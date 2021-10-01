@@ -14,10 +14,7 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
-  //  final fieldText = TextEditingController();
-  String content = '';
-  Genre genre = Genre(0, '');
-    FormGroup form = FormGroup({
+  FormGroup form = FormGroup({
     'content': FormControl<String>(
       validators: [
         Validators.required,
@@ -46,9 +43,11 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         headers: {"Content-Type": "application/json"}
       );
       if (response.statusCode == 200) {
+        // フォームの入力値のリセット
         form.control('content').value = '';
         form.control('genreId').value = null;
-        form.unfocus(touched: false);
+        form.unfocus(touched: false); // 保存後にバリデーションメッセージが出てくるのを防ぐためにfocusを外す
+        // 画面下部にフラッシュメッセージを表示
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('保存に成功しました！'),
         ));
@@ -56,6 +55,12 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
     } catch (error) {
       print(error);
     }
+  }
+
+  // バリデーションメッセージを表示
+  void showValidationMessage() {
+    form.control('content').markAsTouched();
+    form.control('genreId').markAsTouched();
   }
 
   @override
@@ -72,7 +77,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             ReactiveForm(
             formGroup: form,
@@ -80,7 +85,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
               children: <Widget>[
                 ReactiveTextField(
                     formControlName: 'content',
-                    maxLines: 10,
+                    maxLines: 8,
                     autofocus: true,
                     keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
@@ -111,14 +116,17 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                           child: Text(item.name),
                         );
                       }).toList(),
+                    validationMessages: (control) => {
+                      ValidationMessage.required: 'ジャンルを選択してください。',
+                    },
                   ),
                   SizedBox(
-                    height: 25,
+				            height: 20,
                   ),
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      form.valid ? _createPost(form.control('content').value, form.control('genreId').value.id) : null;
+                      form.valid ? _createPost(form.control('content').value, form.control('genreId').value.id) : showValidationMessage();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
