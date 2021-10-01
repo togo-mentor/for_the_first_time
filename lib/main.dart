@@ -6,6 +6,7 @@ import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
+// ignore: uri_does_not_exist
 import 'package:for_the_first_time/amplifyconfiguration.dart';
 
 void main() => runApp(MyApp());
@@ -36,6 +37,7 @@ class _MyAppState extends State<MyApp> {
       await Future.wait([
         Amplify.addPlugin(authPlugin),
       ]);
+      // ignore: undefined_identifier
       await Amplify.configure(amplifyconfig);
       print('Successfully configured Amplify 🎉'); // このメッセージが出てくれば正しく設定が読み込めている
     } on AmplifyAlreadyConfiguredException {
