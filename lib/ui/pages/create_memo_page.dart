@@ -78,17 +78,17 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
             child: Column(
               children: <Widget>[
                 ReactiveTextField(
-                  formControlName: 'content',
-                  maxLines: 10,
-                  autofocus: true,
-                  keyboardType: TextInputType.multiline,
-                  decoration: InputDecoration(
-                    hintText: '今日あった「人生初」の出来事を記録してください',
-                    labelText: "出来事",
-                    border: OutlineInputBorder(),
-                    floatingLabelBehavior:FloatingLabelBehavior.always, // labelを上部に固定
-                  ),
-                  validationMessages: (control) => {
+                    formControlName: 'content',
+                    maxLines: 10,
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      hintText: '今日あった「人生初」の出来事を記録してください',
+                      labelText: "出来事",
+                      border: OutlineInputBorder(),
+                      floatingLabelBehavior:FloatingLabelBehavior.always, // labelを上部に固定
+                    ),
+                    validationMessages: (control) => {
                       ValidationMessage.required: '出来事を入力してください。',
                     },
                   ),
