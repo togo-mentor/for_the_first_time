@@ -48,6 +48,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
       if (response.statusCode == 200) {
         form.control('content').value = '';
         form.control('genreId').value = null;
+        form.unfocus(touched: false);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('保存に成功しました！'),
         ));
