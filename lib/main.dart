@@ -4,8 +4,6 @@ import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
-// ignore: uri_does_not_exist
-import 'package:for_the_first_time/amplifyconfiguration.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
