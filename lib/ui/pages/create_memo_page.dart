@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify.dart';
 import 'package:for_the_first_time/models/genre.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/post.dart';
@@ -32,10 +30,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Future _createPost(content, genreId) async {
     try {
-      AuthSession res = await Amplify.Auth.fetchAuthSession(
-        options: CognitoSessionOptions(getAWSCredentials: true),
-      );
-      String identityId = (res as CognitoAuthSession).identityId!; // 一旦cognitoのユーザー情報をDBに保存する
+      String identityId = 'test';
       Post newPost = Post(content: content, genreId: genreId, userToken: identityId);
       String url = 'http://127.0.0.1:3000/posts';
       final response = await http.post(Uri.parse(url),
