@@ -1,14 +1,12 @@
+import 'dart:convert';
+
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:flutter/material.dart';
 import 'package:amplify_flutter/amplify.dart';
-import 'package:for_the_first_time/models/ModelProvider.dart';
-import '../../models/Post.dart';
-
-class Genre {
-  final int id;
-  final String name;
-
-  Genre(this.id, this.name);
-}
+import 'package:for_the_first_time/models/genre.dart';
+import 'package:reactive_forms/reactive_forms.dart';
+import '../../models/post.dart';
+import 'package:http/http.dart' as http;
 
 class CreateMemoPage extends StatefulWidget {
   @override
@@ -16,34 +14,56 @@ class CreateMemoPage extends StatefulWidget {
 }
 
 class _CreateMemoPageState extends State<CreateMemoPage> {
-  String _event = '';
-  List<Genre> genreList = <Genre>[
-    Genre(1, '食'),
-    Genre(2, '運動'),
-    Genre(3, '自然'),
-    Genre(4, '勉強'),
-    Genre(5, '読書'),
-    Genre(6, '旅'),
-  ];
-  Genre genre = Genre(0, '');
-  bool _selected = false;
+  FormGroup form = FormGroup({
+    'content': FormControl<String>(
+      validators: [
+        Validators.required,
+      ],
+    ),
+    'genreId': FormControl<Genre>(validators: [
+      Validators.required,
+    ]),
+  });
 
-  Future createPost(content, genreId) async {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future _createPost(content, genreId) async {
     try {
-      Post newPost = Post(
-        content: content,
-        genreId: genreId
+      AuthSession res = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
       );
-      print(newPost);
-      await Amplify.DataStore.save(newPost);
-      print('Post saved successfully!');
-      List<Post> posts = await Amplify.DataStore.query(Post.classType);
-      print(posts.length);
+      String identityId = (res as CognitoAuthSession).identityId!; // 一旦cognitoのユーザー情報をDBに保存する
+      Post newPost = Post(content: content, genreId: genreId, userToken: identityId);
+      String url = 'http://127.0.0.1:3000/posts';
+      final response = await http.post(Uri.parse(url),
+        body: json.encode(newPost.toJson()),
+        headers: {"Content-Type": "application/json"}
+      );
+      if (response.statusCode == 200) {
+        // フォームの入力値のリセット
+        form.control('content').value = '';
+        form.control('genreId').value = null;
+        form.unfocus(touched: false); // 保存後にバリデーションメッセージが出てくるのを防ぐためにfocusを外す
+        // 画面下部にフラッシュメッセージを表示
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('保存に成功しました！'),
+        ));
+      }
     } catch (error) {
       print(error);
     }
   }
 
+  // バリデーションメッセージを表示
+  void showValidationMessage() {
+    form.control('content').markAsTouched();
+    form.control('genreId').markAsTouched();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10.0),
@@ -57,66 +77,56 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
-            Form (
-              child: Column (
-                children: <Widget>[
-                  TextFormField (
+            ReactiveForm(
+            formGroup: form,
+            child: Column(
+              children: <Widget>[
+                ReactiveTextField(
+                    formControlName: 'content',
+                    maxLines: 8,
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
                     decoration: InputDecoration(
                       hintText: '今日あった「人生初」の出来事を記録してください',
                       labelText: "出来事",
                       border: OutlineInputBorder(),
                       floatingLabelBehavior:FloatingLabelBehavior.always, // labelを上部に固定
                     ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'このフィールドは必須です';
-                      }
-                    },
-                    autofocus: true,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: 10,
-                    onChanged: (value) {
-                      _event = value;
+                    validationMessages: (control) => {
+                      ValidationMessage.required: '出来事を入力してください。',
                     },
                   ),
                   SizedBox(
 				            height: 20,
                   ),
-                  DropdownButtonFormField<Genre>(
-                  value: _selected ? genre : null,
-                  iconSize: 24,
-                  elevation: 16,
-                  onChanged: (Genre? newValue) {
-                    setState(() {
-                      genre = newValue!;
-                    });
-                  },
-                  validator: (Genre? value) {
-                      if (value == null) {
-                        return 'このフィールドは必須です';
-                      }
+                  ReactiveDropdownField(
+                    iconSize: 24,
+                    elevation: 16,
+                    formControlName: 'genreId',
+                    decoration: InputDecoration(
+                      labelText: 'ジャンルを選択',
+                      border: OutlineInputBorder(),
+                    ),
+                    items: genreList
+                          .map<DropdownMenuItem<Genre>>((Genre item) {
+                        return DropdownMenuItem<Genre>(
+                          value: item,
+                          child: Text(item.name),
+                        );
+                      }).toList(),
+                    validationMessages: (control) => {
+                      ValidationMessage.required: 'ジャンルを選択してください。',
                     },
-                   decoration: InputDecoration(
-                    labelText: 'ジャンルを選択',
-                    border: OutlineInputBorder(),
-                  ),
-                  items: genreList
-                        .map<DropdownMenuItem<Genre>>((Genre item) {
-                      return DropdownMenuItem<Genre>(
-                        value: item,
-                        child: Text(item.name),
-                      );
-                    }).toList(),
                   ),
                   SizedBox(
-				            height: 25,
+				            height: 20,
                   ),
                   ElevatedButton(
                     child: Text('保存する'),
                     onPressed: () {
-                      createPost(_event, genre.id);
+                      form.valid ? _createPost(form.control('content').value, form.control('genreId').value.id) : showValidationMessage();
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
@@ -124,8 +134,8 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
                     ),
                   ),
                 ]
-              )
-            ),
+              ),
+            )
           ],
         ),
     );

@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "forthefirsttimea3b35b53_identitypool_a3b35b53",
+    "identityPoolName": "forthefirsttime0735c54c_identitypool_0735c54c",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "forthea3b35b53",
-    "userPoolName": "forthefirsttimea3b35b53_userpool_a3b35b53",
+    "resourceNameTruncated": "forthe0735c54c",
+    "userPoolName": "forthefirsttime0735c54c_userpool_0735c54c",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -21,17 +21,20 @@
         "email"
     ],
     "aliasAttributes": [
-        "email",
-        "preferred_username"
+        "email"
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [],
-    "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "forthea3b35b53_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [
+        "email"
+    ],
+    "userpoolClientReadAttributes": [
+        "email"
+    ],
+    "userpoolClientLambdaRole": "forthe0735c54c_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "a3b35b53",
-    "resourceName": "forthefirsttimea3b35b53",
+    "sharedId": "0735c54c",
+    "resourceName": "forthefirsttime0735c54c",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -45,14 +48,9 @@
             "Arn"
         ]
     },
-    "useDefault": "manual",
+    "useDefault": "default",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": [],
-    "userPoolGroups": false,
-    "adminQueries": false,
-    "thirdPartyAuth": false,
-    "authProviders": [],
-    "hostedUI": false
+    "dependsOn": []
 }

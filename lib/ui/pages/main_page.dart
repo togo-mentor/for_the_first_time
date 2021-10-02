@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import './tab_page.dart';
 import './create_memo_page.dart';
+import 'memo_history.page.dart';
 
 class MainPage extends StatefulWidget {
   final VoidCallback shouldLogOut;
@@ -17,6 +18,7 @@ class _MainPageState extends State<MainPage> {
     Tab(text:"ダッシュボード", icon: Icon(Icons.dashboard)),
   ];
 
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(  // タブを制御
       length: _tab.length,  // タブの数
@@ -40,7 +42,7 @@ class _MainPageState extends State<MainPage> {
         body: TabBarView(  // 表示画面のウィジェット一覧を渡す
             children: <Widget> [
               CreateMemoPage(),
-              TabPage(title: "履歴を見る", icon: Icons.history),
+              MemoHistoryPage(),
               TabPage(title: "ダッシュボード", icon: Icons.dashboard),
             ]
         ),

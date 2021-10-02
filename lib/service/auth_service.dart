@@ -42,8 +42,8 @@ class AuthService {
       } else {
         print('User could not be signed in');
       }
-    } on AmplifyException catch (authError) {
-      throw authError;
+    } on AmplifyException {
+      rethrow;
     }
   }
 
@@ -64,8 +64,8 @@ class AuthService {
         final state = AuthState(authFlowStatus: AuthFlowStatus.verification); // サインアップが完了していない場合、認証ページに遷移
         authStateController.add(state);
       }
-    } on AmplifyException catch (authError) {
-      throw authError;
+    } on AmplifyException {
+      rethrow;
     }
   }
 
@@ -79,8 +79,6 @@ class AuthService {
   void logOut() async {
     try {
       await Amplify.Auth.signOut(); // サインアウト
-      await Amplify.DataStore.clear(); // ローカルに保存されたDataStoreのデータを削除
-      print('DataStore is cleared.');
       showLogin(); // ログインページに遷移
     } on AmplifyException catch (authError) {
       print('Failed to sign up - $authError');

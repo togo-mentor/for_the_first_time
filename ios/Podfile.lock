@@ -15,11 +15,6 @@ PODS:
     - ObjectMapper
   - amplify_core (0.0.1):
     - Flutter
-  - amplify_datastore (0.0.1):
-    - Amplify (~> 1.13.0)
-    - amplify_core
-    - AmplifyPlugins/AWSDataStorePlugin (~> 1.13.0)
-    - Flutter
   - amplify_flutter (0.0.1):
     - Amplify (~> 1.13.0)
     - amplify_core
@@ -37,10 +32,6 @@ PODS:
     - AWSCore (~> 2.25.0)
     - AWSMobileClient (~> 2.25.0)
     - AWSPluginsCore (= 1.13.4)
-  - AmplifyPlugins/AWSDataStorePlugin (1.13.4):
-    - AWSCore (~> 2.25.0)
-    - AWSPluginsCore (= 1.13.4)
-    - SQLite.swift (= 0.12.2)
   - AppSyncRealTimeClient (1.5.0):
     - Starscream (~> 3.1.1)
   - AWSAuthCore (2.25.0):
@@ -60,16 +51,12 @@ PODS:
     - AWSCore (~> 2.25.0)
   - Flutter (1.0.0)
   - ObjectMapper (4.2.0)
-  - SQLite.swift (0.12.2):
-    - SQLite.swift/standard (= 0.12.2)
-  - SQLite.swift/standard (0.12.2)
   - Starscream (3.1.1)
 
 DEPENDENCIES:
   - amplify_api (from `.symlinks/plugins/amplify_api/ios`)
   - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
   - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
-  - amplify_datastore (from `.symlinks/plugins/amplify_datastore/ios`)
   - amplify_flutter (from `.symlinks/plugins/amplify_flutter/ios`)
   - Flutter (from `Flutter`)
 
@@ -85,7 +72,6 @@ SPEC REPOS:
     - AWSMobileClient
     - AWSPluginsCore
     - ObjectMapper
-    - SQLite.swift
     - Starscream
 
 EXTERNAL SOURCES:
@@ -95,8 +81,6 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/amplify_auth_cognito/ios"
   amplify_core:
     :path: ".symlinks/plugins/amplify_core/ios"
-  amplify_datastore:
-    :path: ".symlinks/plugins/amplify_datastore/ios"
   amplify_flutter:
     :path: ".symlinks/plugins/amplify_flutter/ios"
   Flutter:
@@ -107,7 +91,6 @@ SPEC CHECKSUMS:
   amplify_api: d89bae0b1498df4d78a2b9359dbbdfb33b1bcec6
   amplify_auth_cognito: 595ff4c4c10a5679768932eb151965a64d409d63
   amplify_core: 8b38d20089fe4f225c14db6892f586bd03824a42
-  amplify_datastore: b32eb1b5a658aa8ed3f3d2927d0e276fe66efd37
   amplify_flutter: 3e5ada5600f3657ccbd77f08419eb3aa936b5d4b
   AmplifyPlugins: 290f52ebdc10a84af0b0408d52b6153b0806e31f
   AppSyncRealTimeClient: 2b4482b1770a3e5cf64f9714a6d198550017b5a2
@@ -119,7 +102,6 @@ SPEC CHECKSUMS:
   AWSPluginsCore: c7807376b795c0976065e40bc31de11ac4b2a0f5
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  SQLite.swift: d2b4642190917051ce6bd1d49aab565fe794eea3
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
 
 PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
