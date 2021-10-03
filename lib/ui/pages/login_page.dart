@@ -10,10 +10,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String _login_Email = "";  // 入力されたメールアドレス
-  String _login_Password = "";  // 入力されたパスワード
-  String _infoText = "";  // ログインに関する情報を表示
-
   // Firebase Authenticationを利用するためのインスタンス
   final FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? _result;
@@ -78,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                             try {
                               // メール/パスワードでユーザー登録
                               _result = await auth.signInWithEmailAndPassword(
-                                email: _login_Email,
-                                password: _login_Password,
+                                email: form.control('email').value,
+                                password: form.control('password').value,
                               );
 
                               // ログイン成功

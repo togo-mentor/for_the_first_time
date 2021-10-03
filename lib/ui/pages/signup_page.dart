@@ -11,10 +11,6 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  String _login_Email = "";  // 入力されたメールアドレス
-  String _login_Password = "";  // 入力されたパスワード
-  String _infoText = "";  // ログインに関する情報を表示
-
   // Firebase Authenticationを利用するためのインスタンス
   final FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? _result;
@@ -78,26 +74,22 @@ class _SignUpPageState extends State<SignUpPage> {
                           onPressed: () async {
                             try {
                               // メール/パスワードでユーザー登録
-                              _result = await auth.signInWithEmailAndPassword(
-                                email: _login_Email,
-                                password: _login_Password,
+                              _result = await auth.createUserWithEmailAndPassword(
+                                email: form.control('email').value,
+                                password: form.control('password').value,
                               );
-
-                              // ログイン成功
-                              // ログインユーザーのIDを取得
+                              // 登録成功
+                              // 登録したユーザー情報
                               _user = _result!.user;
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MainPage(),
+                                  builder: (context) => MainPage(user_id: _user!.uid),
                                 )
                               );
-                              
                             } catch (e) {
-                              // ログインに失敗した場合
-                              setState(() {
-                                print(e);
-                              });
+                              // 登録に失敗した場合
+                              print(e);
                             }
                           },
                           style: ElevatedButton.styleFrom(
