@@ -38,6 +38,7 @@ dependencies:
 
   http: ^0.13.0
 
+  provider: ^5.0.0
   random_string: any
   reactive_forms: ^10.6.2
 

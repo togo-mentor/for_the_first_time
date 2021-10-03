@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/models/auth.dart';
 import 'package:for_the_first_time/ui/pages/signup_page.dart';
+import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'main_page.dart';
 
@@ -75,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             try {
                               // メール/パスワードでユーザー登録
-                              _result = await auth.signInWithEmailAndPassword(
-                                email: form.control('email').value,
-                                password: form.control('password').value,
+                              await context.read<Auth>().login(
+                                form.control('email').value,
+                                form.control('password').value,
                               );
 
                               // ログイン成功
