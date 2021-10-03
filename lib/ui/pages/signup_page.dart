@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'login_page.dart';
 import 'main_page.dart';
@@ -84,7 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => MainPage(user_id: _user!.uid),
+                                  builder: (context) => MainPage(userId: _user!.uid),
                                 )
                               );
                             } catch (e) {

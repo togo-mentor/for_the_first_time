@@ -4,6 +4,8 @@ import './create_memo_page.dart';
 import 'memo_history.page.dart';
 
 class MainPage extends StatefulWidget {
+  final String userId;
+  MainPage({Key? key, required this.userId}) : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }
