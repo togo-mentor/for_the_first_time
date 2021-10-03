@@ -4,6 +4,8 @@ import './ui/pages/login_page.dart';
 import './ui/pages/main_page.dart';
 import './ui/pages/verification_page.dart';
 import './ui/pages/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
@@ -11,7 +13,14 @@ class MyApp extends StatefulWidget {
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {  
+class _MyAppState extends State<MyApp> {
+  AuthCredential? _credential;
+
+  // Firebase 認証
+  final auth = FirebaseAuth.instance;
+  AuthResult? _result;
+  FirebaseUser? _user;
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +29,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    
+      home: LoginPage()
     );
   }
 }

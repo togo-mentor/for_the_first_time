@@ -1,119 +1,147 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import '../../service/auth_credentials.dart';
+import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
-  final ValueChanged<LoginCredentials> didProvideCredentials;
-  final VoidCallback shouldShowSignUp;
-  LoginPage({Key? key, required this.didProvideCredentials, required this.shouldShowSignUp})
-   : super(key: key);
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  String _login_Email = "";  // 入力されたメールアドレス
+  String _login_Password = "";  // 入力されたパスワード
+  String _infoText = "";  // ログインに関する情報を表示
 
-   bool taped = false;
-
+  // Firebase Authenticationを利用するためのインスタンス
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  AuthResult? _result;
+  FirebaseUser? _user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          minimum: EdgeInsets.symmetric(horizontal: 40),
-          // 4
-          child: Stack(children: [
-            // Login Form
-            _loginForm(),
+      body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                // メールアドレスの入力フォーム
+                Padding(
+                  padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 0),
+                  child:TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "メールアドレス"
+                    ),
+                    onChanged: (String value) {
+                      _login_Email = value;
+                    },
+                  )
+                ),
 
-            // 6
-            // Sign Up Button
-            Container(
-              padding: EdgeInsets.all(15),
-              alignment: Alignment.bottomCenter,
-              child: TextButton(
-                  onPressed: widget.shouldShowSignUp, // 新規登録ページに遷移
-                  child: Text('Don\'t have an account? Sign up.'),
-                  style: TextButton.styleFrom(
-                    primary: Colors.grey[850],
-                  )),
+                // パスワードの入力フォーム
+                Padding(
+                  padding: EdgeInsets.fromLTRB(25.0, 0, 25.0, 10.0),
+                  child:TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "パスワード（8～20文字）"
+                    ),
+                    obscureText: true,  // パスワードが見えないようRにする
+                    maxLength: 20,  // 入力可能な文字数
+                    maxLengthEnforced: false,  // 入力可能な文字数の制限を超える場合の挙動の制御
+                    onChanged: (String value) {
+                      _login_Password= value;
+                    },
+                  ),
+                ),
+
+                // ログイン失敗時のエラーメッセージ
+                Padding(
+                  padding: EdgeInsets.fromLTRB(20.0, 0, 20.0, 5.0),
+                  child:Text(_infoText,
+                    style: TextStyle(color: Colors.red),),
+                ),
+
+                ButtonTheme(
+                  minWidth: 350.0,
+                  // height: 100.0,
+                  child: RaisedButton(
+
+                    // ボタンの形状
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+
+                    onPressed: () async {
+                      try {
+                        // メール/パスワードでユーザー登録
+                        _result = await auth.signInWithEmailAndPassword(
+                          email: _login_Email,
+                          password: _login_Password,
+                        );
+
+                        // ログイン成功
+                        // ログインユーザーのIDを取得
+                        _user = _result!.user;
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MainPage(),
+                          )
+                        );
+                        
+                      } catch (e) {
+                        // ログインに失敗した場合
+                        setState(() {
+                          print(e);
+                        });
+                      }
+                    },
+
+                    // ボタン内の文字や書式
+                    child: Text('ログイン',
+                      style: TextStyle(fontWeight: FontWeight.bold),),
+                    textColor: Colors.white,
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
+            ),
+        // 画面下にボタンの配置
+        ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child:ButtonTheme(
+                minWidth: 350.0,
+                // height: 100.0,
+                child: RaisedButton(
+                  child: Text('アカウントを作成する',
+                  style: TextStyle(fontWeight: FontWeight.bold),),
+                  textColor: Colors.blue,
+                  color: Colors.blue[50],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+
+                  // ボタンクリック後にアカウント作成用の画面の遷移する。
+                  onPressed: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (BuildContext context) => SignUpPage(),
+                      ),
+                    );
+                  }
+
+                ),
               ),
-            ]
-          )),
-    );
-  }
-  // 全画面プログレスダイアログを表示する関数
-  void showProgressDialog() {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      transitionDuration: Duration(milliseconds: 300),
-      barrierColor: Colors.black.withOpacity(0.5),
-      pageBuilder: (BuildContext context, Animation animation, Animation secondaryAnimation) {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    );
-  }
-
-  Widget _loginForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Username TextField
-        TextField(
-          controller: _usernameController,
-          decoration:
-              InputDecoration(icon: Icon(Icons.person), labelText: 'Username'),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-
-        // Password TextField
-        TextField(
-          controller: _passwordController,
-          decoration: InputDecoration(
-              icon: Icon(Icons.lock_open), labelText: 'Password'),
-          obscureText: true,
-          keyboardType: TextInputType.visiblePassword,
-        ),
-        SizedBox(
-          height: 25,
-        ),
-
-        SizedBox( 
-          width: 120,
-          // Login Button
-          child: TextButton(
-              onPressed: () async {
-                showProgressDialog(); // 全画面プログレスダイアログを表示
-                await Future.delayed(Duration(seconds: 1)); // 1秒後にダイアログを閉じる
-                await _login();
-                Navigator.of(context, rootNavigator: true).pop();
-              },
-              child: Text('Login'),
-              style: TextButton.styleFrom(
-                primary: Colors.white,
-                backgroundColor: Theme.of(context).accentColor,
-              ),
-          ),
+            ),
+          ]
         )
-      ],
     );
-  }
-
-  Future _login() async {
-    final username = _usernameController.text.trim();
-    final password = _passwordController.text.trim();
-
-    print('username: $username');
-    print('password: $password');
-
-    final credentials =
-    LoginCredentials(username: username, password: password);
-    widget.didProvideCredentials(credentials);
   }
 }

@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import '../../service/auth_credentials.dart';
 
 class SignUpPage extends StatefulWidget {
-  final ValueChanged<SignUpCredentials> didProvideCredentials;
-  final VoidCallback shouldShowLogin;
-  SignUpPage({Key? key, required this.didProvideCredentials, required this.shouldShowLogin})
-   : super(key: key);
   @override
   State<StatefulWidget> createState() => _SignUpPageState();
 }
@@ -29,7 +25,9 @@ class _SignUpPageState extends State<SignUpPage> {
               padding: EdgeInsets.all(15),
               alignment: Alignment.bottomCenter,
               child: TextButton(
-                  onPressed: widget.shouldShowLogin, // ログインページに遷移
+                  onPressed: (){
+
+                  }, // ログインページに遷移
                   child: Text('Already have an account? Login.'),
                   style: TextButton.styleFrom(
                     primary: Colors.grey[850],
@@ -96,11 +94,8 @@ class _SignUpPageState extends State<SignUpPage> {
           // Sign Up Button
           child: (
             TextButton(
-                onPressed: () async {
-                  showProgressDialog(); // 全画面プログレスダイアログを表示
-                  await Future.delayed(Duration(seconds: 1)); // あえて1病患プログレスバーを表示することで処理中であることをわかりやすく
-                  await _signUp();
-                  Navigator.of(context, rootNavigator: true).pop(); // 新規登録が完了したらプログレスバーを閉じる
+                onPressed: () {
+      
                 },
                 child: Text('Sign Up'),
                 style: TextButton.styleFrom(
@@ -112,22 +107,5 @@ class _SignUpPageState extends State<SignUpPage> {
         )
       ],
     );
-  }
-
-  Future _signUp() async {
-    final username = _usernameController.text.trim();
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-
-    print('username: $username');
-    print('email: $email');
-    print('password: $password');
-
-    final credentials = SignUpCredentials(
-      username: username, 
-      email: email, 
-      password: password
-    );
-    widget.didProvideCredentials(credentials);
   }
 }

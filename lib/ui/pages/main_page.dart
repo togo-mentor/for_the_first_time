@@ -4,9 +4,6 @@ import './create_memo_page.dart';
 import 'memo_history.page.dart';
 
 class MainPage extends StatefulWidget {
-  final VoidCallback shouldLogOut;
-  MainPage({Key? key, required this.shouldLogOut})
-   : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -28,7 +25,9 @@ class _MainPageState extends State<MainPage> {
           actions: <Widget>[
             TextButton(
               child: Icon(Icons.logout), 
-              onPressed: widget.shouldLogOut,
+              onPressed: () {
+                
+              },
               style: TextButton.styleFrom(
                 primary: Colors.white,
               ),
