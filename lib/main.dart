@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(
       create: (context) => Auth(),
       child: MaterialApp(
-        home: LoginPage(),
+        home: _LoginCheck(),
       )
     );
   }
@@ -38,10 +38,9 @@ class _MyAppState extends State<MyApp> {
 class _LoginCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // Firebase 認証
-    final auth = FirebaseAuth.instance;
+    final bool _loggedIn = context.watch<Auth>().loggedIn;
+    print(_loggedIn);
     // ログイン状態に応じて、画面を切り替える
-    final User? _currentUser = auth.currentUser;
-    return _currentUser != null ? MainPage() : LoginPage();
+    return _loggedIn ? MainPage() : LoginPage();
   }
 }

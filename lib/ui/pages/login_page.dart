@@ -4,7 +4,6 @@ import 'package:for_the_first_time/models/auth.dart';
 import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   final void handleAuthStateChange;
@@ -79,19 +78,8 @@ class _LoginPageState extends State<LoginPage> {
                               // メール/パスワードでユーザー登録
                               await context.read<Auth>().login(
                                 form.control('email').value,
-                                form.control('password').value,
+                                form.control('password').value
                               );
-
-                              // ログイン成功
-                              // ログインユーザーのIDを取得
-                              _user = _result!.user;
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => MainPage(userId: _user!.uid),
-                              //   )
-                              // );
-                              
                             } catch (e) {
                               // ログインに失敗した場合
                               setState(() {

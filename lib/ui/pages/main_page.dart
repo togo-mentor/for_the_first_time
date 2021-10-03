@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/models/auth.dart';
 import './tab_page.dart';
 import './create_memo_page.dart';
-import 'login_page.dart';
 import 'memo_history.page.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -29,13 +29,7 @@ class _MainPageState extends State<MainPage> {
               child: Icon(Icons.logout), 
               onPressed: () async {
                 try {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => LoginPage(),
-                    )
-                  );
+                  await context.read<Auth>().logout();
                 } catch (e) {
                   print(e);
                 }
