@@ -1,8 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/models/auth.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'login_page.dart';
-import 'main_page.dart';
+import 'package:provider/provider.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -73,19 +74,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           onPressed: () async {
                             try {
                               // メール/パスワードでユーザー登録
-                              _result = await auth.createUserWithEmailAndPassword(
-                                email: form.control('email').value,
-                                password: form.control('password').value,
+                              await context.read<Auth>().signUp(
+                                form.control('email').value,
+                                form.control('password').value,
                               );
                               // 登録成功
                               // 登録したユーザー情報
                               _user = _result!.user;
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => MainPage(userId: _user!.uid),
-                              //   )
-                              // );
                             } catch (e) {
                               // 登録に失敗した場合
                               print(e);

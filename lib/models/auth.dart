@@ -31,6 +31,21 @@ class Auth extends ChangeNotifier {
     }
   }
 
+  Future<bool> signUp(String email, String password) async {
+    try {
+      UserCredential _userCredential = await _auth.createUserWithEmailAndPassword(
+                                email: email,
+                                password: password,
+                              );
+      _user = _userCredential.user;
+      notifyListeners();
+      return true;
+    } catch (error) {
+      print(error);
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     _user = null;
     await _auth.signOut();
