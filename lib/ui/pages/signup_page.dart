@@ -95,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             primary: Colors.blue,
                           ),
                           // ボタン内の文字や書式
-                          child: Text('ログイン',
+                          child: Text('登録する',
                             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                           ),
                     ),
