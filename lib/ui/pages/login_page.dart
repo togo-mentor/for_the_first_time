@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/models/auth.dart';
 import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +16,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // Firebase Authenticationを利用するためのインスタンス
   final FirebaseAuth auth = FirebaseAuth.instance;
-  UserCredential? _result;
-  User? _user;
   FormGroup form = FormGroup({
     'password': FormControl<String>(
       validators: [
@@ -76,10 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             try {
                               // メール/パスワードでユーザー登録
-                              await context.read<Auth>().login(
-                                form.control('email').value,
-                                form.control('password').value
-                              );
+                              await _login(context);
                             } catch (e) {
                               // ログインに失敗した場合
                               setState(() {
@@ -136,5 +132,18 @@ class _LoginPageState extends State<LoginPage> {
             ]
           )
     );
+  }
+
+   Future<bool> _login(BuildContext context) async {
+    bool loggedIn = false;
+    EasyLoading.show(status: 'loading...');
+    if (await context.read<Auth>().login(
+      form.control('email').value,
+      form.control('password').value
+    )) {
+      loggedIn = true;
+    }
+    EasyLoading.dismiss();
+    return loggedIn;
   }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/models/auth.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'login_page.dart';
@@ -74,13 +75,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           onPressed: () async {
                             try {
                               // メール/パスワードでユーザー登録
-                              await context.read<Auth>().signUp(
-                                form.control('email').value,
-                                form.control('password').value,
-                              );
-                              // 登録成功
-                              // 登録したユーザー情報
-                              _user = _result!.user;
+                              await _signUp(context);
+                              Navigator.of(context).pop();
                             } catch (e) {
                               // 登録に失敗した場合
                               print(e);
@@ -135,5 +131,18 @@ class _SignUpPageState extends State<SignUpPage> {
             ]
           )
     );
+  }
+
+  Future<bool> _signUp(BuildContext context) async {
+    bool loggedIn = false;
+    EasyLoading.show(status: 'loading...');
+    if (await context.read<Auth>().signUp(
+      form.control('email').value,
+      form.control('password').value,
+    )) {
+      loggedIn = true;
+    }
+    EasyLoading.dismiss();
+    return loggedIn;
   }
 }
