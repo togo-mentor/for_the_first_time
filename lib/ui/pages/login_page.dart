@@ -16,8 +16,8 @@ class _LoginPageState extends State<LoginPage> {
 
   // Firebase Authenticationを利用するためのインスタンス
   final FirebaseAuth auth = FirebaseAuth.instance;
-  AuthResult? _result;
-  FirebaseUser? _user;
+  UserCredential? _result;
+  User? _user;
 
   @override
   Widget build(BuildContext context) {

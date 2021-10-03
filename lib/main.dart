@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
-import './service/auth_service.dart';
-import './ui/pages/login_page.dart';
-import './ui/pages/main_page.dart';
-import './ui/pages/verification_page.dart';
-import './ui/pages/signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import './ui/pages/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -18,8 +19,8 @@ class _MyAppState extends State<MyApp> {
 
   // Firebase 認証
   final auth = FirebaseAuth.instance;
-  AuthResult? _result;
-  FirebaseUser? _user;
+  UserCredential? _result;
+  User? _user;
 
   @override
   void initState() {
