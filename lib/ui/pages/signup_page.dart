@@ -80,12 +80,12 @@ class _SignUpPageState extends State<SignUpPage> {
                               // 登録成功
                               // 登録したユーザー情報
                               _user = _result!.user;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MainPage(userId: _user!.uid),
-                                )
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => MainPage(userId: _user!.uid),
+                              //   )
+                              // );
                             } catch (e) {
                               // 登録に失敗した場合
                               print(e);

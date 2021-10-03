@@ -5,6 +5,8 @@ import 'package:reactive_forms/reactive_forms.dart';
 import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
+  final void handleAuthStateChange;
+  LoginPage({Key? key, this.handleAuthStateChange}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _LoginPageState();
 }
@@ -81,12 +83,12 @@ class _LoginPageState extends State<LoginPage> {
                               // ログイン成功
                               // ログインユーザーのIDを取得
                               _user = _result!.user;
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MainPage(userId: _user!.uid),
-                                )
-                              );
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //     builder: (context) => MainPage(userId: _user!.uid),
+                              //   )
+                              // );
                               
                             } catch (e) {
                               // ログインに失敗した場合

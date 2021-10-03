@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/ui/pages/main_page.dart';
 import './ui/pages/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,13 +16,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  AuthCredential? _credential;
-
-  // Firebase 認証
-  final auth = FirebaseAuth.instance;
-  UserCredential? _result;
-  User? _user;
-
   @override
   void initState() {
     super.initState();
@@ -30,7 +24,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage()
+      home: _LoginCheck()
     );
+  }
+}
+
+// 新たに追加
+class _LoginCheck extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Firebase 認証
+    final auth = FirebaseAuth.instance;
+    // ログイン状態に応じて、画面を切り替える
+    final User? _currentUser = auth.currentUser;
+    return _currentUser != null ? MainPage(userId: _currentUser.uid) : LoginPage();
   }
 }
