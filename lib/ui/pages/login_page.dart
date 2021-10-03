@@ -48,7 +48,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     obscureText: true,  // パスワードが見えないようRにする
                     maxLength: 20,  // 入力可能な文字数
-                    maxLengthEnforced: false,  // 入力可能な文字数の制限を超える場合の挙動の制御
                     onChanged: (String value) {
                       _login_Password= value;
                     },
@@ -61,51 +60,47 @@ class _LoginPageState extends State<LoginPage> {
                   child:Text(_infoText,
                     style: TextStyle(color: Colors.red),),
                 ),
-
                 ButtonTheme(
                   minWidth: 350.0,
-                  // height: 100.0,
-                  child: RaisedButton(
+                  child: SizedBox(
+                    width: 300,
+                    child: 
+                      ElevatedButton(
+                        onPressed: () async {
+                          try {
+                            // メール/パスワードでユーザー登録
+                            _result = await auth.signInWithEmailAndPassword(
+                              email: _login_Email,
+                              password: _login_Password,
+                            );
 
-                    // ボタンの形状
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                            // ログイン成功
+                            // ログインユーザーのIDを取得
+                            _user = _result!.user;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MainPage(),
+                              )
+                            );
+                            
+                          } catch (e) {
+                            // ログインに失敗した場合
+                            setState(() {
+                              print(e);
+                            });
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue,
+                        ),
+                        // ボタン内の文字や書式
+                        child: Text('ログイン',
+                          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
-
-                    onPressed: () async {
-                      try {
-                        // メール/パスワードでユーザー登録
-                        _result = await auth.signInWithEmailAndPassword(
-                          email: _login_Email,
-                          password: _login_Password,
-                        );
-
-                        // ログイン成功
-                        // ログインユーザーのIDを取得
-                        _user = _result!.user;
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainPage(),
-                          )
-                        );
-                        
-                      } catch (e) {
-                        // ログインに失敗した場合
-                        setState(() {
-                          print(e);
-                        });
-                      }
-                    },
-
-                    // ボタン内の文字や書式
-                    child: Text('ログイン',
-                      style: TextStyle(fontWeight: FontWeight.bold),),
-                    textColor: Colors.white,
-                    color: Colors.blue,
-                  ),
-                ),
-              ],
+                  )
+              )],
             ),
         // 画面下にボタンの配置
         ),
@@ -118,13 +113,12 @@ class _LoginPageState extends State<LoginPage> {
               child:ButtonTheme(
                 minWidth: 350.0,
                 // height: 100.0,
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text('アカウントを作成する',
-                  style: TextStyle(fontWeight: FontWeight.bold),),
-                  textColor: Colors.blue,
-                  color: Colors.blue[50],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue[50],
                   ),
 
                   // ボタンクリック後にアカウント作成用の画面の遷移する。
