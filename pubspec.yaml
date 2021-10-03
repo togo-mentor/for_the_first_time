@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_easyloading: ^3.0.3
   flutter_lints: any
 
   flutter_localizations:
