@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/models/auth.dart';
+import 'package:for_the_first_time/support/firebase_auth_error.dart';
 import 'package:for_the_first_time/ui/pages/signup_page.dart';
 import 'package:provider/provider.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -28,6 +29,12 @@ class _LoginPageState extends State<LoginPage> {
       ],
     )
   });
+
+  // バリデーションメッセージを表示
+  void showValidationMessage() {
+    form.control('password').markAsTouched();
+    form.control('email').markAsTouched();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +80,19 @@ class _LoginPageState extends State<LoginPage> {
                       child: 
                         ElevatedButton(
                           onPressed: () async {
-                            try {
-                              // メール/パスワードでユーザー登録
-                              await _login(context);
-                            } catch (e) {
-                              // ログインに失敗した場合
-                              setState(() {
-                                print(e);
-                              });
+                            if (form.valid) {
+                              try {
+                                // メール/パスワードでユーザー登録
+                                await _login(context);
+                              } on FirebaseAuthException catch (e) {
+                                // ログインに失敗した場合
+                                FirebaseAuthResultStatus resultStatus = FirebaseAuthExceptionHandler.handleException(e);
+                                final errorMessage = FirebaseAuthExceptionHandler.exceptionMessage(resultStatus);
+                                EasyLoading.dismiss();
+                                _showErrorDialog(context, errorMessage);
+                              }
+                            } else {
+                              showValidationMessage();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -145,5 +157,25 @@ class _LoginPageState extends State<LoginPage> {
     }
     EasyLoading.dismiss();
     return loggedIn;
+  }
+
+  void _showErrorDialog(BuildContext context, String? message) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(message!),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
