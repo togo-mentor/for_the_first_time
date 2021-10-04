@@ -26,6 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     'email': FormControl<String>(
       validators: [
         Validators.required,
+        Validators.email,
       ],
     )
   });
@@ -48,6 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                           labelText: "メールアドレス"
                         ),
+                        validationMessages: (control) => {
+                          ValidationMessage.required: 'メールアドレスを入力してください。',
+                          ValidationMessage.email: 'メールアドレスの形式が不正です。',
+                        },
                       ),
                     ),
                     Padding(
@@ -58,7 +63,10 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "パスワード（8～20文字）"
                         ),
                         obscureText: true,  // パスワードが見えないようRにする
-                        maxLength: 20,  // 入力可能な文字数
+                        maxLength: 20,  
+                        validationMessages: (control) => {
+                          ValidationMessage.required: 'パスワードを入力してください。',
+                        },
                       ),
                     ),                  
                     SizedBox(
