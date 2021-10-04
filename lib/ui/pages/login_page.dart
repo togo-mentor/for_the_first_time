@@ -30,12 +30,6 @@ class _LoginPageState extends State<LoginPage> {
     )
   });
 
-  // バリデーションメッセージを表示
-  void showValidationMessage() {
-    form.control('password').markAsTouched();
-    form.control('email').markAsTouched();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,6 +138,12 @@ class _LoginPageState extends State<LoginPage> {
             ]
           )
     );
+  }
+
+  // バリデーションメッセージを表示
+  void showValidationMessage() {
+    form.control('password').markAsTouched();
+    form.control('email').markAsTouched();
   }
 
    Future<bool> _login(BuildContext context) async {

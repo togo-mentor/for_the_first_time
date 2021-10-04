@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/models/auth.dart';
+import 'package:for_the_first_time/support/firebase_auth_error.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'login_page.dart';
 import 'package:provider/provider.dart';
@@ -73,13 +74,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: 
                         ElevatedButton(
                           onPressed: () async {
-                            try {
-                              // メール/パスワードでユーザー登録
-                              await _signUp(context);
-                              Navigator.of(context).pop();
-                            } catch (e) {
-                              // 登録に失敗した場合
-                              print(e);
+                            if (form.valid) {
+                              try {
+                                // メール/パスワードでユーザー登録
+                                await _signUp(context);
+                                Navigator.of(context).pop();
+                              } on FirebaseAuthException catch (e) {
+                                  // ログインに失敗した場合
+                                  FirebaseAuthResultStatus resultStatus = FirebaseAuthExceptionHandler.handleException(e);
+                                  final errorMessage = FirebaseAuthExceptionHandler.exceptionMessage(resultStatus);
+                                  EasyLoading.dismiss();
+                                  _showErrorDialog(context, errorMessage);
+                              }
+                            } else {
+                              showValidationMessage();
                             }
                           },
                           style: ElevatedButton.styleFrom(
@@ -133,6 +141,12 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  // バリデーションメッセージを表示
+  void showValidationMessage() {
+    form.control('password').markAsTouched();
+    form.control('email').markAsTouched();
+  }
+
   Future<bool> _signUp(BuildContext context) async {
     bool loggedIn = false;
     EasyLoading.show(status: 'loading...');
@@ -144,5 +158,25 @@ class _SignUpPageState extends State<SignUpPage> {
     }
     EasyLoading.dismiss();
     return loggedIn;
+  }
+
+  void _showErrorDialog(BuildContext context, String? message) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text(message!),
+          actions: <Widget>[
+            TextButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
