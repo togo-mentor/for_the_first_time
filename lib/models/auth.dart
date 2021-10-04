@@ -26,8 +26,7 @@ class Auth extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (error) {
-      print(error);
-      return false;
+      rethrow;
     }
   }
 
@@ -41,8 +40,7 @@ class Auth extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (error) {
-      print(error);
-      return false;
+      rethrow;
     }
   }
 
