@@ -15,14 +15,13 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   // Firebase Authenticationを利用するためのインスタンス
   final FirebaseAuth auth = FirebaseAuth.instance;
-  static const passwordPattern = r'^(?=.*?[a-zA-Z])(?=.*?\d])[a-zA-Z\d]$';
   FormGroup form = FormGroup({
     'password': FormControl<String>(
       validators: [
         Validators.required,
         Validators.minLength(8),
         Validators.maxLength(20),
-        Validators.pattern(passwordPattern)
+        Validators.pattern(r'^(?=.*?[a-z])(?=.*?[\d])[a-z\d]+$')
       ],
     ),
     'email': FormControl<String>(
