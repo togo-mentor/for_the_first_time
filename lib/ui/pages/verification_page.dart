@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 
 class VerificationPage extends StatefulWidget {
-  final ValueChanged<String> didProvideVerificationCode;
-
-  VerificationPage({Key? key, required this.didProvideVerificationCode})
-      : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _VerificationPageState();
 }
@@ -38,41 +33,28 @@ class _VerificationPageState extends State<VerificationPage> {
   }
 
   Widget _verificationForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Verification Code TextField
-        TextField(
-          controller: _verificationCodeController,
-          decoration: InputDecoration(
-              icon: Icon(Icons.confirmation_number),
-              labelText: 'Verification code'),
-        ),
-        SizedBox(
-          height: 25,
-        ),
-        SizedBox( 
-          width: 120,
-          child: TextButton(
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ButtonTheme(
+            minWidth: 200.0,  
+            child: ElevatedButton(
               onPressed: () async {
-                showProgressDialog(); // 全画面プログレスダイアログを表示
-                await Future.delayed(Duration(seconds: 1));
-                await _verify();
-                Navigator.of(context, rootNavigator: true).pop();
+                
               },
-              child: Text('Verify'),
-              style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Theme.of(context).accentColor,
-              )
-          )
-        )
-      ],
+              // ボタン内の文字や書式
+              child: Text('確認メールを再送信',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
+              ),
+            ),
+          ),
+        ],
+      )
     );
-  }
-
-  Future _verify() async {
-    final verificationCode = _verificationCodeController.text.trim();
-    widget.didProvideVerificationCode(verificationCode);
   }
 }
