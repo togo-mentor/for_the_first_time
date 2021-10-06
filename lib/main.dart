@@ -42,8 +42,10 @@ class _LoginCheck extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bool _loggedIn = context.watch<Auth>().loggedIn;
+    final bool _confirmed = context.watch<Auth>().confirmed;
     print(_loggedIn);
+    print(_confirmed);
     // ログイン状態に応じて、画面を切り替える
-    return _loggedIn ? MainPage() : LoginPage();
+    return _loggedIn && _confirmed ? MainPage() : LoginPage();
   }
 }

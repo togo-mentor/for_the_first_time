@@ -15,7 +15,7 @@ class Auth extends ChangeNotifier {
 
   User? get user => _user;
   bool get loggedIn => _user != null;
-  bool get confirmed => _user!.emailVerified;
+  bool get confirmed => _user != null && _user!.emailVerified;
 
   Future<bool> login(String email, String password) async {
     try {
