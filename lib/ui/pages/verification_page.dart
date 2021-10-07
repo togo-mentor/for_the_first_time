@@ -65,8 +65,13 @@ class _VerificationPageState extends State<VerificationPage> {
     bool loggedIn = false;
     EasyLoading.show(status: 'loading...');
     // print(context.read<Auth>().user);
-    await context.read<Auth>().user!.sendEmailVerification();
+    final user = context.read<Auth>().user;
+    await user!.sendEmailVerification();
     EasyLoading.dismiss();
+    // 画面下部にフラッシュメッセージを表示
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('${user.email}宛に確認のメールを送信しました。メール内のリンクから認証を完了させてください。'),
+    ));
     return loggedIn;
   }
 }
