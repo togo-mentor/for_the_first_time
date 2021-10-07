@@ -51,10 +51,6 @@ class _LoginCheck extends StatelessWidget {
   Widget confirmCheck(BuildContext context) {
     final bool _confirmed = context.watch<Auth>().confirmed;
     print(_confirmed);
-    if (_confirmed) {
-      return MainPage();
-    } else {
-      return VerificationPage();
-    }
+    return _confirmed ? MainPage() : VerificationPage();
   }
 }
