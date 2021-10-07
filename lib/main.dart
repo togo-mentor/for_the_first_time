@@ -23,7 +23,6 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    // print(RegExp(r'^(?=.*?[a-z])(?=.*?[\d])[a-z\d]+$').hasMatch('test1234'));
   }
 
   @override
