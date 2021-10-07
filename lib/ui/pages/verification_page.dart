@@ -56,6 +56,27 @@ class _VerificationPageState extends State<VerificationPage> {
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
+          ButtonTheme(
+            minWidth: 200.0,  
+            child: ElevatedButton(
+              onPressed: () async {
+                await _resendVerificationEmail(context);
+              },
+              // ボタン内の文字や書式
+              child: Text('ログインする',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue[50],
+              ),
+            ),
+          ),
         ],
       )
     );
