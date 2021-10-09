@@ -114,11 +114,8 @@ class _SignUpPageState extends State<SignUpPage> {
                 )
               ]
             ),
-            )
-          ]
-        ), // 画面下にボタンの配置
-      ),
-      bottomNavigationBar: Column(
+            ),
+            Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
 
@@ -137,19 +134,22 @@ class _SignUpPageState extends State<SignUpPage> {
 
                     // ボタンクリック後にアカウント作成用の画面の遷移する。
                     onPressed: (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (BuildContext context) => LoginPage(),
-                        ),
-                      );
-                    }
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => LoginPage(),
+                          ),
+                        );
+                      }
 
+                    ),
                   ),
                 ),
-              ),
-            ]
-          )
+              ]
+            )
+          ]
+        ), // 画面下にボタンの配置
+      ),
     );
   }
 
