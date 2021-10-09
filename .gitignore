@@ -45,14 +45,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-#amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/logs
-amplify/mock-data
-amplify/backend/amplify-meta.json
-amplify/backend/awscloudformation
-amplify/backend/.temp
+ios/Runner/GoogleService-Info.plist
+
 build/
 dist/
 node_modules/
@@ -65,4 +59,3 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 #amplify-do-not-edit-end
-ios/Runner/GoogleService-Info.plist
