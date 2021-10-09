@@ -109,14 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                 )
               ]
             ),
-            )
-          ]
-        ), // 画面下にボタンの配置
-      ),
-      bottomNavigationBar: Column(
+            ),
+            Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child:ButtonTheme(
@@ -129,22 +125,23 @@ class _LoginPageState extends State<LoginPage> {
                     style: ElevatedButton.styleFrom(
                       primary: Colors.blue[50],
                     ),
-
                     // ボタンクリック後にアカウント作成用の画面の遷移する。
                     onPressed: (){
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          fullscreenDialog: true,
-                          builder: (BuildContext context) => SignUpPage(),
-                        ),
-                      );
-                    }
-
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            fullscreenDialog: true,
+                            builder: (BuildContext context) => SignUpPage(),
+                          ),
+                        );
+                      }
+                    ),
                   ),
                 ),
-              ),
-            ]
-          )
+              ]
+            )
+          ]
+        ), // 画面下にボタンの配置
+      ),
     );
   }
 
