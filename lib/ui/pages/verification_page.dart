@@ -64,6 +64,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   // 認証ページ=未認証のユーザーがログインしている→ログアウトすることでログインページに戻る
                   await _resendVerificationEmail(context);
                 } catch (e) {
+                  EasyLoading.dismiss();
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: Text('メール送信に失敗しました。もう一度お試しください。'),
                   ));
