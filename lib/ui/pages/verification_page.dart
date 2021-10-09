@@ -65,7 +65,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   await _resendVerificationEmail(context);
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('メール送信に失敗しました。'),
+                    content: Text('メール送信に失敗しました。もう一度お試しください。'),
                   ));
                 }
               },
@@ -90,7 +90,7 @@ class _VerificationPageState extends State<VerificationPage> {
                   await context.read<Auth>().logout();
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text('ログアウトに失敗しました。'),
+                    content: Text('ログアウトに失敗しました。もう一度お試しください。'),
                   ));
                 }
               },

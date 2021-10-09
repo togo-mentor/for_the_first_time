@@ -31,7 +31,9 @@ class _MainPageState extends State<MainPage> {
                 try {
                   await context.read<Auth>().logout();
                 } catch (e) {
-                  print(e);
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('ログアウトに失敗しました。もう一度お試しください。'),
+                  ));
                 }
               },
               style: TextButton.styleFrom(
