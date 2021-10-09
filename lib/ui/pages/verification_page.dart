@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/models/auth.dart';
@@ -80,44 +81,17 @@ class _VerificationPageState extends State<VerificationPage> {
             minWidth: 200.0,  
             child: ElevatedButton(
               onPressed: () async {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return LoginPage();
-                    },
-                  ),
-                );
-              },
-              // ボタン内の文字や書式
-              child: Text('${user.email}としてログイン',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue
-                ),
-              ),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.blue[50],
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          ButtonTheme(
-            minWidth: 200.0,  
-            child: ElevatedButton(
-              onPressed: () async {
                 context.read<Auth>().logout();
               },
               // ボタン内の文字や書式
-              child: Text('別のユーザーでログイン',
+              child: Text('ログインページに戻る',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.blue
+                  color: Colors.white
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                primary: Colors.blue[50],
+                primary: Colors.grey,
               ),
             ),
           ),
