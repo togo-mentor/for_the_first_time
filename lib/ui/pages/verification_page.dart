@@ -60,7 +60,14 @@ class _VerificationPageState extends State<VerificationPage> {
             minWidth: 200.0,  
             child: ElevatedButton(
               onPressed: () async {
-                await _resendVerificationEmail(context);
+                try {
+                  // 認証ページ=未認証のユーザーがログインしている→ログアウトすることでログインページに戻る
+                  await _resendVerificationEmail(context);
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('メール送信に失敗しました。'),
+                  ));
+                }
               },
               // ボタン内の文字や書式
               child: Text('確認メールを再送信',
@@ -78,7 +85,14 @@ class _VerificationPageState extends State<VerificationPage> {
             minWidth: 200.0,  
             child: ElevatedButton(
               onPressed: () async {
-                context.read<Auth>().logout();
+                try {
+                  // 認証ページ=未認証のユーザーがログインしている→ログアウトすることでログインページに戻る
+                  await context.read<Auth>().logout();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('ログアウトに失敗しました。'),
+                  ));
+                }
               },
               // ボタン内の文字や書式
               child: Text('ログインページに戻る',
@@ -99,10 +113,10 @@ class _VerificationPageState extends State<VerificationPage> {
 
   Future<bool> _resendVerificationEmail(BuildContext context) async {
     bool loggedIn = false;
-    EasyLoading.show(status: 'loading...');
+    EasyLoading.show(status: 'loading...'); // ローディングを表示
     final user = context.read<Auth>().user;
-    await user!.sendEmailVerification();
-    EasyLoading.dismiss();
+    await user!.sendEmailVerification(); // 確認メールを再送信
+    EasyLoading.dismiss(); // ローディングを非表示
     // 画面下部にフラッシュメッセージを表示
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text('${user.email}宛に確認のメールを送信しました。メール内のリンクから認証を完了させてください。'),

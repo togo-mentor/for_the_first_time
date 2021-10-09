@@ -167,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
     return loggedIn;
   }
 
+  // ログイン、新規登録時のエラーをダイアログで表示する
   void _showErrorDialog(BuildContext context, String? message) {
     showDialog(
       context: context,

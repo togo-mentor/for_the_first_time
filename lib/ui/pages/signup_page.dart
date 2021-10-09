@@ -90,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               try {
                                 // メール/パスワードでユーザー登録
                                 await _signUp(context);
-                                Navigator.of(context).pop();
+                                Navigator.of(context).pop(); // Navigatorでログイン画面から遷移してきているのでpopしてアプリ画面を表示
                               } on FirebaseAuthException catch (e) {
                                   // ログインに失敗した場合
                                   FirebaseAuthResultStatus resultStatus = FirebaseAuthExceptionHandler.handleException(e);
