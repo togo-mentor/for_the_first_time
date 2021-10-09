@@ -169,6 +169,9 @@ class _SignUpPageState extends State<SignUpPage> {
       loggedIn = true;
     }
     EasyLoading.dismiss();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('ユーザー登録が完了しました。'),
+    ));
     return loggedIn;
   }
 
