@@ -4,7 +4,6 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:for_the_first_time/ui/pages/main_page.dart';
 import 'package:for_the_first_time/ui/pages/verification_page.dart';
 import './ui/pages/login_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'models/auth.dart';
 
