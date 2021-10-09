@@ -1,109 +1,97 @@
 PODS:
-  - Amplify (1.13.4):
-    - Amplify/Default (= 1.13.4)
-  - Amplify/Default (1.13.4)
-  - amplify_api (0.0.1):
-    - Amplify (~> 1.13.0)
-    - amplify_core
-    - AmplifyPlugins/AWSAPIPlugin (~> 1.13.0)
+  - Firebase/Auth (8.7.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 8.7.0)
+  - Firebase/CoreOnly (8.7.0):
+    - FirebaseCore (= 8.7.0)
+  - firebase_auth (3.1.2):
+    - Firebase/Auth (= 8.7.0)
+    - firebase_core
     - Flutter
-  - amplify_auth_cognito (0.0.1):
-    - Amplify (~> 1.13.0)
-    - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin (~> 1.13.0)
+  - firebase_core (1.7.0):
+    - Firebase/CoreOnly (= 8.7.0)
     - Flutter
-    - ObjectMapper
-  - amplify_core (0.0.1):
-    - Flutter
-  - amplify_flutter (0.0.1):
-    - Amplify (~> 1.13.0)
-    - amplify_core
-    - AmplifyPlugins/AWSCognitoAuthPlugin (~> 1.13.0)
-    - AWSPluginsCore (~> 1.13.0)
-    - Flutter
-  - AmplifyPlugins/AWSAPIPlugin (1.13.4):
-    - AppSyncRealTimeClient (~> 1.4)
-    - AWSCore (~> 2.25.0)
-    - AWSPluginsCore (= 1.13.4)
-  - AmplifyPlugins/AWSCognitoAuthPlugin (1.13.4):
-    - AWSAuthCore (~> 2.25.0)
-    - AWSCognitoIdentityProvider (~> 2.25.0)
-    - AWSCognitoIdentityProviderASF (~> 2.25.0)
-    - AWSCore (~> 2.25.0)
-    - AWSMobileClient (~> 2.25.0)
-    - AWSPluginsCore (= 1.13.4)
-  - AppSyncRealTimeClient (1.5.0):
-    - Starscream (~> 3.1.1)
-  - AWSAuthCore (2.25.0):
-    - AWSCore (= 2.25.0)
-  - AWSCognitoIdentityProvider (2.25.0):
-    - AWSCognitoIdentityProviderASF (= 2.25.0)
-    - AWSCore (= 2.25.0)
-  - AWSCognitoIdentityProviderASF (2.25.0)
-  - AWSCore (2.25.0)
-  - AWSMobileClient (2.25.0):
-    - AWSAuthCore (= 2.25.0)
-    - AWSCognitoIdentityProvider (= 2.25.0)
-    - AWSCognitoIdentityProviderASF (= 2.25.0)
-    - AWSCore (= 2.25.0)
-  - AWSPluginsCore (1.13.4):
-    - Amplify (= 1.13.4)
-    - AWSCore (~> 2.25.0)
+  - FirebaseAuth (8.7.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GTMSessionFetcher/Core (~> 1.5)
+  - FirebaseCore (8.7.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+  - FirebaseCoreDiagnostics (8.8.0):
+    - GoogleDataTransport (~> 9.0)
+    - GoogleUtilities/Environment (~> 7.4)
+    - GoogleUtilities/Logger (~> 7.4)
+    - nanopb (~> 2.30908.0)
   - Flutter (1.0.0)
-  - ObjectMapper (4.2.0)
-  - Starscream (3.1.1)
+  - GoogleDataTransport (9.1.0):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.5.2):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
+  - GoogleUtilities/Environment (7.5.2):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.5.2):
+    - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.5.2):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.5.2)"
+  - GoogleUtilities/Reachability (7.5.2):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.7.0)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
+  - PromisesObjC (2.0.0)
 
 DEPENDENCIES:
-  - amplify_api (from `.symlinks/plugins/amplify_api/ios`)
-  - amplify_auth_cognito (from `.symlinks/plugins/amplify_auth_cognito/ios`)
-  - amplify_core (from `.symlinks/plugins/amplify_core/ios`)
-  - amplify_flutter (from `.symlinks/plugins/amplify_flutter/ios`)
+  - firebase_auth (from `.symlinks/plugins/firebase_auth/ios`)
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - Flutter (from `Flutter`)
 
 SPEC REPOS:
   trunk:
-    - Amplify
-    - AmplifyPlugins
-    - AppSyncRealTimeClient
-    - AWSAuthCore
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSMobileClient
-    - AWSPluginsCore
-    - ObjectMapper
-    - Starscream
+    - Firebase
+    - FirebaseAuth
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
+    - GoogleDataTransport
+    - GoogleUtilities
+    - GTMSessionFetcher
+    - nanopb
+    - PromisesObjC
 
 EXTERNAL SOURCES:
-  amplify_api:
-    :path: ".symlinks/plugins/amplify_api/ios"
-  amplify_auth_cognito:
-    :path: ".symlinks/plugins/amplify_auth_cognito/ios"
-  amplify_core:
-    :path: ".symlinks/plugins/amplify_core/ios"
-  amplify_flutter:
-    :path: ".symlinks/plugins/amplify_flutter/ios"
+  firebase_auth:
+    :path: ".symlinks/plugins/firebase_auth/ios"
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
   Flutter:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  Amplify: 11b9c65b428f4897bbacc64983af94ba4ff187d7
-  amplify_api: d89bae0b1498df4d78a2b9359dbbdfb33b1bcec6
-  amplify_auth_cognito: 595ff4c4c10a5679768932eb151965a64d409d63
-  amplify_core: 8b38d20089fe4f225c14db6892f586bd03824a42
-  amplify_flutter: 3e5ada5600f3657ccbd77f08419eb3aa936b5d4b
-  AmplifyPlugins: 290f52ebdc10a84af0b0408d52b6153b0806e31f
-  AppSyncRealTimeClient: 2b4482b1770a3e5cf64f9714a6d198550017b5a2
-  AWSAuthCore: c1ea75ec283e5ac3eb042de21f7ab127ad50de11
-  AWSCognitoIdentityProvider: f52be11a4b2f2e9971ef0559da24e288d5c28869
-  AWSCognitoIdentityProviderASF: d58893fe74d0db1817e77592eed30c4f5b5a2672
-  AWSCore: 9c51a3004e9e91528160ea978fd0c5d92780a45e
-  AWSMobileClient: b4480d4b69b1ae52a76588f74bf9c936f7600e46
-  AWSPluginsCore: c7807376b795c0976065e40bc31de11ac4b2a0f5
+  Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
+  firebase_auth: 3193124aa14a62b8abec3fd069df73ef378d2c5b
+  firebase_core: f5ac1f2726a2bd0468cea0161eddeea3d83d7e3e
+  FirebaseAuth: 2e7d029977648c67a5d51a263d4cbab76d34cf12
+  FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
+  FirebaseCoreDiagnostics: fe77f42da6329d6d83d21fd9d621a6b704413bfc
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
-  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
+  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
+  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
+  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
 
-PODFILE CHECKSUM: cc1f88378b4bfcf93a6ce00d2c587857c6008d3b
+PODFILE CHECKSUM: 7fcfe41f561fe6bfd74a072f8724c82a86341f4f
 
 COCOAPODS: 1.10.0

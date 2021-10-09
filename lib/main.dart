@@ -1,89 +1,55 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:amplify_flutter/amplify.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import './service/auth_service.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:for_the_first_time/ui/pages/main_page.dart';
+import 'package:for_the_first_time/ui/pages/verification_page.dart';
 import './ui/pages/login_page.dart';
-import './ui/pages/main_page.dart';
-import './ui/pages/verification_page.dart';
-import './ui/pages/signup_page.dart';
-// ignore: uri_does_not_exist
-import 'package:for_the_first_time/amplifyconfiguration.dart';
+import 'package:provider/provider.dart';
+import 'models/auth.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  final _authService = AuthService();
-  
   @override
   void initState() {
     super.initState();
-    _authService.checkAuthStatus();
-    _configureAmplify();
-  }
-
-  // アプリ読み込み時にAmplifyの設定を読み込む
-  void _configureAmplify() async {
-
-    // Add Pinpoint and Cognito Plugins, or any other plugins you want to use
-    AmplifyAuthCognito authPlugin = AmplifyAuthCognito();
-
-    // Once Plugins are added, configure Amplify
-    // Note: Amplify can only be configured once.
-    try {
-      await Future.wait([
-        Amplify.addPlugin(authPlugin),
-      ]);
-      // ignore: undefined_identifier
-      await Amplify.configure(amplifyconfig);
-      print('Successfully configured Amplify 🎉'); // このメッセージが出てくれば正しく設定が読み込めている
-    } on AmplifyAlreadyConfiguredException {
-      print("Tried to reconfigure Amplify; this can occur when your app restarts on Android.");
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StreamBuilder<AuthState>(
-    // 2
-    stream: _authService.authStateController.stream,
-    builder: (context, snapshot) {
-      // 3
-      if (snapshot.hasData) {
-        return Navigator(
-          pages: [
-            // Show Login Page
-            if (snapshot.data!.authFlowStatus == AuthFlowStatus.login)
-              MaterialPage(child: LoginPage(shouldShowSignUp: _authService.showSignUp, didProvideCredentials: _authService.loginWithCredentials, key: null,)),
-        
-            // Show Verification Code Page
-            if (snapshot.data!.authFlowStatus == AuthFlowStatus.verification)
-            MaterialPage(child: VerificationPage(
-              didProvideVerificationCode: _authService.verifyCode)),
-
-            // Show Sign Up Page
-            if (snapshot.data!.authFlowStatus == AuthFlowStatus.signUp)
-              MaterialPage(child: SignUpPage(shouldShowLogin: _authService.showLogin, didProvideCredentials: _authService.signUpWithCredentials,)),
-            
-            // Show Main Page
-            if (snapshot.data!.authFlowStatus == AuthFlowStatus.session)
-              MaterialPage(
-                  child: MainPage(shouldLogOut: _authService.logOut))
-          ],
-          onPopPage: (route, result) => route.didPop(result),
-        );
-      } else {
-        // 6
-        return Container(
-          alignment: Alignment.center,
-          child: CircularProgressIndicator(), // アプリの読み込みが完了しない場合はプログレスバーを表示
-        );
-      }
-    }),
+    return ChangeNotifierProvider(
+      create: (context) => Auth(),
+      child: MaterialApp(
+        home: _LoginCheck(),
+        builder: EasyLoading.init(),
+      )
     );
+  }
+}
+
+// 新たに追加
+class _LoginCheck extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final bool _loggedIn = context.watch<Auth>().loggedIn;
+    print(_loggedIn);
+    // ログイン状態に応じて、画面を切り替える
+    return _loggedIn ? confirmCheck(context) : LoginPage();
+  }
+
+  Widget confirmCheck(BuildContext context) {
+    final bool _confirmed = context.watch<Auth>().confirmed;
+    print(_confirmed);
+    // ユーザーが認証済みであればアプリ画面、そうでない場合ログイン画面に遷移
+    return _confirmed ? MainPage() : VerificationPage();
   }
 }

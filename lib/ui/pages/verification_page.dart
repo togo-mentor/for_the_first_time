@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:for_the_first_time/models/auth.dart';
+import 'package:provider/provider.dart';
 
 class VerificationPage extends StatefulWidget {
-  final ValueChanged<String> didProvideVerificationCode;
-
-  VerificationPage({Key? key, required this.didProvideVerificationCode})
-      : super(key: key);
-
   @override
   State<StatefulWidget> createState() => _VerificationPageState();
 }
 
 class _VerificationPageState extends State<VerificationPage> {
-  final _verificationCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         minimum: EdgeInsets.symmetric(horizontal: 40),
-        child: _verificationForm(),
+        child: _verificationForm(context),
       ),
     );
   }
@@ -37,42 +34,94 @@ class _VerificationPageState extends State<VerificationPage> {
     );
   }
 
-  Widget _verificationForm() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        // Verification Code TextField
-        TextField(
-          controller: _verificationCodeController,
-          decoration: InputDecoration(
-              icon: Icon(Icons.confirmation_number),
-              labelText: 'Verification code'),
-        ),
-        SizedBox(
-          height: 25,
-        ),
-        SizedBox( 
-          width: 120,
-          child: TextButton(
+  Widget _verificationForm(BuildContext context) {
+    final user = context.read<Auth>().user;
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text('メールアドレスの認証が完了しておりません。',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+          ),
+          Text('${user!.email}に送信されたメールのリンクをクリックして認証を完了させてください。',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ButtonTheme(
+            minWidth: 200.0,  
+            child: ElevatedButton(
               onPressed: () async {
-                showProgressDialog(); // 全画面プログレスダイアログを表示
-                await Future.delayed(Duration(seconds: 1));
-                await _verify();
-                Navigator.of(context, rootNavigator: true).pop();
+                try {
+                  // 認証ページ=未認証のユーザーがログインしている→ログアウトすることでログインページに戻る
+                  await _resendVerificationEmail(context);
+                } catch (e) {
+                  EasyLoading.dismiss();
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('メール送信に失敗しました。もう一度お試しください。'),
+                  ));
+                }
               },
-              child: Text('Verify'),
-              style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Theme.of(context).accentColor,
-              )
-          )
-        )
-      ],
+              // ボタン内の文字や書式
+              child: Text('確認メールを再送信',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          ButtonTheme(
+            minWidth: 200.0,  
+            child: ElevatedButton(
+              onPressed: () async {
+                try {
+                  // 認証ページ=未認証のユーザーがログインしている→ログアウトすることでログインページに戻る
+                  await context.read<Auth>().logout();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('ログアウトに失敗しました。もう一度お試しください。'),
+                  ));
+                }
+              },
+              // ボタン内の文字や書式
+              child: Text('ログインページに戻る',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey,
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 
-  Future _verify() async {
-    final verificationCode = _verificationCodeController.text.trim();
-    widget.didProvideVerificationCode(verificationCode);
+  Future<bool> _resendVerificationEmail(BuildContext context) async {
+    bool loggedIn = false;
+    EasyLoading.show(status: 'loading...'); // ローディングを表示
+    final user = context.read<Auth>().user;
+    await user!.sendEmailVerification(); // 確認メールを再送信
+    EasyLoading.dismiss(); // ローディングを非表示
+    // 画面下部にフラッシュメッセージを表示
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('${user.email}宛に確認のメールを送信しました。メール内のリンクから認証を完了させてください。'),
+    ));
+    return loggedIn;
   }
 }

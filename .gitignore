@@ -44,15 +44,10 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/google-services.json
 
-#amplify-do-not-edit-begin
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/logs
-amplify/mock-data
-amplify/backend/amplify-meta.json
-amplify/backend/awscloudformation
-amplify/backend/.temp
+ios/Runner/GoogleService-Info.plist
+
 build/
 dist/
 node_modules/

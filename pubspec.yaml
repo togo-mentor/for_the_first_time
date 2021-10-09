@@ -21,18 +21,17 @@ environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  amplify_api: any
-  amplify_auth_cognito: '<1.0.0'
-  amplify_core: any
-  amplify_flutter: '<1.0.0'
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  firebase_core: ^1.7.0
+  firebase_auth: ^3.1.2
+
   flutter:
     sdk: flutter
 
+  flutter_easyloading: ^3.0.3
   flutter_lints: any
 
   flutter_localizations:
@@ -40,6 +39,7 @@ dependencies:
 
   http: ^0.13.0
 
+  provider: ^5.0.0
   random_string: any
   reactive_forms: ^10.6.2
 

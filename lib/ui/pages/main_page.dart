@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/models/auth.dart';
 import './tab_page.dart';
 import './create_memo_page.dart';
 import 'memo_history.page.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
-  final VoidCallback shouldLogOut;
-  MainPage({Key? key, required this.shouldLogOut})
-   : super(key: key);
   @override
   _MainPageState createState() => _MainPageState();
 }
@@ -28,7 +27,15 @@ class _MainPageState extends State<MainPage> {
           actions: <Widget>[
             TextButton(
               child: Icon(Icons.logout), 
-              onPressed: widget.shouldLogOut,
+              onPressed: () async {
+                try {
+                  await context.read<Auth>().logout();
+                } catch (e) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('ログアウトに失敗しました。もう一度お試しください。'),
+                  ));
+                }
+              },
               style: TextButton.styleFrom(
                 primary: Colors.white,
               ),
