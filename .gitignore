@@ -65,3 +65,4 @@ amplify-gradle-config.json
 amplifytools.xcconfig
 .secret-*
 #amplify-do-not-edit-end
+ios/Runner/GoogleService-Info.plist
