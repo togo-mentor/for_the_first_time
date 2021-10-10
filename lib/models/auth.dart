@@ -41,7 +41,8 @@ class Auth extends ChangeNotifier {
                                 password: password,
                               );
       _user = _userCredential.user;
-      final params = {'email': email, 'uid': _user!.uid};
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      final params = {'token': token, 'user': {'email': email, 'uid': _user!.uid}};
       String url = 'http://127.0.0.1:3000/api/users';
       final response = await http.post(Uri.parse(url),
         body: json.encode(params),
