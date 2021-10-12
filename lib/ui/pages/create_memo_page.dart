@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/genre.dart';
 import 'package:reactive_forms/reactive_forms.dart';
@@ -30,12 +31,15 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
 
   Future _createPost(content, genreId) async {
     try {
-      String identityId = 'test';
-      Post newPost = Post(content: content, genreId: genreId, userToken: identityId);
+      Post newPost = Post(content: content, genreId: genreId);
       String url = 'http://127.0.0.1:3000/posts';
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       final response = await http.post(Uri.parse(url),
         body: json.encode(newPost.toJson()),
-        headers: {"Content-Type": "application/json"}
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": 'Bearer $token'
+        }
       );
       if (response.statusCode == 200) {
         // フォームの入力値のリセット
