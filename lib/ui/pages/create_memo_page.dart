@@ -38,7 +38,7 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
         body: json.encode(newPost.toJson()),
         headers: {
           "Content-Type": "application/json",
-          "Authorization": 'Bearer $token'
+          "Authorization": 'Bearer $token' // firebaseのトークン認証
         }
       );
       if (response.statusCode == 200) {
