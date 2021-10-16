@@ -1,12 +1,8 @@
-import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/genre.dart';
 import 'package:for_the_first_time/service/post_service.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/post.dart';
-import 'package:http/http.dart' as http;
 
 class CreateMemoPage extends StatefulWidget {
   @override

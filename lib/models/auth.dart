@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/service/user_service.dart';
-import 'package:http/http.dart' as http;
 
 class Auth extends ChangeNotifier {
   User? _user;
