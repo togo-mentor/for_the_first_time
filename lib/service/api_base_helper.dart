@@ -1,5 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-
 import './custom_exception.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -8,31 +6,29 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class ApiBaseHelper {
-  
 final String _baseUrl = "http://127.0.0.1:3000";
-final token = FirebaseAuth.instance.currentUser!.getIdToken();
   
-Future<dynamic> get(String url) async {
-    var responseJson;
-    try {
-      final response = await http.get(
-        Uri.parse(_baseUrl + url),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer $token' // firebaseのトークン認証
-        }
-      );
-      responseJson = _returnResponse(response);
-    } on SocketException {
-      throw FetchDataException('No Internet connection');
-    }
-    return responseJson;
-}
+  Future<dynamic> get(String url, String? token) async {
+      var responseJson;
+      try {
+        final response = await http.get(
+          Uri.parse(_baseUrl + url),
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer $token' // firebaseのトークン認証
+          }
+        );
+        responseJson = _returnResponse(response);
+      } on SocketException {
+        throw FetchDataException('No Internet connection');
+      }
+      return responseJson;
+  }
 
 dynamic _returnResponse(http.Response response) {
   switch (response.statusCode) {
     case 200:
-      var responseJson = json.decode(response.body.toString());
+      var responseJson = json.decode(response.body);
       print(responseJson);
       return responseJson;
     case 400:
