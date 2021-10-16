@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/service/post_service.dart';
 import 'package:for_the_first_time/ui/components/post_item.dart';
 import '../../models/post.dart';
-import 'package:http/http.dart' as http;
 
 class MemoHistoryPage extends StatefulWidget {
   @override
