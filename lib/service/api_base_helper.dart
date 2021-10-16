@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 class ApiBaseHelper {
-final String _baseUrl = "http://127.0.0.1:3000";
+final String _baseUrl = "http://127.0.0.1:3000/api";
   
   Future<dynamic> get(String url) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
