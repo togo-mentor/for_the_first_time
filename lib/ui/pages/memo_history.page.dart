@@ -29,16 +29,10 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
 
   Future<void> _fetchPosts() async {
     try {
-      http.Response response = PostService().fetchPosts() as http.Response;
-      if (response.statusCode == 200) {
-        // APIから受け取ったjson形式のデータをdartで扱える形式に変換
-        final responseData = jsonDecode(response.body);
-        setState(() {
-          _posts = List<Post>.from(responseData['data'].map(
-            (post) => Post.fromJson(post))
-          );
-        });
-      }
+      final response = await PostService().fetchPosts();
+      setState(() {
+        _posts = response;
+      });
     } catch (e) {
       print('An error occurred while querying Posts: $e');
     }
