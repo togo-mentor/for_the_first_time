@@ -34,7 +34,7 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
         _posts = response;
       });
     } catch (e) {
-      print('An error occurred while querying Posts: $e');
+      print(e);
     }
   }
 
