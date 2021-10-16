@@ -61,9 +61,9 @@ class ApiBaseHelper {
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:
-        return await FirebaseAuth.instance.signOut();
-      case 403:
         throw UnauthorisedException(response.body.toString());
+      case 403:
+        throw ForbiddenException(response.body.toString());
       case 500:
       default:
         throw FetchDataException(
