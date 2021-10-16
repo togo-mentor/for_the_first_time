@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/service/post_service.dart';
 import 'package:for_the_first_time/ui/components/post_item.dart';
 import '../../models/post.dart';
-import 'package:http/http.dart' as http;
 
 class MemoHistoryPage extends StatefulWidget {
   @override
@@ -28,25 +25,12 @@ class _MemoHistoryPageState extends State<MemoHistoryPage> {
 
   Future<void> _fetchPosts() async {
     try {
-      String url = 'http://127.0.0.1:3000/posts';
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final response = await http.get(Uri.parse(url),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer $token' // firebaseのトークン認証
-        }
-      );
-      if (response.statusCode == 200) {
-        // APIから受け取ったjson形式のデータをdartで扱える形式に変換
-        final responseData = jsonDecode(response.body);
-        setState(() {
-          _posts = List<Post>.from(responseData['data'].map(
-            (post) => Post.fromJson(post))
-          );
-        });
-      }
+      final response = await PostService().fetchPosts();
+      setState(() {
+        _posts = response;
+      });
     } catch (e) {
-      print('An error occurred while querying Posts: $e');
+      print(e);
     }
   }
 

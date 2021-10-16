@@ -1,11 +1,8 @@
-import 'dart:convert';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/genre.dart';
+import 'package:for_the_first_time/service/post_service.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import '../../models/post.dart';
-import 'package:http/http.dart' as http;
 
 class CreateMemoPage extends StatefulWidget {
   @override
@@ -32,25 +29,15 @@ class _CreateMemoPageState extends State<CreateMemoPage> {
   Future _createPost(content, genreId) async {
     try {
       Post newPost = Post(content: content, genreId: genreId);
-      String url = 'http://127.0.0.1:3000/posts';
-      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      final response = await http.post(Uri.parse(url),
-        body: json.encode(newPost.toJson()),
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": 'Bearer $token' // firebaseのトークン認証
-        }
-      );
-      if (response.statusCode == 200) {
-        // フォームの入力値のリセット
-        form.control('content').value = '';
-        form.control('genreId').value = null;
-        form.unfocus(touched: false); // 保存後にバリデーションメッセージが出てくるのを防ぐためにfocusを外す
-        // 画面下部にフラッシュメッセージを表示
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('保存に成功しました！'),
-        ));
-      }
+      await PostService().createPost(newPost);
+      // フォームの入力値のリセット
+      form.control('content').value = '';
+      form.control('genreId').value = null;
+      form.unfocus(touched: false); // 保存後にバリデーションメッセージが出てくるのを防ぐためにfocusを外す
+      // 画面下部にフラッシュメッセージを表示
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('保存に成功しました！'),
+      ));
     } catch (error) {
       print(error);
     }
