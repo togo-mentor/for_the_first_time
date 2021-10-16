@@ -7,9 +7,11 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
+// HTTP通信を共通化する基底クラス
 class ApiBaseHelper {
-final String _baseUrl = "http://127.0.0.1:3000/api";
+  final String _baseUrl = "http://127.0.0.1:3000/api"; // 接続先URL。環境によって変わる
   
+  // getでの接続
   Future<dynamic> get(String url) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       Map<String, dynamic> responseJson;
@@ -28,6 +30,7 @@ final String _baseUrl = "http://127.0.0.1:3000/api";
       return responseJson;
   }
   
+  // post接続
   Future<dynamic> post(String url, String params) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
       Map<String, dynamic> responseJson;
@@ -47,14 +50,18 @@ final String _baseUrl = "http://127.0.0.1:3000/api";
       return responseJson;
   }
 
-  dynamic _returnResponse(http.Response response) {
+  // ステータスに応じたハンドリングを行う処理
+  dynamic _returnResponse(http.Response response) async {
     switch (response.statusCode) {
+      // 200の場合レスポンスをdecodeして返す
       case 200:
         Map<String, dynamic> responseJson = json.decode(response.body);
         return responseJson;
+      // 400, 500の場合例外を発生させる
       case 400:
         throw BadRequestException(response.body.toString());
       case 401:
+        return await FirebaseAuth.instance.signOut();
       case 403:
         throw UnauthorisedException(response.body.toString());
       case 500:

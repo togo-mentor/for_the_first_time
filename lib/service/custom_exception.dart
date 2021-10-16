@@ -1,3 +1,4 @@
+// ステータスコードに応じたエラーメッセージを設定する
 class CustomException implements Exception {
   final String? _message;
   final String? _prefix;
