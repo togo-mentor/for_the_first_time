@@ -27,22 +27,41 @@ final String _baseUrl = "http://127.0.0.1:3000";
       }
       return responseJson;
   }
-
-dynamic _returnResponse(http.Response response) {
-  switch (response.statusCode) {
-    case 200:
-      var responseJson = json.decode(response.body);
-      print(responseJson);
+  
+  Future<dynamic> post(String url, String params) async {
+      final token = await FirebaseAuth.instance.currentUser!.getIdToken();
+      var responseJson;
+      try {
+        final response = await http.post(
+          Uri.parse(_baseUrl + url),
+          body: params,
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": 'Bearer $token' // firebaseのトークン認証
+          }
+        );
+        responseJson = _returnResponse(response);
+      } on SocketException {
+        throw FetchDataException('No Internet connection');
+      }
       return responseJson;
-    case 400:
-      throw BadRequestException(response.body.toString());
-    case 401:
-    case 403:
-      throw UnauthorisedException(response.body.toString());
-    case 500:
-    default:
-      throw FetchDataException(
-          'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
   }
-}
+
+  dynamic _returnResponse(http.Response response) {
+    switch (response.statusCode) {
+      case 200:
+        var responseJson = json.decode(response.body);
+        print(responseJson);
+        return responseJson;
+      case 400:
+        throw BadRequestException(response.body.toString());
+      case 401:
+      case 403:
+        throw UnauthorisedException(response.body.toString());
+      case 500:
+      default:
+        throw FetchDataException(
+            'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
+    }
+  }
 }
