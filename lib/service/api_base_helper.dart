@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 import './custom_exception.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -7,12 +9,19 @@ import 'package:http/http.dart' as http;
 
 class ApiBaseHelper {
   
-final String _baseUrl = "http://api.themoviedb.org/3/";
+final String _baseUrl = "http://127.0.0.1:3000";
+final token = FirebaseAuth.instance.currentUser!.getIdToken();
   
 Future<dynamic> get(String url) async {
     var responseJson;
     try {
-      final response = await http.get(Uri.parse(_baseUrl + url));
+      final response = await http.get(
+        Uri.parse(_baseUrl + url),
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": 'Bearer $token' // firebaseのトークン認証
+        }
+      );
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
