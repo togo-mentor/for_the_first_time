@@ -25,7 +25,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   void initState() {
     super.initState();
     _initializeApp();
-    _createRandomData();
+    createChartData();
   }
 
   Future<void> _initializeApp() async {
@@ -43,31 +43,15 @@ class _DashBoardPageState extends State<DashBoardPage> {
     }
   }
 
-  /// Create random data.
-  static List<charts.Series<LinearSales, int>> _createRandomData() {
-    final random = Random();
+  // 取得したpostデータからグラフデータを生成する
+  void createChartData() {
 
-    final data = [
-      LinearSales(0, random.nextInt(100)),
-      LinearSales(1, random.nextInt(100)),
-      LinearSales(2, random.nextInt(100)),
-      LinearSales(3, random.nextInt(100)),
-    ];
-
-    return [
-      charts.Series<LinearSales, int>(
-        id: 'Sales',
-        domainFn: (LinearSales sales, _) => sales.year,
-        measureFn: (LinearSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
   }
 
   @override
   Widget build(BuildContext context) {
-    return !_posts.isNotEmpty
-        ? charts.PieChart(seriesList, animate: animate)
+    return _posts.isNotEmpty
+        ? Text('test')
       : Center(child: CircularProgressIndicator());
   }
 }
