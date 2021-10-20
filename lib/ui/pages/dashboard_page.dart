@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:for_the_first_time/models/genre.dart';
 import 'package:for_the_first_time/service/post_service.dart';
 import 'package:for_the_first_time/ui/components/indicator.dart';
 import '../../models/post.dart';
@@ -13,7 +14,7 @@ class DashBoardPage extends StatefulWidget {
 class _DashBoardPageState extends State<DashBoardPage> {
   List<Post> _posts = [];
   final bool animate = false;
-   int touchedIndex = -1;
+  int touchedIndex = -1;
 
   @override
   void initState() {
@@ -35,6 +36,16 @@ class _DashBoardPageState extends State<DashBoardPage> {
       print(e);
     }
   }
+
+  List<Color> colorList = [
+    Color(0xff0293ee),
+    Color(0xfff8b250),
+    Color(0xff845bef),
+    Color(0xff13d38e),
+    Color(0xfff8bbd0),
+    Color(0xff80cbc4),
+    Color(0xff5c6bc0),
+  ];
 
   // 取得したpostデータからグラフデータを生成する
   Widget createChartData() {
@@ -70,36 +81,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Indicator(
-              color: const Color(0xff0293ee),
-              text: 'One',
-              isSquare: false,
-              size: touchedIndex == 0 ? 18 : 16,
-              textColor: touchedIndex == 0 ? Colors.black : Colors.grey,
-            ),
-            Indicator(
-              color: const Color(0xfff8b250),
-              text: 'Two',
-              isSquare: false,
-              size: touchedIndex == 1 ? 18 : 16,
-              textColor: touchedIndex == 1 ? Colors.black : Colors.grey,
-            ),
-            Indicator(
-              color: const Color(0xff845bef),
-              text: 'Three',
-              isSquare: false,
-              size: touchedIndex == 2 ? 18 : 16,
-              textColor: touchedIndex == 2 ? Colors.black : Colors.grey,
-            ),
-            Indicator(
-              color: const Color(0xff13d38e),
-              text: 'Four',
-              isSquare: false,
-              size: touchedIndex == 3 ? 18 : 16,
-              textColor: touchedIndex == 3 ? Colors.black : Colors.grey,
-            ),
-          ],
+          children: indicators()
         )
       ]
     );
@@ -112,6 +94,18 @@ class _DashBoardPageState extends State<DashBoardPage> {
       : Center(child: CircularProgressIndicator());
   }
 
+  List<Widget> indicators() {
+    return genreList.map((genre) {
+      return Indicator(
+        color: colorList[genre.id - 1],
+        text: genre.name,
+        isSquare: false,
+        size: touchedIndex == 0 ? 18 : 16,
+        textColor: touchedIndex == 0 ? Colors.black : Colors.grey,
+      );
+    }).toList();
+  }
+
   List<PieChartSectionData> showingSections() {
     Color darken(Color color, [double amount = .1]) {
       assert(amount >= 0 && amount <= 1);
@@ -122,11 +116,8 @@ class _DashBoardPageState extends State<DashBoardPage> {
       return hslDark.toColor();
     }
 
-
-    return List.generate(
-      4,
-      (i) {
-        final isTouched = i == touchedIndex;
+    PieChartSectionData pieChartData(genreId) {
+        final isTouched = genreId == touchedIndex;
         final opacity = isTouched ? 1.0 : 0.6;
 
         const color0 = Color(0xff0293ee);
@@ -134,7 +125,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         const color2 = Color(0xff845bef);
         const color3 = Color(0xff13d38e);
 
-        switch (i) {
+        switch (genreId) {
           case 0:
             return PieChartSectionData(
               color: color0.withOpacity(opacity),
@@ -196,9 +187,25 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   : BorderSide(color: color2.withOpacity(0)),
             );
           default:
-            throw Error();
+            return PieChartSectionData(
+              color: color3.withOpacity(opacity),
+              value: 25,
+              title: '',
+              radius: 70,
+              titleStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff0c7f55)),
+              titlePositionPercentageOffset: 0.55,
+              borderSide: isTouched
+                  ? BorderSide(color: darken(color3, 40), width: 6)
+                  : BorderSide(color: color2.withOpacity(0)),
+            );
         }
-      },
-    );
+    }
+
+    return genreList.map((genre) {
+      return pieChartData(genre.id);
+    }).toList();
   }
 }
