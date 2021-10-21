@@ -124,14 +124,18 @@ class _DashBoardPageState extends State<DashBoardPage> {
         const color1 = Color(0xfff8b250);
         const color2 = Color(0xff845bef);
         const color3 = Color(0xff13d38e);
+        const color4 = Color(0xfff8bbd0);
+        const color5 = Color(0xff80cbc4);
+        const color6 = Color(0xff5c6bc0); 
+    
 
         switch (genreId) {
-          case 0:
+          case 1:
             return PieChartSectionData(
               color: color0.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 80,
+              radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -141,12 +145,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ? BorderSide(color: darken(color0, 40), width: 6)
                   : BorderSide(color: color0.withOpacity(0)),
             );
-          case 1:
+          case 2:
             return PieChartSectionData(
               color: color1.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 65,
+              radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -156,12 +160,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ? BorderSide(color: darken(color1, 40), width: 6)
                   : BorderSide(color: color2.withOpacity(0)),
             );
-          case 2:
+          case 3:
             return PieChartSectionData(
               color: color2.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 60,
+              radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -171,12 +175,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ? BorderSide(color: darken(color2, 40), width: 6)
                   : BorderSide(color: color2.withOpacity(0)),
             );
-          case 3:
+          case 4:
             return PieChartSectionData(
               color: color3.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 70,
+              radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -186,26 +190,61 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   ? BorderSide(color: darken(color3, 40), width: 6)
                   : BorderSide(color: color2.withOpacity(0)),
             );
-          default:
+          case 5:
             return PieChartSectionData(
               color: color3.withOpacity(opacity),
               value: 25,
               title: '',
-              radius: 70,
+              radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff0c7f55)),
+                  color: Color(0xfff8bbd0)
+              ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color3, 40), width: 6)
+                  ? BorderSide(color: darken(color4, 40), width: 6)
                   : BorderSide(color: color2.withOpacity(0)),
             );
+          case 6:
+            return PieChartSectionData(
+              color: color3.withOpacity(opacity),
+              value: 25,
+              title: '',
+              radius: 100,
+              titleStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff80cbc4)
+              ),
+              titlePositionPercentageOffset: 0.55,
+              borderSide: isTouched
+                  ? BorderSide(color: darken(color5, 40), width: 6)
+                  : BorderSide(color: color2.withOpacity(0)),
+            );
+          case 7:
+            return PieChartSectionData(
+              color: color3.withOpacity(opacity),
+              value: 25,
+              title: '',
+              radius: 100,
+              titleStyle: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xff5c6bc0)
+              ),
+              titlePositionPercentageOffset: 0.55,
+              borderSide: isTouched
+                  ? BorderSide(color: darken(color6, 40), width: 6)
+                  : BorderSide(color: color2.withOpacity(0)),
+            );
+            default:
+              throw Error();
         }
     }
 
-    return genreList.map((genre) {
-      return pieChartData(genre.id);
+    return _posts.map((post) {
+      return pieChartData(post.genreId);
     }).toList();
   }
 }
