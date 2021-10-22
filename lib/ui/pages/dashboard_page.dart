@@ -78,10 +78,14 @@ class _DashBoardPageState extends State<DashBoardPage> {
             ),
           )
         ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: indicators()
+        Padding(
+          padding: EdgeInsets.only(left: 40),
+          child: Wrap(
+            children: indicators()
+          ),
+        ),
+        SizedBox(
+          height: 40
         )
       ]
     );
@@ -96,19 +100,21 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   List<Widget> indicators() {
     return genreList.map((genre) {
-      return Indicator(
+      return SizedBox(
+        width: 100,
+        child: Indicator(
         color: colorList[genre.id - 1],
         text: genre.name,
         isSquare: false,
         size: touchedIndex == 0 ? 18 : 16,
         textColor: touchedIndex == 0 ? Colors.black : Colors.grey,
+        )
       );
     }).toList();
   }
 
   List<PieChartSectionData> showingSections() {
-    Color darken(Color color, [double amount = .1]) {
-      assert(amount >= 0 && amount <= 1);
+    Color darken(Color color, [double amount = 1]) {
 
       final hsl = HSLColor.fromColor(color);
       final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
@@ -118,7 +124,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
     double calculatePercentage(genreId) {
       List<Post> speciticGenrePosts = _posts.where((post) => post.genreId == genreId).toList();
-      print((speciticGenrePosts.length / _posts.length) * 100);
       return (speciticGenrePosts.length / _posts.length) * 100;
     }
 
