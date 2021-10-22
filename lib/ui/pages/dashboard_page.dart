@@ -51,6 +51,15 @@ class _DashBoardPageState extends State<DashBoardPage> {
   Widget createChartData() {
     return  Column(
       children: <Widget>[
+        SizedBox(
+          height: 40,
+        ),
+        Text (
+          'ジャンル別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
         Expanded(
           child: AspectRatio(
             aspectRatio: 1,
@@ -65,6 +74,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                         touchedIndex = -1;
                         return;
                       }
+                      print(pieTouchResponse.touchedSection!.touchedSectionIndex);
                       touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
                     });
                   }),
@@ -107,7 +117,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
         text: genre.name,
         isSquare: false,
         size: touchedIndex == 0 ? 18 : 16,
-        textColor: touchedIndex == 0 ? Colors.black : Colors.grey,
+        textColor: touchedIndex == genre.id - 1 ? Colors.black : Colors.grey,
         )
       );
     }).toList();
@@ -122,13 +132,12 @@ class _DashBoardPageState extends State<DashBoardPage> {
       return hslDark.toColor();
     }
 
-    double calculatePercentage(genreId) {
-      List<Post> speciticGenrePosts = _posts.where((post) => post.genreId == genreId).toList();
-      return (speciticGenrePosts.length / _posts.length) * 100;
+    List<Post> speciticGenrePosts(genreId) {
+      return _posts.where((post) => post.genreId == genreId).toList();
     }
 
     PieChartSectionData pieChartData(genreId) {
-        final isTouched = genreId == touchedIndex;
+        final isTouched = genreId - 1 == touchedIndex;
         final opacity = isTouched ? 1.0 : 0.6;
   
 
@@ -136,110 +145,113 @@ class _DashBoardPageState extends State<DashBoardPage> {
           case 1:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff044d7c)
+                  color: Color(0xF1000000)
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId].withOpacity(0)),
             );
           case 2:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff90672d)),
+                  color: Color(0xF1000000)
+              ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 3:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff4c3788)),
+                  color: Color(0xF1000000)
+              ),
               titlePositionPercentageOffset: 0.6,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 4:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff13d38e)),
+                  color: Color(0xF1000000)
+              ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 5:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xfff8bbd0)
+                  color: Color(0xF1000000)
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 6:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff80cbc4)
+                  color: Color(0xF1000000)
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 7:
             return PieChartSectionData(
               color: colorList[genreId -1].withOpacity(opacity),
-              value: calculatePercentage(genreId),
-              title: '',
+              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+              title: speciticGenrePosts(genreId).length.toString(),
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff5c6bc0)
+                  color: Color(0xF1000000)
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
                   : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
             default:
