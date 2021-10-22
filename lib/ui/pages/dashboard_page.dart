@@ -72,7 +72,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                     show: false,
                   ),
                   sectionsSpace: 0,
-                  centerSpaceRadius: 10,
+                  centerSpaceRadius: 15,
                   sections: showingSections(),
               ),
             ),
@@ -116,39 +116,38 @@ class _DashBoardPageState extends State<DashBoardPage> {
       return hslDark.toColor();
     }
 
+    double calculatePercentage(genreId) {
+      List<Post> speciticGenrePosts = _posts.where((post) => post.genreId == genreId).toList();
+      print((speciticGenrePosts.length / _posts.length) * 100);
+      return (speciticGenrePosts.length / _posts.length) * 100;
+    }
+
     PieChartSectionData pieChartData(genreId) {
         final isTouched = genreId == touchedIndex;
         final opacity = isTouched ? 1.0 : 0.6;
-
-        const color0 = Color(0xff0293ee);
-        const color1 = Color(0xfff8b250);
-        const color2 = Color(0xff845bef);
-        const color3 = Color(0xff13d38e);
-        const color4 = Color(0xfff8bbd0);
-        const color5 = Color(0xff80cbc4);
-        const color6 = Color(0xff5c6bc0); 
-    
+  
 
         switch (genreId) {
           case 1:
             return PieChartSectionData(
-              color: color0.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff044d7c)),
+                  color: Color(0xff044d7c)
+              ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color0, 40), width: 6)
-                  : BorderSide(color: color0.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId].withOpacity(0)),
             );
           case 2:
             return PieChartSectionData(
-              color: color1.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
@@ -157,13 +156,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   color: Color(0xff90672d)),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color1, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 3:
             return PieChartSectionData(
-              color: color2.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
@@ -172,28 +171,28 @@ class _DashBoardPageState extends State<DashBoardPage> {
                   color: Color(0xff4c3788)),
               titlePositionPercentageOffset: 0.6,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color2, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 4:
             return PieChartSectionData(
-              color: color3.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff0c7f55)),
+                  color: Color(0xff13d38e)),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color3, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 5:
             return PieChartSectionData(
-              color: color3.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
@@ -203,13 +202,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color4, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 6:
             return PieChartSectionData(
-              color: color3.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
@@ -219,13 +218,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color5, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
           case 7:
             return PieChartSectionData(
-              color: color3.withOpacity(opacity),
-              value: 25,
+              color: colorList[genreId -1].withOpacity(opacity),
+              value: calculatePercentage(genreId),
               title: '',
               radius: 100,
               titleStyle: const TextStyle(
@@ -235,16 +234,16 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
               titlePositionPercentageOffset: 0.55,
               borderSide: isTouched
-                  ? BorderSide(color: darken(color6, 40), width: 6)
-                  : BorderSide(color: color2.withOpacity(0)),
+                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 6)
+                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
             );
             default:
               throw Error();
         }
     }
 
-    return _posts.map((post) {
-      return pieChartData(post.genreId);
+    return genreList.map((genre) {
+      return pieChartData(genre.id);
     }).toList();
   }
 }
