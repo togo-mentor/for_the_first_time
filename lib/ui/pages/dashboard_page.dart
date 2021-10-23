@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/genre.dart';
 import 'package:for_the_first_time/service/post_service.dart';
+import 'package:for_the_first_time/ui/components/genre_pie_chart.dart';
 import 'package:for_the_first_time/ui/components/indicator.dart';
 import '../../models/post.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -12,7 +13,7 @@ class DashBoardPage extends StatefulWidget {
 }
 
 class _DashBoardPageState extends State<DashBoardPage> {
-  List<Post> _posts = [];
+  List<Post> posts = [];
   final bool animate = false;
   int touchedIndex = -1;
   String graphType = 'genre';
@@ -31,7 +32,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
     try {
       final response = await PostService().fetchPosts();
       setState(() {
-        _posts = response;
+        posts = response;
       });
     } catch (e) {
       print(e);
@@ -87,25 +88,13 @@ class _DashBoardPageState extends State<DashBoardPage> {
             }),
           },
         ),
-        graphType == 'genre' ? genrePieChart() : Text (
-          '日別',
-          style: TextStyle(
-            fontSize: 18.0
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 40),
-          child: Wrap(
-            children: indicators()
-          ),
-        ),
+        graphType == 'genre' ? GenrePieChart(posts: posts) : 
         SizedBox(
           height: 40
         )
       ]
     );
   }
-
   
 
   Widget genrePieChart() {
@@ -141,7 +130,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
   @override
   Widget build(BuildContext context) {
-    return _posts.isNotEmpty
+    return posts.isNotEmpty
         ? showChart()
       : Center(child: CircularProgressIndicator());
   }
@@ -171,7 +160,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
     }
 
     List<Post> speciticGenrePosts(genreId) {
-      return _posts.where((post) => post.genreId == genreId).toList();
+      return posts.where((post) => post.genreId == genreId).toList();
     }
 
     PieChartSectionData pieChartData(genreId) {
@@ -180,7 +169,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
 
         return PieChartSectionData(
           color: colorList[genreId -1].withOpacity(opacity),
-          value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+          value: (speciticGenrePosts(genreId).length / posts.length) * 100,
           title: speciticGenrePosts(genreId).length.toString(),
           radius: 100,
           titleStyle: const TextStyle(
