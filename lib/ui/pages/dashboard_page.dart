@@ -139,124 +139,22 @@ class _DashBoardPageState extends State<DashBoardPage> {
     PieChartSectionData pieChartData(genreId) {
         final isTouched = genreId - 1 == touchedIndex;
         final opacity = isTouched ? 1.0 : 0.6;
-  
 
-        switch (genreId) {
-          case 1:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId].withOpacity(0)),
-            );
-          case 2:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-          case 3:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.6,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-          case 4:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-          case 5:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-          case 6:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-          case 7:
-            return PieChartSectionData(
-              color: colorList[genreId -1].withOpacity(opacity),
-              value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
-              title: speciticGenrePosts(genreId).length.toString(),
-              radius: 100,
-              titleStyle: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xF1000000)
-              ),
-              titlePositionPercentageOffset: 0.55,
-              borderSide: isTouched
-                  ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-                  : BorderSide(color: colorList[genreId -1].withOpacity(0)),
-            );
-            default:
-              throw Error();
-        }
+        return PieChartSectionData(
+          color: colorList[genreId -1].withOpacity(opacity),
+          value: (speciticGenrePosts(genreId).length / _posts.length) * 100,
+          title: speciticGenrePosts(genreId).length.toString(),
+          radius: 100,
+          titleStyle: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xF1000000)
+          ),
+          titlePositionPercentageOffset: 0.55,
+          borderSide: isTouched
+              ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
+              : BorderSide(color: colorList[genreId - 1].withOpacity(0)),
+        );        
     }
 
     return genreList.map((genre) {
