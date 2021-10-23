@@ -87,7 +87,29 @@ class _DashBoardPageState extends State<DashBoardPage> {
             }),
           },
         ),
-        Expanded(
+        graphType == 'genre' ? genrePieChart() : Text (
+          '日別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 40),
+          child: Wrap(
+            children: indicators()
+          ),
+        ),
+        SizedBox(
+          height: 40
+        )
+      ]
+    );
+  }
+
+  
+
+  Widget genrePieChart() {
+    return Expanded(
           child: AspectRatio(
             aspectRatio: 1,
             child: PieChart(
@@ -114,18 +136,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
               ),
             ),
           )
-        ),
-        Padding(
-          padding: EdgeInsets.only(left: 40),
-          child: Wrap(
-            children: indicators()
-          ),
-        ),
-        SizedBox(
-          height: 40
-        )
-      ]
-    );
+        );
   }
 
   @override
