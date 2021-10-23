@@ -15,6 +15,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   List<Post> _posts = [];
   final bool animate = false;
   int touchedIndex = -1;
+  String graphType = 'genre';
 
   @override
   void initState() {
@@ -47,18 +48,44 @@ class _DashBoardPageState extends State<DashBoardPage> {
     Color(0xff5c6bc0),
   ];
 
+  List<DropdownMenuItem<String>> graphDropDownList() {
+    return [
+      DropdownMenuItem(
+        child: Text (
+          '日別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
+        value: 'date',
+      ),
+      DropdownMenuItem(
+        child: Text (
+          'ジャンル別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
+        value: 'genre',
+      ),
+    ];
+  }
+
   // 取得したpostデータからグラフデータを生成する
-  Widget createChartData() {
+  Widget showChart() {
     return  Column(
       children: <Widget>[
         SizedBox(
           height: 40,
         ),
-        Text (
-          'ジャンル別',
-          style: TextStyle(
-            fontSize: 18.0
-          ),
+        DropdownButton(
+          items: graphDropDownList(),
+          value: graphType,
+          onChanged: (value) => {
+            setState(() {
+              graphType = value as String;
+            }),
+          },
         ),
         Expanded(
           child: AspectRatio(
@@ -104,7 +131,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
   @override
   Widget build(BuildContext context) {
     return _posts.isNotEmpty
-        ? createChartData()
+        ? showChart()
       : Center(child: CircularProgressIndicator());
   }
 
