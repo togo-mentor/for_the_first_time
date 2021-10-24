@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/genre.dart';
 import 'package:for_the_first_time/service/post_service.dart';
+import 'package:for_the_first_time/ui/components/daily_line_chart.dart';
 import 'package:for_the_first_time/ui/components/genre_pie_chart.dart';
 import 'package:for_the_first_time/ui/components/indicator.dart';
 import '../../models/post.dart';
@@ -88,7 +89,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
             }),
           },
         ),
-        graphType == 'genre' ? GenrePieChart(posts: posts) : 
+        graphType == 'genre' ? GenrePieChart(posts: posts) : DailyLineChart(posts: posts),
         SizedBox(
           height: 40
         )
