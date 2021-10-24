@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/post.dart';
+import "package:intl/intl.dart";
 
 class DailyLineChart extends StatelessWidget {
   final List<Post> posts;
@@ -24,7 +25,7 @@ class DailyLineChart extends StatelessWidget {
       borderData: borderData,
       lineBarsData: lineBarsData1,
       minX: 0,
-      maxX: 14,
+      maxX: 9,
       maxY: 10,
       minY: 0,
   );
@@ -42,29 +43,7 @@ class DailyLineChart extends StatelessWidget {
         topTitles: SideTitles(showTitles: false),
         leftTitles: leftTitles(
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '0';
-              case 2:
-                return '3';
-              case 3:
-                return '6';
-              case 4:
-                return '9';
-              case 5:
-                return '12';
-              case 6:
-                return '15';
-              case 7:
-                return '18';
-              case 8:
-                return '21';
-              case 9:
-                return '24';
-              case 10:
-                return '30';
-            }
-            return '';
+            return (value.toInt() * 3).toString();
           },
         ),
       );
@@ -99,17 +78,21 @@ class DailyLineChart extends StatelessWidget {
         showTitles: true,
         reservedSize: 22,
         margin: 10,
-        interval: 10,
+        interval: 7,
         getTextStyles: (context, value) => const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
           fontSize: 16,
         ),
         getTitles: (value) {
-          final DateTime date =
-              DateTime.fromMillisecondsSinceEpoch(value.toInt());
-          final parts = date.toIso8601String().split("T");
-          return parts.first;
+          var now = DateTime.now();
+          var formatter = DateFormat('yyyy-MM-dd');
+          String formattedDate = formatter.format(now);
+          switch (value.toInt()) {
+            case 7:
+              return formattedDate;
+          }
+          return '';
         },
   );
 
