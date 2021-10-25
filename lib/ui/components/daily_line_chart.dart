@@ -2,10 +2,51 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/post.dart';
 import "package:intl/intl.dart";
+import 'package:intl/date_symbol_data_local.dart';
 
-class DailyLineChart extends StatelessWidget {
+class DailyLineChart extends StatefulWidget {
   final List<Post> posts;
   DailyLineChart({Key? key, required this.posts}) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _DailyLineChartState();
+}
+
+class _DailyLineChartState extends State<DailyLineChart> {
+  List<dynamic> postsParDate = [];
+
+  @override
+  void initState() {
+    super.initState();
+    var now = DateTime.now();
+    var todaysData = {
+      'date': 7,
+      'count': countPostsParDate(now)
+    };
+    postsParDate.add(todaysData);
+    for (var i = 1; i < 8; i++) {
+      var date = now.add(Duration(days: i) * -1);
+      var dailyData = {
+        'date': 7 - i,
+        'count': countPostsParDate(date)
+      };
+      postsParDate.add(dailyData);
+    }
+    print(postsParDate);
+  }
+
+  // created_atの整形
+  String formateTimeStamp(createdAtString) {
+    initializeDateFormatting("ja_JP");
+    DateTime createdAtDatetime = DateTime.parse(createdAtString); 
+    var formatter = DateFormat('yyyy/MM/dd', "ja_JP");
+    return formatter.format(createdAtDatetime.toLocal());
+  }
+
+  int countPostsParDate(createdAt) {
+    return widget.posts.where((post) => 
+      formateTimeStamp(post.createdAt) == formateTimeStamp(createdAt.toString())
+    ).length;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +97,12 @@ class DailyLineChart extends StatelessWidget {
       isStrokeCapRound: true,
       dotData: FlDotData(show: false),
       belowBarData: BarAreaData(show: false),
-      spots: posts.map((post) => 
-        FlSpot(DateTime.parse(post.createdAt as String).microsecondsSinceEpoch.toDouble(), posts.length.toDouble())
-      ).toList())
+      spots: postsParDate.map((data) => 
+        FlSpot(double.parse(data['date'].toString()), data['count'].toDouble())
+      ).toList())      
+
   ];
+  
 
   SideTitles leftTitles({required GetTitleFunction getTitles}) => SideTitles(
         getTitles: getTitles,
@@ -106,58 +149,5 @@ class DailyLineChart extends StatelessWidget {
           right: BorderSide(color: Colors.transparent),
           top: BorderSide(color: Colors.transparent),
         ),
-      );
-
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: true,
-        colors: [const Color(0xff4af699)],
-        barWidth: 8,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(1, 1),
-          FlSpot(3, 1.5),
-          FlSpot(5, 1.4),
-          FlSpot(7, 3.4),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
-          FlSpot(13, 1.8),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: true,
-        colors: [const Color(0xffaa4cfc)],
-        barWidth: 8,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false, colors: [
-          const Color(0x00aa4cfc),
-        ]),
-        spots: const [
-          FlSpot(1, 1),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3.9),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_3 => LineChartBarData(
-        isCurved: true,
-        colors: const [Color(0xff27b6fc)],
-        barWidth: 8,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(1, 2.8),
-          FlSpot(3, 1.9),
-          FlSpot(6, 3),
-          FlSpot(10, 1.3),
-          FlSpot(13, 2.5),
-        ],
       );
 }
