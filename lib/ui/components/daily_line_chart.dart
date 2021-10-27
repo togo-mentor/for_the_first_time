@@ -66,8 +66,8 @@ class _DailyLineChartState extends State<DailyLineChart> {
       borderData: borderData,
       lineBarsData: lineBarsData1,
       minX: 0,
-      maxX: 9,
-      maxY: 10,
+      maxX: 10,
+      maxY: 15,
       minY: 0,
   );
 
@@ -84,7 +84,7 @@ class _DailyLineChartState extends State<DailyLineChart> {
         topTitles: SideTitles(showTitles: false),
         leftTitles: leftTitles(
           getTitles: (value) {
-            return (value.toInt() * 3).toString();
+            return (value.toInt()).toString() + "件";
           },
         ),
       );
@@ -93,10 +93,10 @@ class _DailyLineChartState extends State<DailyLineChart> {
     LineChartBarData(
       isCurved: false,
       colors: [const Color(0xff4af699)],
-      barWidth: 8,
+      barWidth: 5,
       isStrokeCapRound: true,
-      dotData: FlDotData(show: false),
-      belowBarData: BarAreaData(show: false),
+      dotData: FlDotData(show: true),
+      belowBarData: BarAreaData(show: true),
       spots: postsParDate.map((data) => 
         FlSpot(double.parse(data['date'].toString()), data['count'].toDouble())
       ).toList())      
@@ -108,7 +108,7 @@ class _DailyLineChartState extends State<DailyLineChart> {
         getTitles: getTitles,
         showTitles: true,
         margin: 8,
-        interval: 1,
+        interval: 3,
         reservedSize: 40,
         getTextStyles: (context, value) => const TextStyle(
           color: Color(0xff75729e),
@@ -145,7 +145,7 @@ class _DailyLineChartState extends State<DailyLineChart> {
         show: true,
         border: const Border(
           bottom: BorderSide(color: Color(0xff4e4965), width: 4),
-          left: BorderSide(color: Colors.transparent),
+          left: BorderSide(color: Color(0xff4e4965), width: 4),
           right: BorderSide(color: Colors.transparent),
           top: BorderSide(color: Colors.transparent),
         ),
