@@ -96,38 +96,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
       ]
     );
   }
-  
-
-  Widget genrePieChart() {
-    return Expanded(
-          child: AspectRatio(
-            aspectRatio: 1,
-            child: PieChart(
-              PieChartData(
-                  pieTouchData:
-                      PieTouchData(touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                    setState(() {
-                      if (!event.isInterestedForInteractions ||
-                          pieTouchResponse == null ||
-                          pieTouchResponse.touchedSection == null) {
-                        touchedIndex = -1;
-                        return;
-                      }
-                      print(pieTouchResponse.touchedSection!.touchedSectionIndex);
-                      touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
-                    });
-                  }),
-                  borderData: FlBorderData(
-                    show: false,
-                  ),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 15,
-                  sections: showingSections(),
-              ),
-            ),
-          )
-        );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,57 +104,4 @@ class _DashBoardPageState extends State<DashBoardPage> {
       : Center(child: CircularProgressIndicator());
   }
 
-  List<Widget> indicators() {
-    return genreList.map((genre) {
-      return SizedBox(
-        width: 100,
-        child: Indicator(
-        color: colorList[genre.id - 1],
-        text: genre.name,
-        isSquare: false,
-        size: touchedIndex == 0 ? 18 : 16,
-        textColor: touchedIndex == genre.id - 1 ? Colors.black : Colors.grey,
-        )
-      );
-    }).toList();
-  }
-
-  List<PieChartSectionData> showingSections() {
-    Color darken(Color color, [double amount = 1]) {
-
-      final hsl = HSLColor.fromColor(color);
-      final hslDark = hsl.withLightness((hsl.lightness - amount).clamp(0.0, 1.0));
-
-      return hslDark.toColor();
-    }
-
-    List<Post> speciticGenrePosts(genreId) {
-      return posts.where((post) => post.genreId == genreId).toList();
-    }
-
-    PieChartSectionData pieChartData(genreId) {
-        final isTouched = genreId - 1 == touchedIndex;
-        final opacity = isTouched ? 1.0 : 0.6;
-
-        return PieChartSectionData(
-          color: colorList[genreId -1].withOpacity(opacity),
-          value: (speciticGenrePosts(genreId).length / posts.length) * 100,
-          title: speciticGenrePosts(genreId).length.toString(),
-          radius: 100,
-          titleStyle: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Color(0xF1000000)
-          ),
-          titlePositionPercentageOffset: 0.55,
-          borderSide: isTouched
-              ? BorderSide(color: darken(colorList[genreId -1], 40), width: 3)
-              : BorderSide(color: colorList[genreId - 1].withOpacity(0)),
-        );        
-    }
-
-    return genreList.map((genre) {
-      return pieChartData(genre.id);
-    }).toList();
-  }
 }
