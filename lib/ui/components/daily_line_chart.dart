@@ -31,7 +31,6 @@ class _DailyLineChartState extends State<DailyLineChart> {
       };
       postsParDate.add(dailyData);
     }
-    print(postsParDate);
   }
 
   // created_atの整形
