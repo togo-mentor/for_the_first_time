@@ -49,12 +49,19 @@ class _DailyLineChartState extends State<DailyLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: LineChart(
-      sampleData1,
-      swapAnimationDuration: const Duration(milliseconds: 250),
-      )
+    return Column(
+      children: <Widget>[
+        SizedBox(
+          height: 50,
+        ),
+        SizedBox(
+          height: 300,
+          child: LineChart(
+          sampleData1,
+          swapAnimationDuration: const Duration(milliseconds: 250),
+          )
+        ),
+      ]
     );
   }
 
