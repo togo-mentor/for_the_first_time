@@ -20,12 +20,12 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
     var now = DateTime.now();
     for (var i = 0; i < 4; i++) {
       int count = 0;
-      for (var i = 0; i < 8; i++) {
-        var date = now.add(Duration(days: i) * -1);
+      for (var j = 8 * (i - 1); j < 8 * (i - 1) + 8; j++) {
+        var date = now.add(Duration(days: j) * -1);
         count += countPostsParDate(date);
       }
       var dailyData = {
-        'date': 4 - i,
+        'date': 3 - i,
         'count': count
       };
       postsParDate.add(dailyData);
@@ -64,7 +64,7 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
       borderData: borderData,
       lineBarsData: lineBarsData1,
       minX: 0,
-      maxX: 10,
+      maxX: 4,
       maxY: 15,
       minY: 0,
   );
@@ -130,7 +130,7 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
           var formatter = DateFormat('yyyy-MM-dd');
           String formattedDate = formatter.format(now);
           switch (value.toInt()) {
-            case 7:
+            case 3:
               return formattedDate;
           }
           return '';
