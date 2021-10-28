@@ -20,7 +20,7 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
     var now = DateTime.now();
     for (var i = 0; i < 4; i++) {
       int count = 0;
-      for (var j = 8 * (i - 1); j < 8 * (i - 1) + 8; j++) {
+      for (var j = 8 * i; j < 8 * i + 8; j++) {
         var date = now.add(Duration(days: j) * -1);
         count += countPostsParDate(date);
       }
