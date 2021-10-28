@@ -54,7 +54,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
     return [
       DropdownMenuItem(
         child: Text (
-          '日別',
+          '投稿件数の推移',
           style: TextStyle(
             fontSize: 18.0
           ),
@@ -63,7 +63,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
       ),
       DropdownMenuItem(
         child: Text (
-          'ジャンル別',
+          'ジャンル別投稿件数',
           style: TextStyle(
             fontSize: 18.0
           ),
