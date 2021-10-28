@@ -51,8 +51,8 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
     return SizedBox(
       height: 300,
       child: LineChart(
-      sampleData1,
-      swapAnimationDuration: const Duration(milliseconds: 250),
+        sampleData1,
+        swapAnimationDuration: const Duration(milliseconds: 250),
       )
     );
   }

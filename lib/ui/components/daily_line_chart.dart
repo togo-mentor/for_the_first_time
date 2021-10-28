@@ -1,6 +1,7 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/post.dart';
+import 'package:for_the_first_time/ui/components/weekly_line_chart.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -100,10 +101,11 @@ class _DailyLineChartState extends State<DailyLineChart> {
         ),
         SizedBox(
           height: 300,
-          child: LineChart(
-          sampleData1,
-          swapAnimationDuration: const Duration(milliseconds: 250),
-          )
+          child: graphType == 'daily' ?
+          LineChart(
+            sampleData1,
+            swapAnimationDuration: const Duration(milliseconds: 250),
+          ) : WeeklyLineChart(posts: widget.posts)
         ),
       ]
     );
