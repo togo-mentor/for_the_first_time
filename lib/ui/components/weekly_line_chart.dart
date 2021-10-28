@@ -119,19 +119,39 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
         showTitles: true,
         reservedSize: 22,
         margin: 10,
-        interval: 7,
+        interval: 1,
         getTextStyles: (context, value) => const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: 8,
         ),
         getTitles: (value) {
           var now = DateTime.now();
-          var formatter = DateFormat('yyyy-MM-dd');
-          String formattedDate = formatter.format(now);
+          var formatter = DateFormat('MM-dd');
           switch (value.toInt()) {
             case 3:
-              return formattedDate;
+              String formattedTo = formatter.format(now);
+              var from = now.add(Duration(days: 7) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 2:
+              var to = now.add(Duration(days: 7) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 14) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 1:
+            var to = now.add(Duration(days: 14) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 21) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 0:
+              var to = now.add(Duration(days: 21) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 28) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
           }
           return '';
         },
