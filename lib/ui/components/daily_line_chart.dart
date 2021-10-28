@@ -13,6 +13,7 @@ class DailyLineChart extends StatefulWidget {
 
 class _DailyLineChartState extends State<DailyLineChart> {
   List<dynamic> postsParDate = [];
+  String graphType = 'daily';
 
   @override
   void initState() {
@@ -47,12 +48,55 @@ class _DailyLineChartState extends State<DailyLineChart> {
     ).length;
   }
 
+  List<DropdownMenuItem<String>> graphDropDownList() {
+    return [
+      DropdownMenuItem(
+        child: Text (
+          '日別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
+        value: 'daily',
+      ),
+      DropdownMenuItem(
+        child: Text (
+          '週別',
+          style: TextStyle(
+            fontSize: 18.0
+          ),
+        ),
+        value: 'weekly',
+      ),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 50,
+          height: 40,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              DropdownButton(
+                items: graphDropDownList(),
+                value: graphType,
+                onChanged: (value) => {
+                  setState(() {
+                    graphType = value as String;
+                  }),
+                },
+              ),
+              SizedBox(
+                width: 40
+              )
+            ]
+          )
+        ),
+        SizedBox(
+          height: 10
         ),
         SizedBox(
           height: 300,
