@@ -65,7 +65,7 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
       lineBarsData: lineBarsData1,
       minX: 0,
       maxX: 4,
-      maxY: 15,
+      maxY: 24,
       minY: 0,
   );
 
