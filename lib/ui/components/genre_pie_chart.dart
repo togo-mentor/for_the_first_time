@@ -43,7 +43,6 @@ class _GenrePieChartState extends State<GenrePieChart> {
                     touchedIndex = -1;
                     return;
                   }
-                  print(pieTouchResponse.touchedSection!.touchedSectionIndex);
                   touchedIndex = pieTouchResponse.touchedSection!.touchedSectionIndex;
                 });
               }),
