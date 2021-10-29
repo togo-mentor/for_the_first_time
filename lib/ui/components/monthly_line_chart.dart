@@ -19,7 +19,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart> {
     super.initState();
     var now = DateTime.now();
     for (var i = 0; i < 4; i++) {
-      var date = DateTime(now.year, now.month - 1, now.day);
+      var date = DateTime(now.year, now.month - i, now.day);
       var dailyData = {
         'date': 3 - i,
         'count': countPostsParDate(date)
@@ -123,31 +123,23 @@ class _MonthlyLineChartState extends State<MonthlyLineChart> {
         ),
         getTitles: (value) {
           var now = DateTime.now();
-          var formatter = DateFormat('MM-dd');
+          var formatter = DateFormat('yyyy-MM');
           switch (value.toInt()) {
             case 3:
-              String formattedTo = formatter.format(now);
-              var from = now.add(Duration(days: 7) * - 1);
-              String formattedFrom = formatter.format(from);
-              return '$formattedFrom - $formattedTo';
+              String thisMonth = formatter.format(now);
+              return thisMonth;
             case 2:
-              var to = now.add(Duration(days: 7) * - 1);
-              String formattedTo = formatter.format(to);
-              var from = now.add(Duration(days: 14) * - 1);
-              String formattedFrom = formatter.format(from);
-              return '$formattedFrom - $formattedTo';
+              var date = DateTime(now.year, now.month - 1, now.day);
+              String formattedMonth = formatter.format(date);
+              return formattedMonth;
             case 1:
-            var to = now.add(Duration(days: 14) * - 1);
-              String formattedTo = formatter.format(to);
-              var from = now.add(Duration(days: 21) * - 1);
-              String formattedFrom = formatter.format(from);
-              return '$formattedFrom - $formattedTo';
+              var date = DateTime(now.year, now.month - 2, now.day);
+              String formattedMonth = formatter.format(date);
+              return formattedMonth;
             case 0:
-              var to = now.add(Duration(days: 21) * - 1);
-              String formattedTo = formatter.format(to);
-              var from = now.add(Duration(days: 28) * - 1);
-              String formattedFrom = formatter.format(from);
-              return '$formattedFrom - $formattedTo';
+              var date = DateTime(now.year, now.month - 3, now.day);
+              String formattedMonth = formatter.format(date);
+              return formattedMonth;
           }
           return '';
         },
