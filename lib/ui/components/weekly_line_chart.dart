@@ -117,13 +117,13 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
 
   SideTitles get bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 22,
+        reservedSize: 10,
         margin: 10,
         interval: 1,
         getTextStyles: (context, value) => const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
-          fontSize: 8,
+          fontSize: 9,
         ),
         getTitles: (value) {
           var now = DateTime.now();
