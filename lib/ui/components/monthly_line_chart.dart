@@ -1,36 +1,27 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/post.dart';
-import 'package:for_the_first_time/ui/components/weekly_line_chart.dart';
 import "package:intl/intl.dart";
 import 'package:intl/date_symbol_data_local.dart';
 
-import 'monthly_line_chart.dart';
-
-class DailyLineChart extends StatefulWidget {
+class MonthlyLineChart extends StatefulWidget {
   final List<Post> posts;
-  DailyLineChart({Key? key, required this.posts}) : super(key: key);
+  MonthlyLineChart({Key? key, required this.posts}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => _DailyLineChartState();
+  State<StatefulWidget> createState() => _MonthlyLineChartState();
 }
 
-class _DailyLineChartState extends State<DailyLineChart> {
+class _MonthlyLineChartState extends State<MonthlyLineChart> {
   List<dynamic> postsParDate = [];
-  String graphType = 'daily';
 
   @override
   void initState() {
     super.initState();
     var now = DateTime.now();
-    var todaysData = {
-      'date': 7,
-      'count': countPostsParDate(now)
-    };
-    postsParDate.add(todaysData);
-    for (var i = 1; i < 8; i++) {
-      var date = now.add(Duration(days: i) * -1);
+    for (var i = 0; i < 4; i++) {
+      var date = DateTime(now.year, now.month - 1, now.day);
       var dailyData = {
-        'date': 7 - i,
+        'date': 3 - i,
         'count': countPostsParDate(date)
       };
       postsParDate.add(dailyData);
@@ -41,7 +32,7 @@ class _DailyLineChartState extends State<DailyLineChart> {
   String formateTimeStamp(createdAtString) {
     initializeDateFormatting("ja_JP");
     DateTime createdAtDatetime = DateTime.parse(createdAtString); 
-    var formatter = DateFormat('yyyy/MM/dd', "ja_JP");
+    var formatter = DateFormat('yyyy/MM', "ja_JP");
     return formatter.format(createdAtDatetime.toLocal());
   }
 
@@ -51,86 +42,15 @@ class _DailyLineChartState extends State<DailyLineChart> {
     ).length;
   }
 
-  List<DropdownMenuItem<String>> graphDropDownList() {
-    return [
-      DropdownMenuItem(
-        child: Text (
-          '日別',
-          style: TextStyle(
-            fontSize: 18.0
-          ),
-        ),
-        value: 'daily',
-      ),
-      DropdownMenuItem(
-        child: Text (
-          '週別',
-          style: TextStyle(
-            fontSize: 18.0
-          ),
-        ),
-        value: 'weekly',
-      ),
-      DropdownMenuItem(
-        child: Text (
-          '月別',
-          style: TextStyle(
-            fontSize: 18.0
-          ),
-        ),
-        value: 'monthly',
-      ),
-    ];
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        SizedBox(
-          height: 40,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              DropdownButton(
-                items: graphDropDownList(),
-                value: graphType,
-                onChanged: (value) => {
-                  setState(() {
-                    graphType = value as String;
-                  }),
-                },
-              ),
-              SizedBox(
-                width: 40
-              )
-            ]
-          )
-        ),
-        SizedBox(
-          height: 10
-        ),
-        SizedBox(
-          height: 300,
-          child: switchGraphType()
-        ),
-      ]
+    return SizedBox(
+      height: 300,
+      child: LineChart(
+        sampleData1,
+        swapAnimationDuration: const Duration(milliseconds: 250),
+      )
     );
-  }
-
-  Widget switchGraphType() {
-    switch(graphType) {
-      case 'daily':
-        return LineChart(
-            sampleData1,
-            swapAnimationDuration: const Duration(milliseconds: 250),
-          );
-      case 'weekly':
-        return WeeklyLineChart(posts: widget.posts);
-      case 'monthly':
-        return MonthlyLineChart(posts: widget.posts);
-    }
-    return Container();
   }
 
   LineChartData get sampleData1 => LineChartData(
@@ -140,8 +60,8 @@ class _DailyLineChartState extends State<DailyLineChart> {
       borderData: borderData,
       lineBarsData: lineBarsData1,
       minX: 0,
-      maxX: 10,
-      maxY: 15,
+      maxX: 4,
+      maxY: 24,
       minY: 0,
   );
 
@@ -193,21 +113,41 @@ class _DailyLineChartState extends State<DailyLineChart> {
 
   SideTitles get bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 22,
+        reservedSize: 10,
         margin: 10,
-        interval: 7,
+        interval: 1,
         getTextStyles: (context, value) => const TextStyle(
           color: Color(0xff72719b),
           fontWeight: FontWeight.bold,
-          fontSize: 16,
+          fontSize: 9,
         ),
         getTitles: (value) {
           var now = DateTime.now();
-          var formatter = DateFormat('yyyy-MM-dd');
-          String formattedDate = formatter.format(now);
+          var formatter = DateFormat('MM-dd');
           switch (value.toInt()) {
-            case 7:
-              return formattedDate;
+            case 3:
+              String formattedTo = formatter.format(now);
+              var from = now.add(Duration(days: 7) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 2:
+              var to = now.add(Duration(days: 7) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 14) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 1:
+            var to = now.add(Duration(days: 14) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 21) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
+            case 0:
+              var to = now.add(Duration(days: 21) * - 1);
+              String formattedTo = formatter.format(to);
+              var from = now.add(Duration(days: 28) * - 1);
+              String formattedFrom = formatter.format(from);
+              return '$formattedFrom - $formattedTo';
           }
           return '';
         },
