@@ -15,19 +15,20 @@ class DailyLineChart extends StatefulWidget {
 }
 
 class _DailyLineChartState extends State<DailyLineChart> {
-  List<dynamic> postsParDate = [];
-  String graphType = 'daily';
+  List<dynamic> postsParDate = []; // グラフの表示データ
+  String graphType = 'daily'; // グラフタイプ(日別・週別・月別)
 
   @override
   void initState() {
     super.initState();
     var now = DateTime.now();
     var todaysData = {
-      'date': 7,
+      'date': 7, // 今日の日付を7とする
       'count': countPostsParDate(now)
     };
     postsParDate.add(todaysData);
     for (var i = 1; i < 8; i++) {
+      // 7から順に1ずつdateを減らす。これは日付ではなくグラフのメモリ
       var date = now.add(Duration(days: i) * -1);
       var dailyData = {
         'date': 7 - i,
@@ -45,12 +46,14 @@ class _DailyLineChartState extends State<DailyLineChart> {
     return formatter.format(createdAtDatetime.toLocal());
   }
 
+  // 指定された日付に投稿されたデータの数を取得
   int countPostsParDate(createdAt) {
     return widget.posts.where((post) => 
       formateTimeStamp(post.createdAt) == formateTimeStamp(createdAt.toString())
     ).length;
   }
 
+  // 日別・週別・月別の切り替え
   List<DropdownMenuItem<String>> graphDropDownList() {
     return [
       DropdownMenuItem(
@@ -118,6 +121,7 @@ class _DailyLineChartState extends State<DailyLineChart> {
     );
   }
 
+  // グラフの表示切り替え
   Widget switchGraphType() {
     switch(graphType) {
       case 'daily':

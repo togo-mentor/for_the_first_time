@@ -1,12 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:for_the_first_time/models/genre.dart';
 import 'package:for_the_first_time/service/post_service.dart';
 import 'package:for_the_first_time/ui/components/daily_line_chart.dart';
 import 'package:for_the_first_time/ui/components/genre_pie_chart.dart';
-import 'package:for_the_first_time/ui/components/indicator.dart';
 import '../../models/post.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 class DashBoardPage extends StatefulWidget {
   @override

@@ -18,8 +18,10 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
   void initState() {
     super.initState();
     var now = DateTime.now();
+    // i が週単位のループ
     for (var i = 0; i < 4; i++) {
       int count = 0;
+      // 1週間ごとに7回ループする
       for (var j = 8 * i; j < 8 * i + 8; j++) {
         var date = now.add(Duration(days: j) * -1);
         count += countPostsParDate(date);
@@ -126,6 +128,7 @@ class _WeeklyLineChartState extends State<WeeklyLineChart> {
           fontSize: 9,
         ),
         getTitles: (value) {
+          // 1週間の始まりの日付と終わりの日付を取得して横軸に表示
           var now = DateTime.now();
           var formatter = DateFormat('MM-dd');
           switch (value.toInt()) {

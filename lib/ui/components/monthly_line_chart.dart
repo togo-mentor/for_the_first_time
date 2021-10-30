@@ -36,6 +36,7 @@ class _MonthlyLineChartState extends State<MonthlyLineChart> {
     return formatter.format(createdAtDatetime.toLocal());
   }
 
+  // フォーマッターを年月のみ指定にすることで、特定の月に投稿されたデータを取得
   int countPostsParDate(createdAt) {
     return widget.posts.where((post) => 
       formateTimeStamp(post.createdAt) == formateTimeStamp(createdAt.toString())
