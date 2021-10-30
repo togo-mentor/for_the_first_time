@@ -14,7 +14,7 @@ class ApiBaseHelper {
   // getでの接続
   Future<dynamic> get(String url) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      Map<String, dynamic> responseJson;
+      dynamic responseJson;
       try {
         final response = await http.get(
           Uri.parse(_baseUrl + url),
@@ -33,7 +33,7 @@ class ApiBaseHelper {
   // post接続
   Future<dynamic> post(String url, String params) async {
       final token = await FirebaseAuth.instance.currentUser!.getIdToken();
-      Map<String, dynamic> responseJson;
+      dynamic responseJson;
       try {
         final response = await http.post(
           Uri.parse(_baseUrl + url),

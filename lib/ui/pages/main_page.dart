@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/auth.dart';
-import './tab_page.dart';
 import './create_memo_page.dart';
+import 'dashboard_page.dart';
 import 'memo_history.page.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +50,7 @@ class _MainPageState extends State<MainPage> {
             children: <Widget> [
               CreateMemoPage(),
               MemoHistoryPage(),
-              TabPage(title: "ダッシュボード", icon: Icons.dashboard),
+              DashBoardPage(),
             ]
         ),
       ),
