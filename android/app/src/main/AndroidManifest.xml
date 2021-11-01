@@ -2,7 +2,7 @@
     package="com.example.for_the_first_time">
    <application
         android:label="for_the_first_time"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
