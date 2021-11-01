@@ -22,6 +22,15 @@ class _MainPageState extends State<MainPage> {
     return DefaultTabController(  // タブを制御
       length: _tab.length,  // タブの数
       child: Scaffold(
+        drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+          DrawerHeader(
+          child: Text('ヘッダー'),
+          decoration: BoxDecoration(
+          color: Colors.blue,
+          ))],
+        )),
         appBar: AppBar(
           title: Text("はじめて図鑑"),
           actions: <Widget>[
