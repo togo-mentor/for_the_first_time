@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/auth.dart';
 import './create_memo_page.dart';
+import 'app_info_page.dart';
 import 'dashboard_page.dart';
 import 'memo_history.page.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,12 @@ class _MainPageState extends State<MainPage> {
             ListTile(
               title: Text("アプリ情報"),
               trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext context) => AppInfoPage(),
+                ));
+              }
             ),
           ],
         )),
