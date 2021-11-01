@@ -25,11 +25,11 @@ class _MainPageState extends State<MainPage> {
         drawer: Drawer(
         child: ListView(
           children: <Widget>[
-          DrawerHeader(
-          child: Text('ヘッダー'),
-          decoration: BoxDecoration(
-          color: Colors.blue,
-          ))],
+            ListTile(
+              title: Text("アプリ情報"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+          ],
         )),
         appBar: AppBar(
           title: Text("はじめて図鑑"),
