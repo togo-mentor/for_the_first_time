@@ -59,7 +59,14 @@ class _AppInfoPageState extends State<AppInfoPage> {
             )
           ],
         ),
-        body: Text('hoge')
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('はじめて図鑑')
+            ]
+          )
+        )
       );
   }
 }
