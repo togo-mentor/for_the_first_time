@@ -27,6 +27,16 @@ class _MainPageState extends State<MainPage> {
         child: ListView(
           children: <Widget>[
             ListTile(
+              title: Text("ホーム"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext context) => MainPage(),
+                ));
+              }
+            ),
+            ListTile(
               title: Text("アプリ情報"),
               trailing: Icon(Icons.arrow_forward),
               onTap: () {

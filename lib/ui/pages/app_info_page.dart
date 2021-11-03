@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/auth.dart';
 import 'package:provider/provider.dart';
 
+import 'main_page.dart';
+
 class AppInfoPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _AppInfoPageState();
@@ -15,6 +17,16 @@ class _AppInfoPageState extends State<AppInfoPage> {
         drawer: Drawer(
         child: ListView(
           children: <Widget>[
+            ListTile(
+              title: Text("ホーム"),
+              trailing: Icon(Icons.arrow_forward),
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  fullscreenDialog: true,
+                  builder: (BuildContext context) => MainPage(),
+                ));
+              }
+            ),
             ListTile(
               title: Text("アプリ情報"),
               trailing: Icon(Icons.arrow_forward),
