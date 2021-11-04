@@ -63,6 +63,7 @@ class _AppInfoPageState extends State<AppInfoPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('images/icon.png'),
               Text('はじめて図鑑')
             ]
           )
