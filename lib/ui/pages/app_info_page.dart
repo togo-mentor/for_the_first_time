@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:for_the_first_time/models/auth.dart';
-import './create_memo_page.dart';
-import 'app_info_page.dart';
-import 'dashboard_page.dart';
-import 'memo_history.page.dart';
 import 'package:provider/provider.dart';
 
-class MainPage extends StatefulWidget {
+import 'main_page.dart';
+
+class AppInfoPage extends StatefulWidget {
   @override
-  _MainPageState createState() => _MainPageState();
+  State<StatefulWidget> createState() => _AppInfoPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  final _tab = <Tab> [  // タブバーの表示
-    Tab(text:"記録する", icon: Icon(Icons.note_add)),
-    Tab(text:"履歴を見る", icon: Icon(Icons.history)),
-    Tab(text:"ダッシュボード", icon: Icon(Icons.dashboard)),
-  ];
+class _AppInfoPageState extends State<AppInfoPage> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(  // タブを制御
-      length: _tab.length,  // タブの数
-      child: Scaffold(
+    return Scaffold(
         drawer: Drawer(
         child: ListView(
           children: <Widget>[
@@ -67,19 +58,20 @@ class _MainPageState extends State<MainPage> {
               ),
             )
           ],
-          bottom: TabBar(  // タブバー
-            tabs: _tab,
-            labelPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 3),
-          ),
         ),
-        body: TabBarView(  // 表示画面のウィジェット一覧を渡す
-            children: <Widget> [
-              CreateMemoPage(),
-              MemoHistoryPage(),
-              DashBoardPage(),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('images/icon.png'),
+              SizedBox(
+                height: 10
+              ),
+              Text('はじめて図鑑'),
+              Text('ver 1.0.0')
             ]
-        ),
-      ),
-    );
+          )
+        )
+      );
   }
 }
