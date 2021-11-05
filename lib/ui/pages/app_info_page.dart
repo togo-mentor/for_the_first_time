@@ -64,7 +64,11 @@ class _AppInfoPageState extends State<AppInfoPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset('images/icon.png'),
-              Text('はじめて図鑑')
+              SizedBox(
+                height: 10
+              ),
+              Text('はじめて図鑑'),
+              Text('ver 1.0.0')
             ]
           )
         )
